@@ -15,8 +15,8 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
-      <div className="w-full max-w-2xl space-y-8">
+    <div className="min-h-screen bg-white flex flex-col items-center justify-between p-4">
+      <div className="w-full max-w-2xl space-y-8 flex-1 flex flex-col justify-center">
         {/* Главный заголовок */}
         <div className="text-center space-y-4">
           <h1 className="text-6xl font-bold text-gray-900 mb-8">
@@ -54,15 +54,17 @@ const Index = () => {
           </CardContent>
         </Card>
 
-        {/* Ссылки на дополнительные страницы */}
-        <div className="flex justify-center space-x-8 text-sm">
-          <button 
-            onClick={() => navigate('/rules')}
-            className="text-gray-500 hover:text-gray-700 underline"
-          >
-            Правила использования
-          </button>
-        </div>
+
+      </div>
+      
+      {/* Ссылки на дополнительные страницы - внизу */}
+      <div className="w-full flex justify-center pb-4">
+        <button 
+          onClick={() => navigate('/rules')}
+          className="text-gray-500 hover:text-gray-700 underline text-sm"
+        >
+          Правила использования
+        </button>
       </div>
     </div>
   );
