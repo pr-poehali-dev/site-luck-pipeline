@@ -122,7 +122,7 @@ const Rules = () => {
           <CardContent>
             <p className="text-gray-700">
               По всем вопросам обращайтесь к нам: <br />
-              Email: support@luck-site.ru <br />
+              Email: unix7777@ya.ru <br />
               Время работы: круглосуточно, 7 дней в неделю
             </p>
           </CardContent>
