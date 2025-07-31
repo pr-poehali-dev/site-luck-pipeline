@@ -2,13 +2,11 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 const Index = () => {
   const [wishText, setWishText] = useState('');
   const [showPricing, setShowPricing] = useState(false);
-  const [selectedDate, setSelectedDate] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = () => {
@@ -27,18 +25,12 @@ const Index = () => {
     { duration: 'Ночь (00:00 - 6:00)', price: 3000, immediate: false }
   ];
 
-  const handlePricingSelect = (price: number, duration: string, immediate: boolean) => {
-    if (!immediate && !selectedDate) {
-      alert('Пожалуйста, укажите дату');
-      return;
-    }
-    
+  const handlePricingSelect = (price: number, duration: string) => {
     navigate('/payment', { 
       state: { 
         wish: wishText, 
         price: price,
-        duration: duration,
-        date: immediate ? null : selectedDate
+        duration: duration
       } 
     });
   };
@@ -48,8 +40,12 @@ const Index = () => {
       <div className="w-full max-w-2xl space-y-8 flex-1 flex flex-col justify-center">
         {/* Главный заголовок */}
         <div className="text-center space-y-4">
-          <h1 className="font-bold text-gray-900 mb-8 text-8xl"></h1>
-          <p className="text-xl text-gray-600"></p>
+          <h1 className="font-bold text-gray-900 mb-8 text-8xl">
+            САЙТ УДАЧИ
+          </h1>
+          <p className="text-xl text-gray-600">
+            Напишите в чем нужна удача
+          </p>
         </div>
 
         {/* Форма */}
@@ -83,26 +79,14 @@ const Index = () => {
           /* Выбор тарифа */
           <Card className="shadow-lg">
             <CardHeader>
-              <CardTitle className="text-center text-2xl"></CardTitle>
-              <CardDescription className="text-center"></CardDescription>
+              <CardTitle className="text-center text-2xl">Выберите время активации удачи</CardTitle>
+              <CardDescription className="text-center">
+                Чем дольше активация, тем сильнее эффект
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="bg-gray-50 p-4 rounded-lg mb-6">
                 <p className="text-gray-800 italic text-center">"{wishText}"</p>
-              </div>
-              
-              {/* Поле для ввода даты */}
-              <div className="mb-6">
-                <label className="block font-medium text-gray-700 mb-2 text-2xl">
-                  Дата активации (для утро/день/вечер/ночь):
-                </label>
-                <Input
-                  type="text"
-                  placeholder="ДД.ММ.ГГГГ (например: 15.12.2024)"
-                  value={selectedDate}
-                  onChange={(e) => setSelectedDate(e.target.value)}
-                  className="text-center"
-                />
               </div>
               
               <div className="grid gap-3">
@@ -110,7 +94,7 @@ const Index = () => {
                   <Button
                     key={index}
                     variant="outline"
-                    onClick={() => handlePricingSelect(option.price, option.duration, option.immediate)}
+                    onClick={() => handlePricingSelect(option.price, option.duration)}
                     className="flex justify-between items-center p-4 h-auto hover:bg-purple-50 border-2 hover:border-purple-300"
                   >
                     <div className="flex flex-col items-start">
