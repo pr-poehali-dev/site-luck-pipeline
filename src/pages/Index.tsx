@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 const Index = () => {
   const [wishText, setWishText] = useState('');
   const [showPricing, setShowPricing] = useState(false);
+  const [selectedDate, setSelectedDate] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = () => {
@@ -25,12 +27,18 @@ const Index = () => {
     { duration: 'Ночь (00:00 - 6:00)', price: 3000, immediate: false }
   ];
 
-  const handlePricingSelect = (price: number, duration: string) => {
+  const handlePricingSelect = (price: number, duration: string, immediate: boolean) => {
+    if (!immediate && !selectedDate) {
+      alert('Пожалуйста, укажите дату');
+      return;
+    }
+    
     navigate('/payment', { 
       state: { 
         wish: wishText, 
         price: price,
-        duration: duration
+        duration: duration,
+        date: immediate ? null : selectedDate
       } 
     });
   };
@@ -89,20 +97,32 @@ const Index = () => {
                 <p className="text-gray-800 italic text-center">"{wishText}"</p>
               </div>
               
+              {/* Поле для ввода даты */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Дата активации (для утро/день/вечер/ночь):
+                </label>
+                <Input
+                  type="text"
+                  placeholder="ДД.ММ.ГГГГ (например: 15.12.2024)"
+                  value={selectedDate}
+                  onChange={(e) => setSelectedDate(e.target.value)}
+                  className="text-center"
+                />
+              </div>
+              
               <div className="grid gap-3">
                 {pricingOptions.map((option, index) => (
                   <Button
                     key={index}
                     variant="outline"
-                    onClick={() => handlePricingSelect(option.price, option.duration)}
+                    onClick={() => handlePricingSelect(option.price, option.duration, option.immediate)}
                     className="flex justify-between items-center p-4 h-auto hover:bg-purple-50 border-2 hover:border-purple-300"
                   >
                     <div className="flex flex-col items-start">
                       <span className="text-lg font-medium">{option.duration}</span>
-                      {option.immediate ? (
+                      {option.immediate && (
                         <span className="text-sm text-green-600 font-medium">Действует сразу после оплаты</span>
-                      ) : (
-                        <span className="text-sm text-blue-600 font-medium">Указать дату вручную</span>
                       )}
                     </div>
                     <span className="text-xl font-bold text-purple-600">{option.price} ₽</span>
