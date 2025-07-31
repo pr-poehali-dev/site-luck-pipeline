@@ -19,7 +19,7 @@ const Index = () => {
       <div className="w-full max-w-2xl space-y-8 flex-1 flex flex-col justify-center">
         {/* Главный заголовок */}
         <div className="text-center space-y-4">
-          <h1 className="text-6xl font-bold text-gray-900 mb-8">
+          <h1 className="font-bold text-gray-900 mb-8 text-8xl">
             САЙТ УДАЧИ
           </h1>
           <p className="text-xl text-gray-600">
