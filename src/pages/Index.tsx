@@ -99,10 +99,8 @@ const Index = () => {
                   >
                     <div className="flex flex-col items-start">
                       <span className="text-lg font-medium">{option.duration}</span>
-                      {option.immediate ? (
+                      {option.immediate && (
                         <span className="text-sm text-green-600 font-medium">Действует сразу после оплаты</span>
-                      ) : (
-                        <span className="text-sm text-blue-600 font-medium">Указать дату вручную</span>
                       )}
                     </div>
                     <span className="text-xl font-bold text-purple-600">{option.price} ₽</span>
