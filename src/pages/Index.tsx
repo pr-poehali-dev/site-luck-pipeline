@@ -16,13 +16,13 @@ const Index = () => {
   };
 
   const pricingOptions = [
-    { duration: '30 минут', price: 250 },
-    { duration: '1 час', price: 500 },
-    { duration: '2 часа', price: 1000 },
-    { duration: 'Утро (6:00 - 12:00)', price: 3000 },
-    { duration: 'День (12:00 - 18:00)', price: 5000 },
-    { duration: 'Вечер (18:00 - 24:00)', price: 5000 },
-    { duration: 'Ночь (00:00 - 6:00)', price: 3000 }
+    { duration: '30 минут', price: 250, immediate: true },
+    { duration: '1 час', price: 500, immediate: true },
+    { duration: '2 часа', price: 1000, immediate: true },
+    { duration: 'Утро (6:00 - 12:00)', price: 3000, immediate: false },
+    { duration: 'День (12:00 - 18:00)', price: 5000, immediate: false },
+    { duration: 'Вечер (18:00 - 24:00)', price: 5000, immediate: false },
+    { duration: 'Ночь (00:00 - 6:00)', price: 3000, immediate: false }
   ];
 
   const handlePricingSelect = (price: number, duration: string) => {
@@ -97,7 +97,12 @@ const Index = () => {
                     onClick={() => handlePricingSelect(option.price, option.duration)}
                     className="flex justify-between items-center p-4 h-auto hover:bg-purple-50 border-2 hover:border-purple-300"
                   >
-                    <span className="text-lg font-medium">{option.duration}</span>
+                    <div className="flex flex-col items-start">
+                      <span className="text-lg font-medium">{option.duration}</span>
+                      {option.immediate && (
+                        <span className="text-sm text-green-600 font-medium">Действует сразу после оплаты</span>
+                      )}
+                    </div>
                     <span className="text-xl font-bold text-purple-600">{option.price} ₽</span>
                   </Button>
                 ))}
