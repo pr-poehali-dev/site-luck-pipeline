@@ -42,13 +42,15 @@ const Index = () => {
               onChange={(e) => setWishText(e.target.value)}
               className="min-h-32 text-lg"
             />
-            <Button 
-              onClick={handleSubmit}
-              className="w-full text-xl py-6"
-              disabled={!wishText.trim()}
-            >
-              OK
-            </Button>
+            <div className="flex justify-center">
+              <Button 
+                onClick={handleSubmit}
+                className="px-8 py-3 text-lg"
+                disabled={!wishText.trim()}
+              >
+                OK
+              </Button>
+            </div>
           </CardContent>
         </Card>
 
