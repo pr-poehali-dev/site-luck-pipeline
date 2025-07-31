@@ -86,17 +86,7 @@ const Index = () => {
         ) : (
           /* Выбор тарифа */
           <Card className="shadow-lg">
-            <CardHeader>
-              <CardTitle className="text-center text-2xl">Выберите время активации удачи</CardTitle>
-              <CardDescription className="text-center">
-                Чем дольше активация, тем сильнее эффект
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="bg-gray-50 p-4 rounded-lg mb-6">
-                <p className="text-gray-800 italic text-center">"{wishText}"</p>
-              </div>
-              
+            <CardContent className="pt-6">
               {/* Поле для ввода даты */}
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
