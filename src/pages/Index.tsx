@@ -99,7 +99,7 @@ const Index = () => {
               
               {/* Поле для ввода даты */}
               <div className="mb-6">
-                <label className="block font-medium text-gray-700 mb-2 text-2xl">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Дата активации (для утро/день/вечер/ночь):
                 </label>
                 <Input
