@@ -13,7 +13,7 @@ const Pricing = () => {
   const pricingOptions = [
     { duration: '30 минут', price: 250, immediate: true },
     { duration: '1 час', price: 500, immediate: true },
-    { duration: 'Удача без времени на событие', price: 1000, immediate: true },
+    { duration: '2 часа', price: 1000, immediate: true },
     { duration: 'Утро (6:00 - 12:00)', price: 3000, immediate: false },
     { duration: 'День (12:00 - 18:00)', price: 5000, immediate: false },
     { duration: 'Вечер (18:00 - 24:00)', price: 5000, immediate: false },
@@ -66,7 +66,7 @@ const Pricing = () => {
                   <div className="flex flex-col items-start">
                     <span className="text-lg font-medium">{option.duration}</span>
                     {option.immediate ? (
-                      <span className="text-sm text-green-600 font-medium"></span>
+                      <span className="text-sm text-green-600 font-medium">Действует сразу после оплаты</span>
                     ) : (
                       <span className="text-sm text-blue-600 font-medium">Указать дату вручную</span>
                     )}
