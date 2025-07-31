@@ -48,12 +48,8 @@ const Index = () => {
       <div className="w-full max-w-2xl space-y-8 flex-1 flex flex-col justify-center">
         {/* Главный заголовок */}
         <div className="text-center space-y-4">
-          <h1 className="font-bold text-gray-900 mb-8 text-8xl">
-            САЙТ УДАЧИ
-          </h1>
-          <p className="text-xl text-gray-600">
-            Напишите в чем нужна удача
-          </p>
+          <h1 className="font-bold text-gray-900 mb-8 text-8xl"></h1>
+          <p className="text-xl text-gray-600"></p>
         </div>
 
         {/* Форма */}
@@ -87,10 +83,8 @@ const Index = () => {
           /* Выбор тарифа */
           <Card className="shadow-lg">
             <CardHeader>
-              <CardTitle className="text-center text-2xl">Выберите время активации удачи</CardTitle>
-              <CardDescription className="text-center">
-                Чем дольше активация, тем сильнее эффект
-              </CardDescription>
+              <CardTitle className="text-center text-2xl"></CardTitle>
+              <CardDescription className="text-center"></CardDescription>
             </CardHeader>
             <CardContent>
               <div className="bg-gray-50 p-4 rounded-lg mb-6">
