@@ -13,7 +13,7 @@ const Pricing = () => {
   const pricingOptions = [
     { duration: '30 минут', price: 250, immediate: true },
     { duration: '1 час', price: 500, immediate: true },
-    { duration: 'Удача на событие', price: 1000, immediate: false },
+    { duration: 'Удача на событие', price: 1000, immediate: true },
     { duration: 'Утро (6:00 - 12:00)', price: 1000, immediate: false },
     { duration: 'День (12:00 - 18:00)', price: 1500, immediate: false },
     { duration: 'Вечер (18:00 - 24:00)', price: 1500, immediate: false },
