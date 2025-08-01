@@ -14,10 +14,10 @@ const Pricing = () => {
     { duration: '30 минут', price: 250, immediate: true },
     { duration: '1 час', price: 500, immediate: true },
     { duration: 'Удача на событие', price: 1000, immediate: false },
-    { duration: 'Утро (6:00 - 12:00)', price: 1500, immediate: false },
-    { duration: 'День (12:00 - 18:00)', price: 3000, immediate: false },
-    { duration: 'Вечер (18:00 - 24:00)', price: 3000, immediate: false },
-    { duration: 'Ночь (00:00 - 6:00)', price: 1500, immediate: false }
+    { duration: 'Утро (6:00 - 12:00)', price: 1000, immediate: false },
+    { duration: 'День (12:00 - 18:00)', price: 1500, immediate: false },
+    { duration: 'Вечер (18:00 - 24:00)', price: 1500, immediate: false },
+    { duration: 'Ночь (00:00 - 6:00)', price: 1000, immediate: false }
   ];
 
   const handlePricingSelect = (price: number, duration: string, immediate: boolean) => {
