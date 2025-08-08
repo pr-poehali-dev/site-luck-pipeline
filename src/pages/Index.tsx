@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import confetti from 'canvas-confetti';
 
 const Index = () => {
   const [wishText, setWishText] = useState('');
@@ -10,7 +11,36 @@ const Index = () => {
 
   const handleSubmit = () => {
     if (wishText.trim()) {
-      navigate('/pricing', { state: { wish: wishText } });
+      // Запуск конфетти
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffa500'],
+        shapes: ['square', 'circle'],
+        gravity: 0.5,
+        drift: 0.1,
+        scalar: 0.8
+      });
+      
+      // Дополнительный залп конфетти через небольшую задержку
+      setTimeout(() => {
+        confetti({
+          particleCount: 50,
+          spread: 50,
+          origin: { y: 0.7 },
+          colors: ['#ff69b4', '#32cd32', '#87ceeb', '#dda0dd', '#f0e68c'],
+          shapes: ['circle'],
+          gravity: 0.3,
+          drift: -0.1,
+          scalar: 0.6
+        });
+      }, 200);
+      
+      // Переход на страницу тарифов через небольшую задержку
+      setTimeout(() => {
+        navigate('/pricing', { state: { wish: wishText } });
+      }, 500);
     }
   };
 
