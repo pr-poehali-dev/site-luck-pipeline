@@ -152,10 +152,8 @@ const Pricing = () => {
           const smoothProgress = easeInOutSine(progress);
           const y = -20 + (window.innerHeight + 40) * smoothProgress;
           
-          // Очень мягкое качание как у перышек
-          const swayAmount = 12; // Еще меньшая амплитуда
-          const smoothSway = easeInOutSine(progress * swayFreq * 2);
-          const swayX = Math.sin(smoothSway * Math.PI * 2) * swayAmount;
+          // Убираем качание - только прямое падение
+          const swayX = 0;
           
           // Медленное плавное вращение
           const rotation = initialRotation + (rotationSpeed * progress);
