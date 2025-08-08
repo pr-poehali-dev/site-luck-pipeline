@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -7,40 +7,82 @@ import confetti from 'canvas-confetti';
 
 const Index = () => {
   const [wishText, setWishText] = useState('');
+  const [showConfetti, setShowConfetti] = useState(false);
   const navigate = useNavigate();
+  const confettiInterval = useRef<NodeJS.Timeout | null>(null);
+
+  // Эффект для управления конфетти
+  useEffect(() => {
+    if (showConfetti) {
+      const startContinuousConfetti = () => {
+        const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffa500', '#ff69b4', '#32cd32', '#87ceeb', '#dda0dd', '#f0e68c'];
+        
+        confettiInterval.current = setInterval(() => {
+          // Первый залп слева
+          confetti({
+            particleCount: 15,
+            spread: 30,
+            origin: { x: 0.1, y: 0 },
+            colors: colors.slice(0, 6),
+            shapes: ['square', 'circle'],
+            gravity: 0.3,
+            drift: 0.05,
+            scalar: 0.7,
+            startVelocity: 20
+          });
+          
+          // Второй залп по центру
+          setTimeout(() => {
+            confetti({
+              particleCount: 20,
+              spread: 40,
+              origin: { x: 0.5, y: 0 },
+              colors: colors.slice(3, 9),
+              shapes: ['circle'],
+              gravity: 0.25,
+              drift: 0,
+              scalar: 0.8,
+              startVelocity: 25
+            });
+          }, 100);
+          
+          // Третий залп справа
+          setTimeout(() => {
+            confetti({
+              particleCount: 15,
+              spread: 30,
+              origin: { x: 0.9, y: 0 },
+              colors: colors.slice(6),
+              shapes: ['square', 'circle'],
+              gravity: 0.3,
+              drift: -0.05,
+              scalar: 0.7,
+              startVelocity: 20
+            });
+          }, 200);
+        }, 300);
+      };
+      
+      startContinuousConfetti();
+    }
+    
+    return () => {
+      if (confettiInterval.current) {
+        clearInterval(confettiInterval.current);
+      }
+    };
+  }, [showConfetti]);
 
   const handleSubmit = () => {
     if (wishText.trim()) {
-      // Запуск конфетти с верху экрана
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0 },
-        colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffa500'],
-        shapes: ['square', 'circle'],
-        gravity: 0.5,
-        drift: 0.1,
-        scalar: 0.8
-      });
+      // Запуск непрерывного конфетти
+      setShowConfetti(true);
       
-      // Дополнительный залп конфетти через небольшую задержку
+      // Переход на страницу тарифов через 2 секунды
       setTimeout(() => {
-        confetti({
-          particleCount: 50,
-          spread: 50,
-          origin: { y: 0 },
-          colors: ['#ff69b4', '#32cd32', '#87ceeb', '#dda0dd', '#f0e68c'],
-          shapes: ['circle'],
-          gravity: 0.3,
-          drift: -0.1,
-          scalar: 0.6
-        });
-      }, 200);
-      
-      // Переход на страницу тарифов через небольшую задержку
-      setTimeout(() => {
+        setShowConfetti(false);
         navigate('/pricing', { state: { wish: wishText } });
-      }, 500);
+      }, 2000);
     }
   };
 
