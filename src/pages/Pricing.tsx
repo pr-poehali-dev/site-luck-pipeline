@@ -148,12 +148,14 @@ const Pricing = () => {
             opacity = 0.7;
           }
           
-          // Равномерное плавное падение
-          const y = -20 + (window.innerHeight + 40) * progress;
+          // Супер плавное падение без рывков
+          const smoothProgress = easeInOutSine(progress);
+          const y = -20 + (window.innerHeight + 40) * smoothProgress;
           
-          // Очень мягкое качание как у снежинок
-          const swayAmount = 15; // Небольшая амплитуда
-          const swayX = Math.sin(progress * Math.PI * swayFreq * 4) * swayAmount;
+          // Очень мягкое качание как у перышек
+          const swayAmount = 12; // Еще меньшая амплитуда
+          const smoothSway = easeInOutSine(progress * swayFreq * 2);
+          const swayX = Math.sin(smoothSway * Math.PI * 2) * swayAmount;
           
           // Медленное плавное вращение
           const rotation = initialRotation + (rotationSpeed * progress);
@@ -185,19 +187,19 @@ const Pricing = () => {
       const easeInOutSine = (t: number) => -(Math.cos(Math.PI * t) - 1) / 2;
       
       const spawnGroup = () => {
-        const groupSize = Math.floor(Math.random() * 4) + 2; // 2-5 частиц (больше)
+        const groupSize = Math.floor(Math.random() * 6) + 3; // 3-8 частиц (+50% больше)
         for (let i = 0; i < groupSize; i++) {
-          setTimeout(() => createParticle(), i * Math.random() * 300);
+          setTimeout(() => createParticle(), i * Math.random() * 200);
         }
       };
       
-      // Более частое появление для красивого эффекта
+      // Еще более частое появление
       confettiInterval.current = setInterval(() => {
         spawnGroup();
-      }, Math.random() * 1200 + 800); // 0.8-2 секунды между группами (чаще)
+      }, Math.random() * 800 + 500); // 0.5-1.3 секунды между группами (еще чаще)
       
-      // Первая группа с задержкой
-      setTimeout(() => spawnGroup(), 1000);
+      // Первая группа сразу без задержки
+      spawnGroup();
     };
     
     startRainbowConfetti();
