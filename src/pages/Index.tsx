@@ -18,49 +18,23 @@ const Index = () => {
         const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffa500', '#ff69b4', '#32cd32', '#87ceeb', '#dda0dd', '#f0e68c'];
         
         confettiInterval.current = setInterval(() => {
-          // Первый залп слева
-          confetti({
-            particleCount: 15,
-            spread: 30,
-            origin: { x: 0.1, y: 0 },
-            colors: colors.slice(0, 6),
-            shapes: ['square', 'circle'],
-            gravity: 0.3,
-            drift: 0.05,
-            scalar: 0.7,
-            startVelocity: 20
-          });
-          
-          // Второй залп по центру
-          setTimeout(() => {
-            confetti({
-              particleCount: 20,
-              spread: 40,
-              origin: { x: 0.5, y: 0 },
-              colors: colors.slice(3, 9),
-              shapes: ['circle'],
-              gravity: 0.25,
-              drift: 0,
-              scalar: 0.8,
-              startVelocity: 25
-            });
-          }, 100);
-          
-          // Третий залп справа
-          setTimeout(() => {
-            confetti({
-              particleCount: 15,
-              spread: 30,
-              origin: { x: 0.9, y: 0 },
-              colors: colors.slice(6),
-              shapes: ['square', 'circle'],
-              gravity: 0.3,
-              drift: -0.05,
-              scalar: 0.7,
-              startVelocity: 20
-            });
-          }, 200);
-        }, 300);
+          // Залп конфетти по всей ширине экрана
+          for (let i = 0; i < 8; i++) {
+            setTimeout(() => {
+              confetti({
+                particleCount: 25,
+                spread: 60,
+                origin: { x: i * 0.125 + 0.0625, y: 0 },
+                colors: colors,
+                shapes: ['square', 'circle'],
+                gravity: 0.3,
+                drift: (Math.random() - 0.5) * 0.1,
+                scalar: Math.random() * 0.4 + 0.6,
+                startVelocity: Math.random() * 10 + 15
+              });
+            }, i * 50);
+          }
+        }, 400);
       };
       
       startContinuousConfetti();
