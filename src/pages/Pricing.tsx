@@ -155,11 +155,11 @@ const Pricing = () => {
           // Убираем качание - только прямое падение
           const swayX = 0;
           
-          // Медленное плавное вращение
-          const rotation = initialRotation + (rotationSpeed * progress);
+          // Убираем вращение
+          const rotation = initialRotation;
           
-          // Очень мягкое масштабирование
-          const breathScale = 1 + Math.sin(progress * Math.PI * 2) * 0.05; // Дыхание 5%
+          // Убираем масштабирование - фиксированный размер
+          const breathScale = 1;
           
           particle.style.opacity = opacity.toString();
           particle.style.top = y + 'px';
