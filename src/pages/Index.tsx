@@ -22,19 +22,20 @@ const Index = () => {
           for (let i = 0; i < 8; i++) {
             setTimeout(() => {
               confetti({
-                particleCount: 25,
-                spread: 60,
-                origin: { x: i * 0.125 + 0.0625, y: 0 },
+                particleCount: 30,
+                spread: 50,
+                origin: { x: i * 0.125 + 0.0625, y: -0.1 },
                 colors: colors,
                 shapes: ['square', 'circle'],
-                gravity: 0.3,
-                drift: (Math.random() - 0.5) * 0.1,
-                scalar: Math.random() * 0.4 + 0.6,
-                startVelocity: Math.random() * 10 + 15
+                gravity: 0.8,
+                drift: (Math.random() - 0.5) * 0.05,
+                scalar: Math.random() * 0.3 + 0.7,
+                startVelocity: Math.random() * 5 + 10,
+                ticks: 300
               });
-            }, i * 50);
+            }, i * 30);
           }
-        }, 400);
+        }, 200);
       };
       
       startContinuousConfetti();
