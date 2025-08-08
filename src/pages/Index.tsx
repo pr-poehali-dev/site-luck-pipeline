@@ -18,24 +18,26 @@ const Index = () => {
         const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffa500', '#ff69b4', '#32cd32', '#87ceeb', '#dda0dd', '#f0e68c'];
         
         confettiInterval.current = setInterval(() => {
-          // Залп конфетти по всей ширине экрана
-          for (let i = 0; i < 8; i++) {
+          // Непрерывный снегопад конфетти по всей ширине экрана
+          for (let i = 0; i < 12; i++) {
             setTimeout(() => {
+              const randomShapes = ['square', 'circle', 'triangle', 'star'];
               confetti({
-                particleCount: 30,
-                spread: 50,
-                origin: { x: i * 0.125 + 0.0625, y: -0.1 },
+                particleCount: 8,
+                spread: 20,
+                origin: { x: Math.random(), y: -0.1 },
                 colors: colors,
-                shapes: ['square', 'circle'],
-                gravity: 0.8,
-                drift: (Math.random() - 0.5) * 0.05,
-                scalar: Math.random() * 0.3 + 0.7,
-                startVelocity: Math.random() * 5 + 10,
-                ticks: 300
+                shapes: [randomShapes[Math.floor(Math.random() * randomShapes.length)]],
+                gravity: 0.4,
+                drift: (Math.random() - 0.5) * 0.3,
+                scalar: Math.random() * 0.5 + 0.5,
+                startVelocity: Math.random() * 8 + 5,
+                ticks: 400,
+                disableForReducedMotion: false
               });
-            }, i * 30);
+            }, i * 25);
           }
-        }, 200);
+        }, 150);
       };
       
       startContinuousConfetti();
