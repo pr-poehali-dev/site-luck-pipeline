@@ -11,77 +11,85 @@ const Pricing = () => {
   const [selectedDate, setSelectedDate] = useState('');
   const confettiInterval = useRef<NodeJS.Timeout | null>(null);
 
-  // Автоматический запуск конфетти при загрузке страницы
+  // Автоматический запуск элегантного конфетти при загрузке страницы
   useEffect(() => {
-    const startGentleConfetti = () => {
+    const startElegantConfetti = () => {
+      // Пастельная палитра с градиентными оттенками
       const colors = [
-        '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7',
-        '#DDA0DD', '#FFB6C1', '#98FB98', '#F0E68C', '#FFE4E1',
-        '#E6E6FA', '#F5DEB3', '#FFA07A', '#20B2AA', '#87CEEB',
-        '#DEB887', '#F4A460', '#DA70D6', '#FF69B4', '#00CED1'
+        { primary: '#FF9A9E', secondary: '#FECFEF' }, // розовый градиент
+        { primary: '#A8E6CF', secondary: '#DCEDC1' }, // зеленый градиент
+        { primary: '#FFD3A5', secondary: '#FD9853' }, // оранжевый градиент
+        { primary: '#A8D8EA', secondary: '#C7E9F4' }, // голубой градиент
+        { primary: '#D4A5FF', secondary: '#E8C5FF' }, // фиолетовый градиент
+        { primary: '#FFB3BA', secondary: '#FFDFBA' }, // персиковый градиент
+        { primary: '#B5E5CF', secondary: '#C8F0E0' }, // мятный градиент
+        { primary: '#FFCCF9', secondary: '#F3E5F5' }, // лиловый градиент
       ];
+      
+      const shapes = ['circle', 'diamond', 'star', 'heart', 'petal'];
       
       const createParticle = () => {
         const particle = document.createElement('div');
-        const size = Math.random() * 8 + 6; // 6-14px
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        const shapes = ['circle', 'square', 'triangle', 'star', 'heart', 'diamond'];
+        const size = Math.random() * 6 + 4; // 4-10px (меньше размер)
+        const colorSet = colors[Math.floor(Math.random() * colors.length)];
         const shape = shapes[Math.floor(Math.random() * shapes.length)];
         const startX = Math.random() * window.innerWidth;
         
-        // Базовые стили
+        // Базовые стили для всех частиц
         particle.style.position = 'fixed';
         particle.style.left = startX + 'px';
-        particle.style.top = '-20px';
+        particle.style.top = '-30px';
         particle.style.width = size + 'px';
         particle.style.height = size + 'px';
         particle.style.pointerEvents = 'none';
-        particle.style.zIndex = '9999';
+        particle.style.zIndex = '9998';
         particle.style.opacity = '0';
+        particle.style.transition = 'none';
         
-        // Стили форм
+        // Создание красивых форм с градиентами
         switch(shape) {
           case 'circle':
-            particle.style.backgroundColor = color;
+            particle.style.background = `radial-gradient(circle, ${colorSet.primary}, ${colorSet.secondary})`;
             particle.style.borderRadius = '50%';
-            particle.style.boxShadow = `0 0 ${size/2}px ${color}40`;
+            particle.style.boxShadow = `0 0 ${size}px ${colorSet.primary}30, inset 0 0 ${size/2}px ${colorSet.secondary}20`;
             break;
-          case 'square':
-            particle.style.backgroundColor = color;
-            particle.style.borderRadius = '20%';
-            particle.style.boxShadow = `0 0 ${size/3}px ${color}30`;
-            break;
-          case 'triangle':
-            particle.style.width = '0';
-            particle.style.height = '0';
-            particle.style.borderLeft = `${size/2}px solid transparent`;
-            particle.style.borderRight = `${size/2}px solid transparent`;
-            particle.style.borderBottom = `${size}px solid ${color}`;
-            particle.style.filter = `drop-shadow(0 0 ${size/3}px ${color}40)`;
-            break;
-          case 'star':
-            particle.innerHTML = '⭐';
-            particle.style.fontSize = size + 'px';
-            particle.style.filter = `hue-rotate(${Math.random() * 360}deg) brightness(1.2)`;
-            break;
-          case 'heart':
-            particle.innerHTML = '💖';
-            particle.style.fontSize = size + 'px';
-            particle.style.filter = `hue-rotate(${Math.random() * 360}deg) saturate(1.5)`;
-            break;
+            
           case 'diamond':
-            particle.style.backgroundColor = color;
+            particle.style.background = `linear-gradient(45deg, ${colorSet.primary}, ${colorSet.secondary})`;
+            particle.style.borderRadius = '15%';
             particle.style.transform = 'rotate(45deg)';
-            particle.style.borderRadius = '10%';
-            particle.style.boxShadow = `0 0 ${size/2}px ${color}50`;
+            particle.style.boxShadow = `0 0 ${size*1.5}px ${colorSet.primary}25`;
+            break;
+            
+          case 'star':
+            particle.innerHTML = '✨';
+            particle.style.fontSize = size + 'px';
+            particle.style.filter = `hue-rotate(${Math.random() * 360}deg) brightness(1.1) saturate(1.2)`;
+            particle.style.textShadow = `0 0 ${size/2}px ${colorSet.primary}60`;
+            break;
+            
+          case 'heart':
+            particle.innerHTML = '💝';
+            particle.style.fontSize = size + 'px';
+            particle.style.filter = `hue-rotate(${Math.random() * 60 - 30}deg) brightness(1.15)`;
+            particle.style.textShadow = `0 0 ${size/2}px ${colorSet.primary}50`;
+            break;
+            
+          case 'petal':
+            particle.style.background = `linear-gradient(135deg, ${colorSet.primary}, ${colorSet.secondary})`;
+            particle.style.borderRadius = '100% 0% 100% 0%';
+            particle.style.boxShadow = `0 0 ${size}px ${colorSet.primary}20`;
             break;
         }
         
         document.body.appendChild(particle);
         
-        // Анимация падения
-        const duration = 8000; // 8 секунд
+        // Более плавная и изящная анимация
+        const duration = Math.random() * 4000 + 10000; // 10-14 секунд (дольше)
         const startTime = performance.now();
+        const swayFreq = Math.random() * 2 + 1; // 1-3 колебания
+        const rotationSpeed = Math.random() * 180 + 90; // 90-270 градусов за время жизни
+        const initialRotation = Math.random() * 360;
         
         const animate = (currentTime: number) => {
           const elapsed = currentTime - startTime;
@@ -92,34 +100,44 @@ const Pricing = () => {
             return;
           }
           
-          // Плавное появление и исчезновение
+          // Очень плавное появление и исчезновение
           let opacity = 0;
-          if (progress < 0.1) {
-            opacity = progress * 10; // 0→1 за первые 10%
-          } else if (progress > 0.9) {
-            opacity = (1 - progress) * 10; // 1→0 за последние 10%
+          if (progress < 0.15) {
+            // Медленное появление за первые 15%
+            opacity = easeInOutQuart(progress / 0.15) * 0.8;
+          } else if (progress > 0.85) {
+            // Медленное исчезновение за последние 15%
+            opacity = easeInOutQuart((1 - progress) / 0.15) * 0.8;
           } else {
-            opacity = Math.max(0.4, 1 - progress * 0.6); // 1→0.4
+            opacity = 0.8;
           }
           
-          // Позиция Y
-          const y = -20 + (window.innerHeight + 40) * progress;
+          // Плавное падение с легким ускорением
+          const fallProgress = easeInQuart(progress);
+          const y = -30 + (window.innerHeight + 60) * fallProgress;
           
-          // Качание из стороны в сторону
-          const swayAmount = 30;
-          const swayX = Math.sin(progress * Math.PI * 4) * swayAmount;
+          // Более изящное качание
+          const swayAmount = 25;
+          const swayX = Math.sin(progress * Math.PI * swayFreq * 2) * swayAmount * (1 - progress * 0.3);
           
-          // Вращение
-          const rotation = progress * 360;
+          // Плавное вращение
+          const rotation = initialRotation + (rotationSpeed * progress);
+          
+          // Легкое масштабирование для глубины
+          const scale = 0.8 + Math.sin(progress * Math.PI) * 0.2;
           
           particle.style.opacity = opacity.toString();
           particle.style.top = y + 'px';
           particle.style.left = (startX + swayX) + 'px';
           
-          if (shape !== 'diamond') {
-            particle.style.transform = `rotate(${rotation}deg)`;
+          if (shape === 'diamond') {
+            particle.style.transform = `rotate(${45 + rotation}deg) scale(${scale})`;
+          } else if (shape === 'petal') {
+            particle.style.transform = `rotate(${rotation}deg) scale(${scale})`;
+          } else if (shape !== 'star' && shape !== 'heart') {
+            particle.style.transform = `rotate(${rotation}deg) scale(${scale})`;
           } else {
-            particle.style.transform = `rotate(${45 + rotation}deg)`;
+            particle.style.transform = `scale(${scale})`;
           }
           
           requestAnimationFrame(animate);
@@ -128,22 +146,27 @@ const Pricing = () => {
         requestAnimationFrame(animate);
       };
       
+      // Функции плавности
+      const easeInOutQuart = (t: number) => t < 0.5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t;
+      const easeInQuart = (t: number) => t * t * t * t;
+      
       const spawnGroup = () => {
-        const groupSize = Math.floor(Math.random() * 4) + 2; // 2-5 частиц
+        const groupSize = Math.floor(Math.random() * 2) + 1; // 1-2 частицы (меньше)
         for (let i = 0; i < groupSize; i++) {
-          setTimeout(() => createParticle(), i * 100);
+          setTimeout(() => createParticle(), i * Math.random() * 200);
         }
       };
       
+      // Более редкое появление групп для элегантности
       confettiInterval.current = setInterval(() => {
         spawnGroup();
-      }, Math.random() * 800 + 600); // 0.6-1.4 секунды
+      }, Math.random() * 1500 + 1000); // 1-2.5 секунды между группами
       
-      // Первая группа сразу
-      spawnGroup();
+      // Первая группа с небольшой задержкой
+      setTimeout(() => spawnGroup(), 500);
     };
     
-    startGentleConfetti();
+    startElegantConfetti();
     
     return () => {
       if (confettiInterval.current) {
@@ -151,7 +174,7 @@ const Pricing = () => {
       }
       // Удаляем все оставшиеся частицы
       document.querySelectorAll('div[style*="position: fixed"]').forEach(el => {
-        if (el.style.zIndex === '9999') el.remove();
+        if (el.style.zIndex === '9998') el.remove();
       });
     };
   }, []);
