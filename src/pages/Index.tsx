@@ -26,31 +26,29 @@ const Index = () => {
         </div>
 
         {/* Форма */}
-        <Card className="shadow-lg">
-          <CardHeader>
-            <CardTitle className="text-center text-2xl">Ваше пожелание удачи</CardTitle>
-            <CardDescription className="text-center">
+        <div className="space-y-6">
+          <div className="text-center space-y-2">
+            <h2 className="text-2xl font-semibold">Ваше пожелание удачи</h2>
+            <p className="text-gray-600">
               Опишите, в какой сфере жизни вам нужна удача
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <Textarea
-              placeholder="Например: Нужна удача в работе, в любви, в здоровье, в поездках и перелётах..."
-              value={wishText}
-              onChange={(e) => setWishText(e.target.value)}
-              className="min-h-32 text-lg"
-            />
-            <div className="flex justify-center">
-              <Button 
-                onClick={handleSubmit}
-                className="px-8 py-3 text-lg"
-                disabled={!wishText.trim()}
-              >
-                OK
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+            </p>
+          </div>
+          <Textarea
+            placeholder="Например: Нужна удача в работе, в любви, в здоровье, в поездках и перелётах..."
+            value={wishText}
+            onChange={(e) => setWishText(e.target.value)}
+            className="min-h-32 text-lg"
+          />
+          <div className="flex justify-center">
+            <Button 
+              onClick={handleSubmit}
+              className="px-8 py-3 text-lg"
+              disabled={!wishText.trim()}
+            >
+              OK
+            </Button>
+          </div>
+        </div>
       </div>
       
       {/* Ссылки на дополнительные страницы - внизу */}
