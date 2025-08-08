@@ -35,7 +35,7 @@ const Index = () => {
           </CardHeader>
           <CardContent className="space-y-6">
             <Textarea
-              placeholder="Например: Нужна удача в работе, в любви, в здоровье..."
+              placeholder="Например: Нужна удача в работе, в любви, в здоровье, в поездках и перелётах..."
               value={wishText}
               onChange={(e) => setWishText(e.target.value)}
               className="min-h-32 text-lg"
