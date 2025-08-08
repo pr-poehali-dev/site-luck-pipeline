@@ -11,11 +11,11 @@ const Index = () => {
 
   const handleSubmit = () => {
     if (wishText.trim()) {
-      // Запуск конфетти
+      // Запуск конфетти с верху экрана
       confetti({
         particleCount: 100,
         spread: 70,
-        origin: { y: 0.6 },
+        origin: { y: 0 },
         colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffa500'],
         shapes: ['square', 'circle'],
         gravity: 0.5,
@@ -28,7 +28,7 @@ const Index = () => {
         confetti({
           particleCount: 50,
           spread: 50,
-          origin: { y: 0.7 },
+          origin: { y: 0 },
           colors: ['#ff69b4', '#32cd32', '#87ceeb', '#dda0dd', '#f0e68c'],
           shapes: ['circle'],
           gravity: 0.3,
