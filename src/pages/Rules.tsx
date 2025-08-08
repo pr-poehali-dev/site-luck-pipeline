@@ -185,11 +185,7 @@ const Rules = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-700">
-              По всем вопросам обращайтесь к нам: <br />
-              Email: unix7777@ya.ru <br />
-              Время работы: круглосуточно, 7 дней в неделю
-            </p>
+            <p className="text-gray-700 text-base">ИП Паклин Сергей Васильевич, ИНН 594200005879 ОГРН 305591619400016,  эл.почта  Unix7777@ya.ru</p>
           </CardContent>
         </Card>
 
