@@ -185,16 +185,16 @@ const Pricing = () => {
       const easeInOutSine = (t: number) => -(Math.cos(Math.PI * t) - 1) / 2;
       
       const spawnGroup = () => {
-        const groupSize = Math.floor(Math.random() * 2) + 1; // 1-2 частицы (мало)
+        const groupSize = Math.floor(Math.random() * 4) + 2; // 2-5 частиц (больше)
         for (let i = 0; i < groupSize; i++) {
-          setTimeout(() => createParticle(), i * Math.random() * 500);
+          setTimeout(() => createParticle(), i * Math.random() * 300);
         }
       };
       
-      // Редкое мягкое появление как у снега
+      // Более частое появление для красивого эффекта
       confettiInterval.current = setInterval(() => {
         spawnGroup();
-      }, Math.random() * 2000 + 1500); // 1.5-3.5 секунды между группами (редко)
+      }, Math.random() * 1200 + 800); // 0.8-2 секунды между группами (чаще)
       
       // Первая группа с задержкой
       setTimeout(() => spawnGroup(), 1000);
