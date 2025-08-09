@@ -109,7 +109,7 @@ const TBankPaymentForm = () => {
         <input className="payform-tbank-row" type="hidden" name="receipt" value="" />
         <input className="payform-tbank-row" type="text" placeholder="Сумма заказа" name="amount" required />
         <input className="payform-tbank-row" type="hidden" placeholder="Номер заказа" name="order" />
-        <input className="payform-tbank-row" type="text" placeholder="Описание заказа" name="description" />
+
         <input className="payform-tbank-row" type="text" placeholder="ФИО плательщика" name="name" />
         <input className="payform-tbank-row" type="email" placeholder="E-mail" name="email" />
         <input className="payform-tbank-row" type="tel" placeholder="Контактный телефон" name="phone" />
