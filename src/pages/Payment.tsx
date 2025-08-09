@@ -20,14 +20,14 @@ const Payment = () => {
     <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-2xl space-y-8">
         {/* Заголовок */}
-        <div className="text-center">
+        <header className="text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
             Оплата услуги
           </h1>
           <p className="text-lg text-gray-600">
             Завершите оплату, чтобы активировать удачу
           </p>
-        </div>
+        </header>
 
         {/* Информация о заказе */}
         <Card>

@@ -1,14 +1,18 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
 User-agent: *
 Allow: /
+
+# Основные страницы
+Allow: /payment
+Allow: /
+
+# Блокируем системные файлы
+Disallow: /src/
+Disallow: /.env
+Disallow: /package.json
+Disallow: /node_modules/
+
+# Sitemap
+Sitemap: https://your-domain.com/sitemap.xml
+
+# Время задержки между запросами (в секундах)
+Crawl-delay: 1
