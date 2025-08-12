@@ -41,10 +41,8 @@ const Payment = () => {
     const description = formData.get('description') as string;
     const amount = formData.get('amount') as string;
     const email = formData.get('email') as string;
-    const phone = formData.get('phone') as string;
-
-    if (!email && !phone) {
-      alert('Поле E-mail или Phone не должно быть пустым');
+    if (!email) {
+      alert('Поле E-mail не должно быть пустым');
       return;
     }
 
@@ -74,7 +72,7 @@ const Payment = () => {
       amount: amount,
       description: description,
       email: email,
-      phone: phone
+
     });
 
     if ((window as any).pay) {
