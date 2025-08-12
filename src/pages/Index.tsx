@@ -16,21 +16,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-between p-4">
-      {/* Уведомление о временной недоступности */}
-      <div className="w-full bg-red-50 border-l-4 border-red-400 p-4 mb-4">
-        <div className="flex flex-col items-center space-y-4">
-          <p className="text-4xl font-bold text-red-600 text-center">
-            САЙТ ВРЕМЕННО НЕ РАБОТАЕТ ! ВЫ МОЖЕТЕ ПЕРЕЙТИ НА САЙТ ЖЕЛАНИЙ
-          </p>
-          <Button 
-            onClick={() => window.open('https://сайт-желаний.рф', '_blank')}
-            className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 text-lg font-semibold"
-          >
-            Перейти
-          </Button>
-        </div>
-      </div>
-      
       <div className="w-full max-w-2xl space-y-8 flex-1 flex flex-col justify-center">
         {/* Главный заголовок */}
         <div className="text-center space-y-4">
