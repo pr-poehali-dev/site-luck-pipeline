@@ -9,6 +9,9 @@ const Payment = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const wish = location.state?.wish || '';
+  const price = location.state?.price || 299;
+  const duration = location.state?.duration || '';
+  const date = location.state?.date || null;
 
   useEffect(() => {
     // Подгружаем скрипт Тинькофф
@@ -89,9 +92,21 @@ const Payment = () => {
               <p className="text-gray-800 italic">"{wish}"</p>
             </div>
             <Separator className="my-4" />
-            <div className="flex justify-between items-center">
-              <span className="text-lg">Стоимость активации удачи:</span>
-              <span className="text-2xl font-bold text-green-600">299 ₽</span>
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-lg">Тариф:</span>
+                <span className="font-semibold">{duration || 'Активация удачи'}</span>
+              </div>
+              {date && (
+                <div className="flex justify-between items-center">
+                  <span className="text-lg">Дата активации:</span>
+                  <span className="font-semibold">{date}</span>
+                </div>
+              )}
+              <div className="flex justify-between items-center">
+                <span className="text-lg">Стоимость:</span>
+                <span className="text-2xl font-bold text-green-600">{price} ₽</span>
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -152,7 +167,8 @@ const Payment = () => {
                 type="number" 
                 placeholder="Сумма заказа" 
                 name="amount" 
-                defaultValue="299"
+                value={price}
+                readOnly
                 required 
               />
               <input type="hidden" name="order" value={`order-${Date.now()}`} />
@@ -161,7 +177,8 @@ const Payment = () => {
                 type="text" 
                 placeholder="Описание заказа" 
                 name="description"
-                defaultValue="Активация удачи"
+                value={`${duration || 'Активация удачи'}${date ? ` на ${date}` : ''}`}
+                readOnly
               />
               <input 
                 className="payform-tbank-row" 
