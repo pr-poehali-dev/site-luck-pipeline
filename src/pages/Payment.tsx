@@ -18,10 +18,18 @@ const Payment = () => {
     const script = document.createElement('script');
     script.src = 'https://securepay.tinkoff.ru/html/payForm/js/tinkoff_v2.js';
     script.async = true;
+    script.onload = () => {
+      console.log('Tinkoff script loaded successfully');
+    };
+    script.onerror = () => {
+      console.error('Failed to load Tinkoff script');
+    };
     document.body.appendChild(script);
 
     return () => {
-      document.body.removeChild(script);
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
     };
   }, []);
 
@@ -61,8 +69,20 @@ const Payment = () => {
     });
 
     // Вызываем функцию pay из скрипта Тинькофф
+    console.log('Form data:', {
+      terminalkey: form.terminalkey.value,
+      amount: amount,
+      description: description,
+      email: email,
+      phone: phone
+    });
+
     if ((window as any).pay) {
+      console.log('Calling Tinkoff pay function');
       (window as any).pay(form);
+    } else {
+      console.error('Tinkoff pay function not available');
+      alert('Ошибка инициализации платежной системы. Попробуйте перезагрузить страницу.');
     }
   };
 
@@ -158,7 +178,7 @@ const Payment = () => {
               }
             `}</style>
             <form className="payform-tbank" onSubmit={handleFormSubmit}>
-              <input type="hidden" name="terminalkey" value="TBankTest" />
+              <input type="hidden" name="terminalkey" value="1754995246597DEMO" />
               <input type="hidden" name="frame" value="false" />
               <input type="hidden" name="language" value="ru" />
               <input type="hidden" name="receipt" value="" />
