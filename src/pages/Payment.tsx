@@ -176,7 +176,7 @@ const Payment = () => {
               }
             `}</style>
             <form className="payform-tbank" onSubmit={handleFormSubmit}>
-              <input type="hidden" name="terminalkey" value="1754995246597DEMO" />
+              <input type="hidden" name="terminalkey" value="1754995246649" />
               <input type="hidden" name="frame" value="false" />
               <input type="hidden" name="language" value="ru" />
               <input type="hidden" name="receipt" value="" />
