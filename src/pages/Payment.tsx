@@ -43,8 +43,8 @@ const Payment = () => {
     const email = formData.get('email') as string;
     const phone = formData.get('phone') as string;
 
-    if (!email && !phone) {
-      alert('Поле E-mail или Phone не должно быть пустым');
+    if (!email) {
+      alert('Поле E-mail не должно быть пустым');
       return;
     }
 
@@ -213,12 +213,7 @@ const Payment = () => {
                 placeholder="E-mail" 
                 name="email"
               />
-              <input 
-                className="payform-tbank-row" 
-                type="tel" 
-                placeholder="Контактный телефон" 
-                name="phone"
-              />
+
               <input 
                 className="payform-tbank-row payform-tbank-btn" 
                 type="submit" 
