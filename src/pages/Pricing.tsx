@@ -9,6 +9,7 @@ const Pricing = () => {
   const navigate = useNavigate();
   const wishText = location.state?.wish || '';
   const [selectedDate, setSelectedDate] = useState('');
+  const [nightStrength, setNightStrength] = useState(5);
   const confettiInterval = useRef<NodeJS.Timeout | null>(null);
 
   // Автоматический запуск яркого радужного конфетти при загрузке страницы
@@ -214,13 +215,13 @@ const Pricing = () => {
   }, []);
 
   const pricingOptions = [
-    { duration: '30 минут', price: 250, immediate: true },
-    { duration: '1 час', price: 500, immediate: true },
-    { duration: 'Удача на событие', price: 1000, immediate: true },
-    { duration: 'Утро (6:00 - 12:00)', price: 1000, immediate: false },
-    { duration: 'День (12:00 - 18:00)', price: 1500, immediate: false },
-    { duration: 'Вечер (18:00 - 24:00)', price: 1500, immediate: false },
-    { duration: 'Ночь (00:00 - 6:00)', price: 1000, immediate: false }
+    { duration: '30 минут', price: 250, immediate: true, isNight: false },
+    { duration: '1 час', price: 500, immediate: true, isNight: false },
+    { duration: 'Удача на событие', price: 1000, immediate: true, isNight: false },
+    { duration: 'Утро (6:00 - 12:00)', price: 1000, immediate: false, isNight: false },
+    { duration: 'День (12:00 - 18:00)', price: 1500, immediate: false, isNight: false },
+    { duration: 'Вечер (18:00 - 24:00)', price: 1500, immediate: false, isNight: false },
+    { duration: 'Ночь (00:00 - 6:00)', price: nightStrength * 100, immediate: false, isNight: true }
   ];
 
   const handlePricingSelect = (price: number, duration: string, immediate: boolean) => {
@@ -260,22 +261,56 @@ const Pricing = () => {
             
             <div className="grid gap-3">
               {pricingOptions.map((option, index) => (
-                <Button
-                  key={index}
-                  variant="outline"
-                  onClick={() => handlePricingSelect(option.price, option.duration, option.immediate)}
-                  className="flex justify-between items-center p-4 h-auto hover:bg-purple-50 border-2 hover:border-purple-300"
-                >
-                  <div className="flex flex-col items-start">
-                    <span className="text-lg font-medium">{option.duration}</span>
-                    {option.immediate ? (
-                      <span className="text-sm text-green-600 font-medium">Действует сразу после оплаты</span>
-                    ) : (
-                      <span className="text-sm text-blue-600 font-medium">Укажите дату активации</span>
-                    )}
-                  </div>
-                  <span className="text-xl font-bold text-purple-600">{option.price} ₽</span>
-                </Button>
+                <div key={index} className={option.isNight ? "space-y-3" : ""}>
+                  <Button
+                    variant="outline"
+                    onClick={() => handlePricingSelect(option.price, option.duration, option.immediate)}
+                    className="w-full flex justify-between items-center p-4 h-auto hover:bg-purple-50 border-2 hover:border-purple-300"
+                  >
+                    <div className="flex flex-col items-start">
+                      <span className="text-lg font-medium">{option.duration}</span>
+                      {option.immediate ? (
+                        <span className="text-sm text-green-600 font-medium">Действует сразу после оплаты</span>
+                      ) : (
+                        <span className="text-sm text-blue-600 font-medium">Укажите дату активации</span>
+                      )}
+                    </div>
+                    <span className="text-xl font-bold text-purple-600">{option.price} ₽</span>
+                  </Button>
+                  
+                  {option.isNight && (
+                    <div className="px-4 py-3 bg-gray-50 rounded-lg">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-medium text-gray-700">Сила удачи</span>
+                        <span className="text-sm font-bold text-purple-600">{nightStrength}/10</span>
+                      </div>
+                      <input
+                        type="range"
+                        min="0"
+                        max="10"
+                        value={nightStrength}
+                        onChange={(e) => setNightStrength(parseInt(e.target.value))}
+                        className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                        style={{
+                          background: (() => {
+                            if (nightStrength === 0) return '#e5e7eb';
+                            const lightGreen = [220, 252, 231]; // #dcfce7
+                            const darkGreen = [21, 128, 61];    // #15803d
+                            const ratio = nightStrength / 10;
+                            const r = Math.round(lightGreen[0] + (darkGreen[0] - lightGreen[0]) * ratio);
+                            const g = Math.round(lightGreen[1] + (darkGreen[1] - lightGreen[1]) * ratio);
+                            const b = Math.round(lightGreen[2] + (darkGreen[2] - lightGreen[2]) * ratio);
+                            return `rgb(${r}, ${g}, ${b})`;
+                          })()
+                        }}
+                      />
+                      <div className="flex justify-between text-xs text-gray-500 mt-1">
+                        <span>0</span>
+                        <span>10</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
             
