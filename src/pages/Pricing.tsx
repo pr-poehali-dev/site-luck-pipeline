@@ -269,8 +269,16 @@ const Pricing = () => {
                 >
                   <div className="flex flex-col items-start space-y-1">
                     <span className="text-lg font-medium">{option.duration}</span>
+                    {option.immediate ? (
+                      <span className="text-sm text-green-600 font-medium">Действует сразу после оплаты</span>
+                    ) : (
+                      <span className="text-sm text-blue-600 font-medium">Укажите дату активации</span>
+                    )}
+                  </div>
+                  
+                  <div className="flex flex-col items-end space-y-1">
                     {option.isNight && (
-                      <div className="w-32 mt-1">
+                      <div className="w-24">
                         <div className="flex items-center justify-between mb-1">
                           <span className="text-xs text-gray-600">Сила</span>
                           <span className="text-xs font-bold text-purple-600">{nightStrength}</span>
@@ -300,13 +308,8 @@ const Pricing = () => {
                         />
                       </div>
                     )}
-                    {option.immediate ? (
-                      <span className="text-sm text-green-600 font-medium">Действует сразу после оплаты</span>
-                    ) : (
-                      <span className="text-sm text-blue-600 font-medium">Укажите дату активации</span>
-                    )}
+                    <span className="text-xl font-bold text-purple-600">{option.price} ₽</span>
                   </div>
-                  <span className="text-xl font-bold text-purple-600">{option.price} ₽</span>
                 </Button>
               ))}
             </div>
