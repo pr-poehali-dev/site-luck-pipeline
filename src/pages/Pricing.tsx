@@ -9,13 +9,13 @@ const Pricing = () => {
   const navigate = useNavigate();
   const wishText = location.state?.wish || '';
   const [selectedDate, setSelectedDate] = useState('');
-  const [strength30min, setStrength30min] = useState(5);
-  const [strength1hour, setStrength1hour] = useState(5);
-  const [strengthEvent, setStrengthEvent] = useState(5);
-  const [strengthMorning, setStrengthMorning] = useState(5);
-  const [strengthDay, setStrengthDay] = useState(5);
-  const [strengthEvening, setStrengthEvening] = useState(5);
-  const [nightStrength, setNightStrength] = useState(5);
+  const [strength30min, setStrength30min] = useState(1);
+  const [strength1hour, setStrength1hour] = useState(1);
+  const [strengthEvent, setStrengthEvent] = useState(1);
+  const [strengthMorning, setStrengthMorning] = useState(1);
+  const [strengthDay, setStrengthDay] = useState(1);
+  const [strengthEvening, setStrengthEvening] = useState(1);
+  const [nightStrength, setNightStrength] = useState(1);
   const [recentlyChanged, setRecentlyChanged] = useState<Set<string>>(new Set());
   const confettiInterval = useRef<NodeJS.Timeout | null>(null);
 
@@ -239,7 +239,7 @@ const Pricing = () => {
       case 'day': return strengthDay;
       case 'evening': return strengthEvening;
       case 'night': return nightStrength;
-      default: return 5;
+      default: return 1;
     }
   };
 
