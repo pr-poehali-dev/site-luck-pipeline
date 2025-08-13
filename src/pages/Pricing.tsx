@@ -277,14 +277,14 @@ const Pricing = () => {
                 <p className="text-sm text-gray-600 mb-4">1 балл = 100₽</p>
               </div>
               
-              <div className="relative">
+              <div className="relative px-2">
                 <input
                   type="range"
                   min="0"
                   max="10"
                   value={selectedLuckStrength}
                   onChange={(e) => setSelectedLuckStrength(parseInt(e.target.value))}
-                  className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+                  className="w-full h-6 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
                   style={{
                     background: `linear-gradient(to right, #dcfce7 0%, #16a34a ${selectedLuckStrength * 10}%, #e5e7eb ${selectedLuckStrength * 10}%, #e5e7eb 100%)`
                   }}
@@ -292,29 +292,30 @@ const Pricing = () => {
                 <style jsx>{`
                   .slider::-webkit-slider-thumb {
                     appearance: none;
-                    width: 24px;
-                    height: 24px;
+                    width: 28px;
+                    height: 28px;
                     border-radius: 50%;
                     background: ${selectedLuckStrength === 0 ? '#dcfce7' : `hsl(${120 - (selectedLuckStrength * 8)}, ${50 + selectedLuckStrength * 5}%, ${70 - selectedLuckStrength * 4}%)`};
                     border: 3px solid white;
-                    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+                    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
                     cursor: pointer;
                   }
                   .slider::-moz-range-thumb {
-                    width: 24px;
-                    height: 24px;
+                    width: 28px;
+                    height: 28px;
                     border-radius: 50%;
                     background: ${selectedLuckStrength === 0 ? '#dcfce7' : `hsl(${120 - (selectedLuckStrength * 8)}, ${50 + selectedLuckStrength * 5}%, ${70 - selectedLuckStrength * 4}%)`};
                     border: 3px solid white;
-                    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+                    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
                     cursor: pointer;
-                    border: none;
                   }
                 `}</style>
-                <div className="flex justify-between text-xs text-gray-500 mt-2">
-                  <span>0</span>
-                  <span>5</span>
-                  <span>10</span>
+                <div className="flex justify-between text-xs text-gray-500 mt-3">
+                  {Array.from({ length: 11 }, (_, i) => (
+                    <span key={i} className={`${selectedLuckStrength === i ? 'text-green-600 font-bold' : ''}`}>
+                      {i}
+                    </span>
+                  ))}
                 </div>
               </div>
               
