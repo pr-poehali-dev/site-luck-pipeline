@@ -268,11 +268,12 @@ const Pricing = () => {
     }
     
     setSelectedOption({ price, duration, immediate, type });
+    setCurrentStrength(1); // Устанавливаем начальное значение 1 (50₽)
     setShowStrengthSelector(true);
   };
 
   const handleStrengthConfirm = () => {
-    const finalPrice = currentStrength * 100;
+    const finalPrice = currentStrength * 50; // Каждое деление по 50₽
     navigate('/payment', { 
       state: { 
         wish: wishText, 
@@ -300,7 +301,7 @@ const Pricing = () => {
               <div className="space-y-6">
                 <div className="text-center">
                   <div className="text-4xl font-bold text-gray-800">
-                    {currentStrength * 100} ₽
+                    {currentStrength * 50} ₽
                   </div>
                 </div>
                 
