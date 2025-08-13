@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import Icon from '@/components/ui/icon';
 
@@ -8,258 +8,195 @@ const Rules = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
-      <div className="max-w-4xl mx-auto space-y-8">
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
+      <div className="w-full max-w-4xl space-y-8">
         {/* Заголовок */}
-        <div className="text-center bg-white rounded-lg p-8 shadow-sm">
+        <div className="text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Правила оказания услуг
+            Правила использования
           </h1>
           <p className="text-lg text-gray-600">
-            Психологическая поддержка и мотивационная терапия
-          </p>
-          <p className="text-sm text-gray-500 mt-2">
-            Действует с 13 августа 2025 года
+            Сайт удачи - условия и положения
           </p>
         </div>
 
-        {/* Общие положения */}
-        <Card className="shadow-sm">
-          <CardHeader className="bg-blue-50">
-            <CardTitle className="flex items-center gap-3 text-xl">
-              <Icon name="BookOpen" size={24} className="text-blue-600" />
-              1. Общие положения
+        {/* Основные правила */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Icon name="BookOpen" size={24} />
+              Общие положения
             </CardTitle>
           </CardHeader>
-          <CardContent className="p-6 space-y-4">
-            <p className="text-gray-700 leading-relaxed">
-              1.1. Настоящие Правила регулируют отношения между Исполнителем и Заказчиком при оказании психологических услуг в области мотивационной поддержки и привлечения позитивного мышления.
+          <CardContent className="space-y-4">
+            <p className="text-gray-700">
+              Добро пожаловать на "Сайт удачи" - уникальный сервис для привлечения удачи в различные сферы жизни.
             </p>
-            <p className="text-gray-700 leading-relaxed">
-              1.2. Исполнитель: ИП Паклин Сергей Васильевич, ИНН 594200005879, ОГРН 305591619400016, осуществляющий деятельность по психологической поддержке населения.
-            </p>
-            <p className="text-gray-700 leading-relaxed">
-              1.3. Заказчик: физическое лицо, достигшее 18 лет, обратившееся за психологической помощью.
-            </p>
-            <p className="text-gray-700 leading-relaxed">
-              1.4. Услуги оказываются в соответствии с Федеральным законом "О защите прав потребителей" от 07.02.1992 № 2300-1-ФЗ.
+            <p className="text-gray-700">
+              Используя наш сервис, вы соглашаетесь с данными правилами и условиями использования.
             </p>
           </CardContent>
         </Card>
 
-        {/* Описание услуг */}
-        <Card className="shadow-sm">
-          <CardHeader className="bg-green-50">
-            <CardTitle className="flex items-center gap-3 text-xl">
-              <Icon name="Heart" size={24} className="text-green-600" />
-              2. Описание услуг
+        {/* Правила оплаты */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Icon name="CreditCard" size={24} />
+              Условия оплаты
             </CardTitle>
           </CardHeader>
-          <CardContent className="p-6 space-y-4">
-            <p className="text-gray-700 leading-relaxed">
-              2.1. Исполнитель оказывает услуги по психологической поддержке, включающие:
-            </p>
-            <ul className="ml-6 space-y-2 text-gray-700">
-              <li>• Мотивационную терапию и настрой на успех</li>
-              <li>• Работу с позитивным мышлением</li>
-              <li>• Психологическую поддержку в достижении целей</li>
-              <li>• Консультации по преодолению психологических барьеров</li>
+          <CardContent className="space-y-4">
+            <ul className="space-y-2 text-gray-700">
+              <li>• Стоимость активации удачи составляет от 100₽ до 1000₽</li>
+              <li>• Оплата производится единовременно за одно пожелание</li>
+              <li>• Возврат средств не предусмотрен после активации пожелания</li>
+              <li>• Все платежи обрабатываются через защищенные платежные системы</li>
             </ul>
-            <p className="text-gray-700 leading-relaxed">
-              2.2. Услуги носят консультационный характер и не заменяют медицинского лечения.
-            </p>
-            <p className="text-gray-700 leading-relaxed">
-              2.3. Исполнитель не гарантирует конкретных материальных результатов, но обеспечивает профессиональную психологическую поддержку.
-            </p>
           </CardContent>
         </Card>
 
-        {/* Стоимость и оплата */}
-        <Card className="shadow-sm">
-          <CardHeader className="bg-yellow-50">
-            <CardTitle className="flex items-center gap-3 text-xl">
-              <Icon name="CreditCard" size={24} className="text-yellow-600" />
-              3. Стоимость услуг и порядок оплаты
+        {/* Гарантии */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Icon name="Shield" size={24} />
+              Гарантии и ответственность
             </CardTitle>
           </CardHeader>
-          <CardContent className="p-6 space-y-4">
-            <p className="text-gray-700 leading-relaxed">
-              3.1. Стоимость психологической консультации составляет от 100 до 1000 рублей в зависимости от сложности запроса.
-            </p>
-            <p className="text-gray-700 leading-relaxed">
-              3.2. Оплата производится полностью до начала оказания услуги через защищенные платежные системы.
-            </p>
-            <p className="text-gray-700 leading-relaxed">
-              3.3. НДС не облагается в соответствии со ст. 346.11 НК РФ (упрощенная система налогообложения).
-            </p>
-            <p className="text-gray-700 leading-relaxed">
-              3.4. При оплате Заказчик получает электронный чек на указанную электронную почту.
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* Права и обязанности */}
-        <Card className="shadow-sm">
-          <CardHeader className="bg-purple-50">
-            <CardTitle className="flex items-center gap-3 text-xl">
-              <Icon name="Scale" size={24} className="text-purple-600" />
-              4. Права и обязанности сторон
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-6 space-y-4">
-            <div>
-              <h4 className="font-semibold text-gray-900 mb-2">4.1. Исполнитель обязуется:</h4>
-              <ul className="ml-6 space-y-1 text-gray-700">
-                <li>• Оказать услуги качественно и в срок</li>
-                <li>• Соблюдать конфиденциальность</li>
-                <li>• Предоставить документы об оплате</li>
-                <li>• Действовать в интересах Заказчика</li>
-              </ul>
+          <CardContent className="space-y-4">
+            <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+              <p className="text-yellow-800 font-medium mb-3">
+                Важные условия предоставления услуги:
+              </p>
+              <div className="space-y-3 text-yellow-700">
+                <p>
+                  <strong>Характер услуги:</strong> "Сайт удачи" предоставляет психологическую поддержку в виде ритуала загадывания желаний, направленного на повышение мотивации и позитивного настроя пользователя.
+                </p>
+                <p>
+                  <strong>Гарантии качества:</strong> Мы гарантируем техническую исправность сервиса, конфиденциальность обработки данных и выполнение ритуала согласно выбранному тарифу.
+                </p>
+                <p>
+                  <strong>Ограничения ответственности:</strong> Администрация не несет ответственности за материальные результаты, изменения в личной жизни или внешних обстоятельствах пользователя. Сервис не гарантирует исполнение желаний в буквальном смысле.
+                </p>
+                <p>
+                  <strong>Индивидуальность эффекта:</strong> Психологическое воздействие сервиса является сугубо индивидуальным и зависит от личных особенностей, установок и последующих действий пользователя.
+                </p>
+                <p>
+                  <strong>Возврат средств:</strong> Поскольку услуга носит информационно-психологический характер и оказывается сразу после оплаты, возврат денежных средств не предусмотрен, за исключением технических сбоев по вине сервиса.
+                </p>
+              </div>
             </div>
-            <div>
-              <h4 className="font-semibold text-gray-900 mb-2">4.2. Заказчик обязуется:</h4>
-              <ul className="ml-6 space-y-1 text-gray-700">
-                <li>• Своевременно оплатить услуги</li>
-                <li>• Предоставить достоверную информацию</li>
-                <li>• Соблюдать рекомендации специалиста</li>
-              </ul>
+            
+            <div className="bg-red-50 p-4 rounded-lg border border-red-200">
+              <p className="text-red-800 font-medium mb-2">
+                ⚠️ Отказ от ответственности:
+              </p>
+              <p className="text-red-700 text-sm">
+                Использование сервиса не может заменить профессиональную медицинскую, психологическую или финансовую консультацию. При наличии серьезных проблем обращайтесь к соответствующим специалистам.
+              </p>
             </div>
           </CardContent>
         </Card>
 
-        {/* Возврат средств */}
-        <Card className="shadow-sm">
-          <CardHeader className="bg-red-50">
-            <CardTitle className="flex items-center gap-3 text-xl">
-              <Icon name="RefreshCw" size={24} className="text-red-600" />
-              5. Условия возврата средств
+        {/* Правила использования */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Icon name="AlertTriangle" size={24} />
+              Правила поведения
             </CardTitle>
           </CardHeader>
-          <CardContent className="p-6 space-y-4">
-            <p className="text-gray-700 leading-relaxed">
-              5.1. Возврат денежных средств возможен в течение 7 дней с момента оплаты при условии неоказания услуги по вине Исполнителя.
-            </p>
-            <p className="text-gray-700 leading-relaxed">
-              5.2. После начала оказания услуги возврат средств не производится, так как услуга носит консультационный характер.
-            </p>
-            <p className="text-gray-700 leading-relaxed">
-              5.3. Возврат осуществляется на тот же платежный инструмент, с которого была произведена оплата, в течение 10 рабочих дней.
-            </p>
+          <CardContent className="space-y-4">
+            <ul className="space-y-2 text-gray-700">
+              <li>• Пожелания должны быть корректными и не содержать оскорбительной лексики</li>
+              <li>• Запрещается использование сервиса для нанесения вреда другим людям</li>
+              <li>• Один пользователь может оформить неограниченное количество пожеланий</li>
+              <li>• Администрация оставляет за собой право отклонить неподходящие пожелания</li>
+            </ul>
           </CardContent>
         </Card>
 
         {/* Конфиденциальность */}
-        <Card className="shadow-sm">
-          <CardHeader className="bg-indigo-50">
-            <CardTitle className="flex items-center gap-3 text-xl">
-              <Icon name="Shield" size={24} className="text-indigo-600" />
-              6. Конфиденциальность и защита данных
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Icon name="Lock" size={24} />
+              Конфиденциальность
             </CardTitle>
           </CardHeader>
-          <CardContent className="p-6 space-y-4">
-            <p className="text-gray-700 leading-relaxed">
-              6.1. Исполнитель обязуется не разглашать информацию, полученную от Заказчика в процессе оказания услуг.
-            </p>
-            <p className="text-gray-700 leading-relaxed">
-              6.2. Персональные данные обрабатываются в соответствии с ФЗ-152 "О персональных данных".
-            </p>
-            <p className="text-gray-700 leading-relaxed">
-              6.3. Заказчик дает согласие на обработку персональных данных, необходимых для оказания услуг.
+          <CardContent className="space-y-4">
+            <p className="text-gray-700">
+              Мы уважаем вашу конфиденциальность и не передаем ваши пожелания третьим лицам. 
+              Все данные хранятся в зашифрованном виде и используются исключительно для 
+              предоставления услуги.
             </p>
           </CardContent>
         </Card>
 
-        {/* Ответственность */}
-        <Card className="shadow-sm">
-          <CardHeader className="bg-orange-50">
-            <CardTitle className="flex items-center gap-3 text-xl">
-              <Icon name="AlertTriangle" size={24} className="text-orange-600" />
-              7. Ответственность и ограничения
+        {/* Пользовательское соглашение */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Icon name="FileText" size={24} />
+              Пользовательское соглашение
             </CardTitle>
           </CardHeader>
-          <CardContent className="p-6 space-y-4">
-            <p className="text-gray-700 leading-relaxed">
-              7.1. Исполнитель не несет ответственности за результаты, не зависящие от качества психологических услуг.
-            </p>
-            <p className="text-gray-700 leading-relaxed">
-              7.2. Услуги не являются медицинскими и не заменяют лечение у врача-психиатра или психотерапевта.
-            </p>
-            <p className="text-gray-700 leading-relaxed">
-              7.3. При наличии серьезных психических расстройств рекомендуется обращение к медицинским специалистам.
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* Психологические аспекты */}
-        <Card className="shadow-sm">
-          <CardHeader className="bg-teal-50">
-            <CardTitle className="flex items-center gap-3 text-xl">
-              <Icon name="Brain" size={24} className="text-teal-600" />
-              8. Психологические механизмы воздействия
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-6 space-y-4">
+          <CardContent className="space-y-4">
             <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
               <p className="text-blue-800 font-medium mb-3">
-                Научные основы работы сервиса:
+                Психологические аспекты использования сервиса:
               </p>
               <ul className="space-y-2 text-blue-700">
-                <li>• <strong>Позитивное мышление:</strong> Активация механизмов целеполагания и мотивации</li>
-                <li>• <strong>Ритуализация:</strong> Создание психологического "якоря" для укрепления намерений</li>
-                <li>• <strong>Самовнушение:</strong> Программирование подсознания на достижение целей</li>
-                <li>• <strong>Плацебо-эффект:</strong> Усиление веры в собственные возможности</li>
+                <li>• <strong>Позитивное мышление:</strong> Сервис работает как инструмент для фокусировки на позитивных целях и мотивации к их достижению</li>
+                <li>• <strong>Самовнушение:</strong> Процесс загадывания желания активирует механизмы подсознательной установки на успех</li>
+                <li>• <strong>Ритуализация:</strong> Оплата создает психологический "якорь" серьезности намерений и готовности к действиям</li>
+                <li>• <strong>Эффект плацебо:</strong> Вера в действенность сервиса может усилить вашу мотивацию и уверенность в себе</li>
               </ul>
             </div>
+            
+            <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+              <p className="text-gray-800 font-medium mb-3">
+                Используя данный сервис, вы понимаете и соглашаетесь с тем, что:
+              </p>
+              <ul className="space-y-2 text-gray-700">
+                <li>• Сервис является психологическим инструментом мотивации и самоподдержки</li>
+                <li>• Результаты зависят от ваших собственных действий и усилий после использования сервиса</li>
+                <li>• Мы не даем гарантий изменения внешних обстоятельств, но помогаем изменить ваш внутренний настрой</li>
+                <li>• Эффективность зависит от вашей открытости к позитивным изменениям и готовности действовать</li>
+                <li>• Сервис не заменяет профессиональную психологическую помощь при серьезных проблемах</li>
+              </ul>
+            </div>
+
+            <p className="text-sm text-gray-600 italic">
+              Нажимая кнопку оплаты, вы подтверждаете ознакомление с данными условиями и готовность использовать сервис как инструмент психологической поддержки и мотивации.
+            </p>
           </CardContent>
         </Card>
+
+        <Separator />
 
         {/* Контакты */}
-        <Card className="shadow-sm">
-          <CardHeader className="bg-gray-50">
-            <CardTitle className="flex items-center gap-3 text-xl">
-              <Icon name="Mail" size={24} className="text-gray-600" />
-              9. Контактная информация
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Icon name="Mail" size={24} />
+              Контактная информация
             </CardTitle>
           </CardHeader>
-          <CardContent className="p-6">
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <h4 className="font-semibold text-gray-900 mb-2">Реквизиты Исполнителя:</h4>
-                <p className="text-gray-700">ИП Паклин Сергей Васильевич</p>
-                <p className="text-gray-700">ИНН: 594200005879</p>
-                <p className="text-gray-700">ОГРН: 305591619400016</p>
-              </div>
-              <div>
-                <h4 className="font-semibold text-gray-900 mb-2">Контакты:</h4>
-                <p className="text-gray-700">Email: Unix7777@ya.ru</p>
-                <p className="text-gray-700 text-sm mt-2">
-                  Для обращений и жалоб по качеству услуг
-                </p>
-              </div>
-            </div>
+          <CardContent>
+            <p className="text-gray-700">ИП Паклин Сергей Васильевич, ИНН 594200005879 ОГРН 305591619400016,  эл.почта  Unix7777@ya.ru</p>
           </CardContent>
         </Card>
 
-        <Separator className="my-8" />
-
-        <div className="bg-gray-100 p-6 rounded-lg text-center">
-          <p className="text-sm text-gray-600 mb-4">
-            Настоящие Правила составлены в соответствии с законодательством Российской Федерации
-            и вступают в силу с момента размещения на сайте.
-          </p>
-          <p className="text-xs text-gray-500">
-            Последнее обновление: 13 августа 2025 года
-          </p>
-        </div>
-
-        {/* Кнопка возврата */}
-        <div className="text-center pb-8">
-          <Button 
-            onClick={() => navigate('/')}
-            className="px-8 py-3 text-lg"
-            variant="outline"
-          >
-            ← Вернуться на главную
+        {/* Кнопки навигации */}
+        <div className="flex justify-center space-x-4">
+          <Button variant="outline" onClick={() => navigate('/')}>
+            <Icon name="ArrowLeft" size={16} className="mr-2" />
+            На главную
+          </Button>
+          <Button onClick={() => navigate('/')}>
+            Начать загадывать удачу
           </Button>
         </div>
       </div>
