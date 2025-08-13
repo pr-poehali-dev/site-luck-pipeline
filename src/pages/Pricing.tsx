@@ -285,8 +285,8 @@ const Pricing = () => {
                         </div>
                         <input
                           type="range"
-                          min="0"
-                          max="10"
+                          min="1"
+                          max="9"
                           value={nightStrength}
                           onChange={(e) => {
                             e.stopPropagation();
@@ -295,10 +295,9 @@ const Pricing = () => {
                           className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
                           style={{
                             background: (() => {
-                              if (nightStrength === 0) return '#e5e7eb';
                               const lightGreen = [220, 252, 231];
                               const darkGreen = [21, 128, 61];
-                              const ratio = nightStrength / 10;
+                              const ratio = (nightStrength - 1) / 8; // от 1-9 = 0-1
                               const r = Math.round(lightGreen[0] + (darkGreen[0] - lightGreen[0]) * ratio);
                               const g = Math.round(lightGreen[1] + (darkGreen[1] - lightGreen[1]) * ratio);
                               const b = Math.round(lightGreen[2] + (darkGreen[2] - lightGreen[2]) * ratio);
@@ -307,7 +306,6 @@ const Pricing = () => {
                           }}
                         />
                         <div className="flex justify-between text-xs text-gray-400 mt-1">
-                          <span>0</span>
                           <span>1</span>
                           <span>2</span>
                           <span>3</span>
@@ -317,7 +315,6 @@ const Pricing = () => {
                           <span>7</span>
                           <span>8</span>
                           <span>9</span>
-                          <span>10</span>
                         </div>
                       </div>
                       <span className="text-xl font-bold text-purple-600">{option.price} ₽</span>
