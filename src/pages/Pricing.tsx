@@ -221,7 +221,6 @@ const Pricing = () => {
   }, []);
 
   const pricingOptions = [
-    { duration: '30 минут', price: strength30min * 100, immediate: true, type: '30min' },
     { duration: '1 час', price: strength1hour * 100, immediate: true, type: '1hour' },
     { duration: 'Удача на событие', price: strengthEvent * 100, immediate: true, type: 'event' },
     { duration: 'Утро (6:00 - 12:00)', price: strengthMorning * 100, immediate: false, type: 'morning' },
