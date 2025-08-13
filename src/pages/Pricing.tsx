@@ -213,30 +213,18 @@ const Pricing = () => {
     };
   }, []);
 
-  const [selectedLuckStrength, setSelectedLuckStrength] = useState(5);
-  const [selectedTimeSlot, setSelectedTimeSlot] = useState('immediate');
-  
-  const timeSlots = [
-    { id: 'immediate', label: 'Удача на событие', immediate: true },
-    { id: 'morning', label: 'Утро (6:00 - 12:00)', immediate: false },
-    { id: 'day', label: 'День (12:00 - 18:00)', immediate: false },
-    { id: 'evening', label: 'Вечер (18:00 - 24:00)', immediate: false },
-    { id: 'night', label: 'Ночь (00:00 - 6:00)', immediate: false }
+  const pricingOptions = [
+    { duration: '30 минут', price: 250, immediate: true },
+    { duration: '1 час', price: 500, immediate: true },
+    { duration: 'Удача на событие', price: 1000, immediate: true },
+    { duration: 'Утро (6:00 - 12:00)', price: 1000, immediate: false },
+    { duration: 'День (12:00 - 18:00)', price: 1500, immediate: false },
+    { duration: 'Вечер (18:00 - 24:00)', price: 1500, immediate: false },
+    { duration: 'Ночь (00:00 - 6:00)', price: 1000, immediate: false }
   ];
-  
-  const calculatePrice = (strength: number) => strength * 100;
-  const getDurationText = (strength: number) => {
-    if (strength <= 2) return `${strength * 30} минут`;
-    if (strength <= 5) return `${strength * 12} минут`;
-    return `${strength * 10} минут силы`;
-  };
 
-  const handlePricingSelect = () => {
-    const selectedSlot = timeSlots.find(slot => slot.id === selectedTimeSlot);
-    const price = calculatePrice(selectedLuckStrength);
-    const duration = getDurationText(selectedLuckStrength);
-    
-    if (!selectedSlot?.immediate && !selectedDate) {
+  const handlePricingSelect = (price: number, duration: string, immediate: boolean) => {
+    if (!immediate && !selectedDate) {
       alert('Пожалуйста, укажите дату');
       return;
     }
@@ -245,8 +233,8 @@ const Pricing = () => {
       state: { 
         wish: wishText, 
         price: price,
-        duration: `${duration} (${selectedSlot?.label})`,
-        date: selectedSlot?.immediate ? null : selectedDate
+        duration: duration,
+        date: immediate ? null : selectedDate
       } 
     });
   };
@@ -270,114 +258,26 @@ const Pricing = () => {
               />
             </div>
             
-            {/* Индикатор силы удачи */}
-            <div className="space-y-4">
-              <div className="text-center">
-                <h3 className="text-lg font-medium mb-2">Выберите силу удачи</h3>
-                <p className="text-sm text-gray-600 mb-4">1 балл = 100₽</p>
-              </div>
-              
-              <div className="relative px-2">
-                <input
-                  type="range"
-                  min="0"
-                  max="10"
-                  value={selectedLuckStrength}
-                  onChange={(e) => setSelectedLuckStrength(parseInt(e.target.value))}
-                  className="w-full h-6 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
-                  style={{
-                    background: (() => {
-                      if (selectedLuckStrength === 0) return '#e5e7eb';
-                      const lightGreen = [220, 252, 231]; // #dcfce7
-                      const darkGreen = [21, 128, 61];    // #15803d
-                      const ratio = selectedLuckStrength / 10;
-                      const r = Math.round(lightGreen[0] + (darkGreen[0] - lightGreen[0]) * ratio);
-                      const g = Math.round(lightGreen[1] + (darkGreen[1] - lightGreen[1]) * ratio);
-                      const b = Math.round(lightGreen[2] + (darkGreen[2] - lightGreen[2]) * ratio);
-                      return `rgb(${r}, ${g}, ${b})`;
-                    })()
-                  }}
-                />
-                <style jsx>{`
-                  .slider::-webkit-slider-thumb {
-                    appearance: none;
-                    width: 28px;
-                    height: 28px;
-                    border-radius: 50%;
-                    background: ${(() => {
-                      if (selectedLuckStrength === 0) return '#e5e7eb';
-                      const lightGreen = [220, 252, 231]; // #dcfce7
-                      const darkGreen = [21, 128, 61];    // #15803d
-                      const ratio = selectedLuckStrength / 10;
-                      const r = Math.round(lightGreen[0] + (darkGreen[0] - lightGreen[0]) * ratio);
-                      const g = Math.round(lightGreen[1] + (darkGreen[1] - lightGreen[1]) * ratio);
-                      const b = Math.round(lightGreen[2] + (darkGreen[2] - lightGreen[2]) * ratio);
-                      return `rgb(${r}, ${g}, ${b})`;
-                    })()};
-                    border: 3px solid white;
-                    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
-                    cursor: pointer;
-                  }
-                  .slider::-moz-range-thumb {
-                    width: 28px;
-                    height: 28px;
-                    border-radius: 50%;
-                    background: ${(() => {
-                      if (selectedLuckStrength === 0) return '#e5e7eb';
-                      const lightGreen = [220, 252, 231]; // #dcfce7
-                      const darkGreen = [21, 128, 61];    // #15803d
-                      const ratio = selectedLuckStrength / 10;
-                      const r = Math.round(lightGreen[0] + (darkGreen[0] - lightGreen[0]) * ratio);
-                      const g = Math.round(lightGreen[1] + (darkGreen[1] - lightGreen[1]) * ratio);
-                      const b = Math.round(lightGreen[2] + (darkGreen[2] - lightGreen[2]) * ratio);
-                      return `rgb(${r}, ${g}, ${b})`;
-                    })()};
-                    border: 3px solid white;
-                    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
-                    cursor: pointer;
-                  }
-                `}</style>
-                <div className="flex justify-between text-xs text-gray-500 mt-3">
-                  {Array.from({ length: 11 }, (_, i) => (
-                    <span key={i} className={`${selectedLuckStrength === i ? 'text-green-600 font-bold' : ''}`}>
-                      {i}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              
-              <div className="text-center">
-                <div className="text-2xl font-bold text-purple-600 mb-2">
-                  {calculatePrice(selectedLuckStrength)} ₽
-                </div>
-                <div className="text-sm text-gray-600">
-                  {getDurationText(selectedLuckStrength)}
-                </div>
-              </div>
-            </div>
-
-            {/* Выбор времени активации */}
-            <div className="space-y-3">
-              <h4 className="font-medium">Время активации:</h4>
-              {timeSlots.map((slot) => (
+            <div className="grid gap-3">
+              {pricingOptions.map((option, index) => (
                 <Button
-                  key={slot.id}
-                  variant={selectedTimeSlot === slot.id ? "default" : "outline"}
-                  onClick={() => setSelectedTimeSlot(slot.id)}
-                  className="w-full justify-start"
+                  key={index}
+                  variant="outline"
+                  onClick={() => handlePricingSelect(option.price, option.duration, option.immediate)}
+                  className="flex justify-between items-center p-4 h-auto hover:bg-purple-50 border-2 hover:border-purple-300"
                 >
-                  {slot.label}
+                  <div className="flex flex-col items-start">
+                    <span className="text-lg font-medium">{option.duration}</span>
+                    {option.immediate ? (
+                      <span className="text-sm text-green-600 font-medium">Действует сразу после оплаты</span>
+                    ) : (
+                      <span className="text-sm text-blue-600 font-medium">Укажите дату активации</span>
+                    )}
+                  </div>
+                  <span className="text-xl font-bold text-purple-600">{option.price} ₽</span>
                 </Button>
               ))}
             </div>
-
-            {/* Кнопка оплаты */}
-            <Button 
-              onClick={handlePricingSelect}
-              className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 text-lg"
-            >
-              Оплатить {calculatePrice(selectedLuckStrength)} ₽
-            </Button>
             
             <div className="flex justify-center mt-6">
               <Button 
