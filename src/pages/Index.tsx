@@ -48,18 +48,25 @@ const Index = () => {
         className="fixed inset-0 z-50 cursor-pointer overflow-hidden"
         onClick={handleSplashClick}
       >
-        {/* Крупные куски заставки */}
+        {/* Крупные куски заставки в форме битого стекла */}
         <div className={`absolute inset-0 ${isBreaking ? 'breaking' : ''}`}>
-          {/* Левый верхний кусок */}
-          <div className={`absolute bg-black w-1/2 h-1/2 top-0 left-0 ${isBreaking ? 'chunk-1' : ''}`}>
+          {/* Левый верхний кусок - неправильная форма */}
+          <div 
+            className={`absolute bg-black ${isBreaking ? 'chunk-1' : ''}`}
+            style={{
+              clipPath: 'polygon(0% 0%, 60% 0%, 45% 35%, 30% 60%, 0% 45%)',
+              width: '100%',
+              height: '100%'
+            }}
+          >
             <div className="absolute inset-0 overflow-hidden">
-              {stars.slice(0, 50).map((star) => (
+              {stars.slice(0, 40).map((star) => (
                 <div
                   key={star.id}
                   className="absolute bg-white rounded-full twinkle"
                   style={{
-                    left: `${star.x * 2}%`,
-                    top: `${star.y * 2}%`,
+                    left: `${star.x}%`,
+                    top: `${star.y}%`,
                     width: `${star.size}px`,
                     height: `${star.size}px`,
                     opacity: star.opacity,
@@ -71,15 +78,22 @@ const Index = () => {
           </div>
 
           {/* Правый верхний кусок */}
-          <div className={`absolute bg-black w-1/2 h-1/2 top-0 right-0 ${isBreaking ? 'chunk-2' : ''}`}>
+          <div 
+            className={`absolute bg-black ${isBreaking ? 'chunk-2' : ''}`}
+            style={{
+              clipPath: 'polygon(60% 0%, 100% 0%, 100% 50%, 85% 40%, 70% 25%, 45% 35%)',
+              width: '100%',
+              height: '100%'
+            }}
+          >
             <div className="absolute inset-0 overflow-hidden">
-              {stars.slice(50, 100).map((star) => (
+              {stars.slice(40, 80).map((star) => (
                 <div
                   key={star.id}
                   className="absolute bg-white rounded-full twinkle"
                   style={{
-                    left: `${(star.x - 50) * 2}%`,
-                    top: `${star.y * 2}%`,
+                    left: `${star.x}%`,
+                    top: `${star.y}%`,
                     width: `${star.size}px`,
                     height: `${star.size}px`,
                     opacity: star.opacity,
@@ -90,16 +104,23 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Левый нижний кусок */}
-          <div className={`absolute bg-black w-1/2 h-1/2 bottom-0 left-0 ${isBreaking ? 'chunk-3' : ''}`}>
+          {/* Левый средний кусок */}
+          <div 
+            className={`absolute bg-black ${isBreaking ? 'chunk-3' : ''}`}
+            style={{
+              clipPath: 'polygon(0% 45%, 30% 60%, 25% 75%, 40% 85%, 0% 100%, 0% 45%)',
+              width: '100%',
+              height: '100%'
+            }}
+          >
             <div className="absolute inset-0 overflow-hidden">
-              {stars.slice(100, 150).map((star) => (
+              {stars.slice(80, 110).map((star) => (
                 <div
                   key={star.id}
                   className="absolute bg-white rounded-full twinkle"
                   style={{
-                    left: `${star.x * 2}%`,
-                    top: `${(star.y - 50) * 2}%`,
+                    left: `${star.x}%`,
+                    top: `${star.y}%`,
                     width: `${star.size}px`,
                     height: `${star.size}px`,
                     opacity: star.opacity,
@@ -111,15 +132,22 @@ const Index = () => {
           </div>
 
           {/* Правый нижний кусок */}
-          <div className={`absolute bg-black w-1/2 h-1/2 bottom-0 right-0 ${isBreaking ? 'chunk-4' : ''}`}>
+          <div 
+            className={`absolute bg-black ${isBreaking ? 'chunk-4' : ''}`}
+            style={{
+              clipPath: 'polygon(85% 40%, 100% 50%, 100% 100%, 40% 100%, 40% 85%, 65% 70%, 70% 55%)',
+              width: '100%',
+              height: '100%'
+            }}
+          >
             <div className="absolute inset-0 overflow-hidden">
-              {stars.slice(150, 200).map((star) => (
+              {stars.slice(110, 150).map((star) => (
                 <div
                   key={star.id}
                   className="absolute bg-white rounded-full twinkle"
                   style={{
-                    left: `${(star.x - 50) * 2}%`,
-                    top: `${(star.y - 50) * 2}%`,
+                    left: `${star.x}%`,
+                    top: `${star.y}%`,
                     width: `${star.size}px`,
                     height: `${star.size}px`,
                     opacity: star.opacity,
@@ -130,8 +158,33 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Центральный кусок с текстом */}
-          <div className={`absolute bg-black w-64 h-32 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${isBreaking ? 'chunk-center' : ''}`}>
+          {/* Центральный кусок неправильной формы */}
+          <div 
+            className={`absolute bg-black ${isBreaking ? 'chunk-center' : ''}`}
+            style={{
+              clipPath: 'polygon(45% 35%, 70% 25%, 70% 55%, 65% 70%, 40% 85%, 25% 75%, 30% 60%)',
+              width: '100%',
+              height: '100%'
+            }}
+          >
+            <div className="absolute inset-0 overflow-hidden">
+              {stars.slice(150, 200).map((star) => (
+                <div
+                  key={star.id}
+                  className="absolute bg-white rounded-full twinkle"
+                  style={{
+                    left: `${star.x}%`,
+                    top: `${star.y}%`,
+                    width: `${star.size}px`,
+                    height: `${star.size}px`,
+                    opacity: star.opacity,
+                    animationDelay: `${star.animationDelay}s`,
+                  }}
+                />
+              ))}
+            </div>
+            
+            {/* Текст в центральном куске */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className={`text-center text-white ${isBreaking ? 'fade-out' : 'fade-in'}`}>
                 <h1 className="text-4xl font-bold mb-2 text-shadow-lg">
