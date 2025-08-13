@@ -299,10 +299,7 @@ const Pricing = () => {
               
               <div className="space-y-6">
                 <div className="text-center">
-                  <div className="text-6xl font-bold text-purple-600 mb-2">
-                    {currentStrength}
-                  </div>
-                  <div className="text-2xl font-bold text-gray-800">
+                  <div className="text-8xl font-bold text-gray-800">
                     {currentStrength * 100} ₽
                   </div>
                 </div>
