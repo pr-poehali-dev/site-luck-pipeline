@@ -19,7 +19,7 @@ const Pricing = () => {
   const [recentlyChanged, setRecentlyChanged] = useState<Set<string>>(new Set());
   const [showStrengthSelector, setShowStrengthSelector] = useState(false);
   const [selectedOption, setSelectedOption] = useState<any>(null);
-  const [currentStrength, setCurrentStrength] = useState(1);
+  const [currentStrength, setCurrentStrength] = useState(0);
   const confettiInterval = useRef<NodeJS.Timeout | null>(null);
 
   // Автоматический запуск яркого радужного конфетти при загрузке страницы
@@ -307,20 +307,21 @@ const Pricing = () => {
                 <div className="w-full">
                   <input
                     type="range"
-                    min="1"
-                    max="9"
+                    min="0"
+                    max="10"
                     value={currentStrength}
                     onChange={(e) => setCurrentStrength(parseInt(e.target.value))}
                     className="w-full h-4 bg-gray-200 rounded-lg cursor-pointer"
                     style={{
                       background: `linear-gradient(to right, 
                         #22c55e 0%, 
-                        #22c55e ${((currentStrength - 1) / 8) * 100}%, 
-                        #e5e7eb ${((currentStrength - 1) / 8) * 100}%, 
+                        #22c55e ${(currentStrength / 10) * 100}%, 
+                        #e5e7eb ${(currentStrength / 10) * 100}%, 
                         #e5e7eb 100%)`
                     }}
                   />
                   <div className="flex justify-between text-sm text-gray-400 mt-2">
+                    <span>0</span>
                     <span>1</span>
                     <span>2</span>
                     <span>3</span>
@@ -330,6 +331,7 @@ const Pricing = () => {
                     <span>7</span>
                     <span>8</span>
                     <span>9</span>
+                    <span>10</span>
                   </div>
                 </div>
                 
