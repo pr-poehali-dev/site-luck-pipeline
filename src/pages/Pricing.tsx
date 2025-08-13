@@ -290,16 +290,7 @@ const Pricing = () => {
                       ? '#e5e7eb'
                       : `linear-gradient(to right, 
                           #dcfce7 0%, 
-                          #bbf7d0 ${Math.min(10, selectedLuckStrength * 10)}%, 
-                          #86efac ${Math.min(20, selectedLuckStrength * 10)}%, 
-                          #4ade80 ${Math.min(30, selectedLuckStrength * 10)}%, 
-                          #22c55e ${Math.min(40, selectedLuckStrength * 10)}%, 
-                          #16a34a ${Math.min(50, selectedLuckStrength * 10)}%, 
-                          #15803d ${Math.min(60, selectedLuckStrength * 10)}%, 
-                          #166534 ${Math.min(70, selectedLuckStrength * 10)}%, 
-                          #14532d ${Math.min(80, selectedLuckStrength * 10)}%, 
-                          #052e16 ${Math.min(90, selectedLuckStrength * 10)}%, 
-                          #052e16 ${selectedLuckStrength * 10}%, 
+                          #15803d ${selectedLuckStrength * 10}%, 
                           #e5e7eb ${selectedLuckStrength * 10}%, 
                           #e5e7eb 100%)`
                   }}
@@ -310,7 +301,16 @@ const Pricing = () => {
                     width: 28px;
                     height: 28px;
                     border-radius: 50%;
-                    background: ${selectedLuckStrength === 0 ? '#dcfce7' : `hsl(${120 - (selectedLuckStrength * 8)}, ${50 + selectedLuckStrength * 5}%, ${70 - selectedLuckStrength * 4}%)`};
+                    background: ${(() => {
+                      if (selectedLuckStrength === 0) return '#e5e7eb';
+                      const lightGreen = [220, 252, 231]; // #dcfce7
+                      const darkGreen = [21, 128, 61];    // #15803d
+                      const ratio = selectedLuckStrength / 10;
+                      const r = Math.round(lightGreen[0] + (darkGreen[0] - lightGreen[0]) * ratio);
+                      const g = Math.round(lightGreen[1] + (darkGreen[1] - lightGreen[1]) * ratio);
+                      const b = Math.round(lightGreen[2] + (darkGreen[2] - lightGreen[2]) * ratio);
+                      return `rgb(${r}, ${g}, ${b})`;
+                    })()};
                     border: 3px solid white;
                     box-shadow: 0 3px 8px rgba(0,0,0,0.3);
                     cursor: pointer;
@@ -319,7 +319,16 @@ const Pricing = () => {
                     width: 28px;
                     height: 28px;
                     border-radius: 50%;
-                    background: ${selectedLuckStrength === 0 ? '#dcfce7' : `hsl(${120 - (selectedLuckStrength * 8)}, ${50 + selectedLuckStrength * 5}%, ${70 - selectedLuckStrength * 4}%)`};
+                    background: ${(() => {
+                      if (selectedLuckStrength === 0) return '#e5e7eb';
+                      const lightGreen = [220, 252, 231]; // #dcfce7
+                      const darkGreen = [21, 128, 61];    // #15803d
+                      const ratio = selectedLuckStrength / 10;
+                      const r = Math.round(lightGreen[0] + (darkGreen[0] - lightGreen[0]) * ratio);
+                      const g = Math.round(lightGreen[1] + (darkGreen[1] - lightGreen[1]) * ratio);
+                      const b = Math.round(lightGreen[2] + (darkGreen[2] - lightGreen[2]) * ratio);
+                      return `rgb(${r}, ${g}, ${b})`;
+                    })()};
                     border: 3px solid white;
                     box-shadow: 0 3px 8px rgba(0,0,0,0.3);
                     cursor: pointer;
