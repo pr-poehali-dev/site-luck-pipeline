@@ -260,8 +260,14 @@ const Pricing = () => {
       return;
     }
     
-    // Остаемся на странице выбора, не переходим на оплату
-    console.log('Выбрана опция:', { price, duration, immediate, date: immediate ? null : selectedDate });
+    navigate('/payment', { 
+      state: { 
+        wish: wishText, 
+        price: price,
+        duration: duration,
+        date: immediate ? null : selectedDate
+      } 
+    });
   };
 
   return (
