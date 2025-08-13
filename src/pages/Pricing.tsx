@@ -315,11 +315,16 @@ const Pricing = () => {
                     style={{
                       background: (() => {
                         const fillPercent = (currentStrength / 10) * 100;
-                        const lightGreen = '#dcfce7';
-                        const darkGreen = '#15803d';
+                        const ratio = currentStrength / 10;
+                        const lightGreen = [220, 252, 231];
+                        const darkGreen = [21, 128, 61];
+                        const r = Math.round(lightGreen[0] + (darkGreen[0] - lightGreen[0]) * ratio);
+                        const g = Math.round(lightGreen[1] + (darkGreen[1] - lightGreen[1]) * ratio);
+                        const b = Math.round(lightGreen[2] + (darkGreen[2] - lightGreen[2]) * ratio);
+                        const currentColor = `rgb(${r}, ${g}, ${b})`;
                         return `linear-gradient(to right, 
-                          ${lightGreen} 0%, 
-                          ${darkGreen} ${fillPercent}%, 
+                          ${currentColor} 0%, 
+                          ${currentColor} ${fillPercent}%, 
                           #e5e7eb ${fillPercent}%, 
                           #e5e7eb 100%)`;
                       })(),
