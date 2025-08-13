@@ -217,7 +217,7 @@ const Pricing = () => {
   const [selectedTimeSlot, setSelectedTimeSlot] = useState('immediate');
   
   const timeSlots = [
-    { id: 'immediate', label: 'Действует сразу', immediate: true },
+    { id: 'immediate', label: 'Удача на событие', immediate: true },
     { id: 'morning', label: 'Утро (6:00 - 12:00)', immediate: false },
     { id: 'day', label: 'День (12:00 - 18:00)', immediate: false },
     { id: 'evening', label: 'Вечер (18:00 - 24:00)', immediate: false },
