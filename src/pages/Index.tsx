@@ -15,7 +15,7 @@ const Index = () => {
     // Убираем заставку после завершения анимации
     setTimeout(() => {
       setShowSplash(false);
-    }, 2000);
+    }, 2500);
   };
 
   // Создаем звезды
@@ -34,7 +34,28 @@ const Index = () => {
     return stars;
   };
 
+  // Создаем мелкие осколки стекла
+  const generateShards = () => {
+    const shards = [];
+    for (let i = 0; i < 120; i++) {
+      shards.push({
+        id: i,
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        width: Math.random() * 30 + 15, // 15-45px
+        height: Math.random() * 30 + 15, // 15-45px
+        rotation: Math.random() * 360,
+        velocityX: (Math.random() - 0.5) * 1500, // -750 to 750px
+        velocityY: (Math.random() - 0.5) * 1500,
+        rotationSpeed: (Math.random() - 0.5) * 1080, // -540 to 540 degrees
+        delay: Math.random() * 0.2 // 0-0.2s delay
+      });
+    }
+    return shards;
+  };
+
   const stars = generateStars();
+  const shards = generateShards();
 
   const handleSubmit = () => {
     if (wishText.trim()) {
@@ -45,105 +66,85 @@ const Index = () => {
   if (showSplash) {
     return (
       <div 
-        className="fixed inset-0 z-50 cursor-pointer overflow-hidden"
+        className="fixed inset-0 z-50 cursor-pointer overflow-hidden bg-black"
         onClick={handleSplashClick}
       >
-        {/* Крупные куски заставки */}
-        <div className={`absolute inset-0 ${isBreaking ? 'breaking' : ''}`}>
-          {/* Левый верхний кусок */}
-          <div className={`absolute bg-black w-1/2 h-1/2 top-0 left-0 ${isBreaking ? 'chunk-1' : ''}`}>
-            <div className="absolute inset-0 overflow-hidden">
-              {stars.slice(0, 50).map((star) => (
-                <div
-                  key={star.id}
-                  className="absolute bg-white rounded-full twinkle"
-                  style={{
-                    left: `${star.x * 2}%`,
-                    top: `${star.y * 2}%`,
-                    width: `${star.size}px`,
-                    height: `${star.size}px`,
-                    opacity: star.opacity,
-                    animationDelay: `${star.animationDelay}s`,
-                  }}
-                />
-              ))}
-            </div>
+        {/* Фоновое звездное небо */}
+        {!isBreaking && (
+          <div className="absolute inset-0">
+            {stars.map((star) => (
+              <div
+                key={star.id}
+                className="absolute bg-white rounded-full twinkle"
+                style={{
+                  left: `${star.x}%`,
+                  top: `${star.y}%`,
+                  width: `${star.size}px`,
+                  height: `${star.size}px`,
+                  opacity: star.opacity,
+                  animationDelay: `${star.animationDelay}s`,
+                }}
+              />
+            ))}
           </div>
+        )}
 
-          {/* Правый верхний кусок */}
-          <div className={`absolute bg-black w-1/2 h-1/2 top-0 right-0 ${isBreaking ? 'chunk-2' : ''}`}>
-            <div className="absolute inset-0 overflow-hidden">
-              {stars.slice(50, 100).map((star) => (
-                <div
-                  key={star.id}
-                  className="absolute bg-white rounded-full twinkle"
-                  style={{
-                    left: `${(star.x - 50) * 2}%`,
-                    top: `${star.y * 2}%`,
-                    width: `${star.size}px`,
-                    height: `${star.size}px`,
-                    opacity: star.opacity,
-                    animationDelay: `${star.animationDelay}s`,
-                  }}
-                />
-              ))}
+        {/* Центральный текст */}
+        {!isBreaking && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center text-white fade-in">
+              <h1 className="text-6xl font-bold mb-4 text-shadow-lg">
+                САЙТ УДАЧИ
+              </h1>
+              <p className="text-xl opacity-80">
+                Нажмите, чтобы войти
+              </p>
             </div>
           </div>
+        )}
 
-          {/* Левый нижний кусок */}
-          <div className={`absolute bg-black w-1/2 h-1/2 bottom-0 left-0 ${isBreaking ? 'chunk-3' : ''}`}>
-            <div className="absolute inset-0 overflow-hidden">
-              {stars.slice(100, 150).map((star) => (
-                <div
-                  key={star.id}
-                  className="absolute bg-white rounded-full twinkle"
-                  style={{
-                    left: `${star.x * 2}%`,
-                    top: `${(star.y - 50) * 2}%`,
-                    width: `${star.size}px`,
-                    height: `${star.size}px`,
-                    opacity: star.opacity,
-                    animationDelay: `${star.animationDelay}s`,
-                  }}
-                />
-              ))}
-            </div>
+        {/* Мелкие осколки стекла */}
+        {isBreaking && (
+          <div className="absolute inset-0">
+            {shards.map((shard) => (
+              <div
+                key={shard.id}
+                className="absolute bg-gradient-to-br from-gray-800 via-gray-900 to-black border border-gray-600 shard-break"
+                style={{
+                  left: `${shard.x}%`,
+                  top: `${shard.y}%`,
+                  width: `${shard.width}px`,
+                  height: `${shard.height}px`,
+                  transform: `rotate(${shard.rotation}deg)`,
+                  clipPath: 'polygon(20% 0%, 80% 10%, 100% 50%, 85% 90%, 15% 100%, 0% 60%)',
+                  boxShadow: 'inset 0 0 10px rgba(255,255,255,0.1), 0 0 5px rgba(255,255,255,0.05)',
+                  animationDelay: `${shard.delay}s`,
+                  '--velocity-x': `${shard.velocityX}px`,
+                  '--velocity-y': `${shard.velocityY}px`,
+                  '--rotation-speed': `${shard.rotationSpeed}deg`,
+                } as any}
+              />
+            ))}
+            
+            {/* Звезды разлетаются вместе с осколками */}
+            {stars.map((star) => (
+              <div
+                key={`star-${star.id}`}
+                className="absolute bg-white rounded-full star-break"
+                style={{
+                  left: `${star.x}%`,
+                  top: `${star.y}%`,
+                  width: `${star.size}px`,
+                  height: `${star.size}px`,
+                  opacity: star.opacity,
+                  animationDelay: `${star.animationDelay * 0.3}s`,
+                  '--velocity-x': `${(Math.random() - 0.5) * 1000}px`,
+                  '--velocity-y': `${(Math.random() - 0.5) * 1000}px`,
+                } as any}
+              />
+            ))}
           </div>
-
-          {/* Правый нижний кусок */}
-          <div className={`absolute bg-black w-1/2 h-1/2 bottom-0 right-0 ${isBreaking ? 'chunk-4' : ''}`}>
-            <div className="absolute inset-0 overflow-hidden">
-              {stars.slice(150, 200).map((star) => (
-                <div
-                  key={star.id}
-                  className="absolute bg-white rounded-full twinkle"
-                  style={{
-                    left: `${(star.x - 50) * 2}%`,
-                    top: `${(star.y - 50) * 2}%`,
-                    width: `${star.size}px`,
-                    height: `${star.size}px`,
-                    opacity: star.opacity,
-                    animationDelay: `${star.animationDelay}s`,
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* Центральный кусок с текстом */}
-          <div className={`absolute bg-black w-64 h-32 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${isBreaking ? 'chunk-center' : ''}`}>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className={`text-center text-white ${isBreaking ? 'fade-out' : 'fade-in'}`}>
-                <h1 className="text-4xl font-bold mb-2 text-shadow-lg">
-                  САЙТ УДАЧИ
-                </h1>
-                <p className="text-sm opacity-80">
-                  Нажмите, чтобы войти
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+        )}
 
         {/* CSS стили для анимаций */}
         <style jsx>{`
@@ -160,18 +161,9 @@ const Index = () => {
             animation: fadeIn 2s ease-in;
           }
           
-          .fade-out {
-            animation: fadeOut 0.5s ease-out;
-          }
-          
           @keyframes fadeIn {
             0% { opacity: 0; transform: scale(0.9); }
             100% { opacity: 1; transform: scale(1); }
-          }
-          
-          @keyframes fadeOut {
-            0% { opacity: 1; }
-            100% { opacity: 0; }
           }
           
           .text-shadow-lg {
@@ -180,83 +172,38 @@ const Index = () => {
                          0 0 60px rgba(255, 255, 255, 0.2);
           }
           
-          /* Анимации кусков */
-          .chunk-1 {
-            animation: chunk1 2s ease-in-out forwards;
-            transform-origin: center center;
+          .shard-break {
+            animation: shardBreak 2.5s ease-out forwards;
           }
           
-          .chunk-2 {
-            animation: chunk2 2s ease-in-out forwards;
-            transform-origin: center center;
+          .star-break {
+            animation: starBreak 2s ease-out forwards;
           }
           
-          .chunk-3 {
-            animation: chunk3 2s ease-in-out forwards;
-            transform-origin: center center;
-          }
-          
-          .chunk-4 {
-            animation: chunk4 2s ease-in-out forwards;
-            transform-origin: center center;
-          }
-          
-          .chunk-center {
-            animation: chunkCenter 2s ease-in-out forwards;
-            transform-origin: center center;
-          }
-          
-          @keyframes chunk1 {
+          @keyframes shardBreak {
             0% { 
-              transform: translate(0, 0) rotate(0deg);
+              transform: rotate(var(--rotation)) scale(1);
               opacity: 1;
             }
+            10% {
+              transform: rotate(var(--rotation)) scale(1.1);
+              opacity: 0.9;
+            }
             100% { 
-              transform: translate(-800px, -600px) rotate(-45deg);
+              transform: translate(var(--velocity-x), var(--velocity-y)) 
+                         rotate(calc(var(--rotation) + var(--rotation-speed))) 
+                         scale(0.3);
               opacity: 0;
             }
           }
           
-          @keyframes chunk2 {
+          @keyframes starBreak {
             0% { 
-              transform: translate(0, 0) rotate(0deg);
-              opacity: 1;
+              transform: translate(0, 0) scale(1);
+              opacity: 0.8;
             }
             100% { 
-              transform: translate(800px, -600px) rotate(45deg);
-              opacity: 0;
-            }
-          }
-          
-          @keyframes chunk3 {
-            0% { 
-              transform: translate(0, 0) rotate(0deg);
-              opacity: 1;
-            }
-            100% { 
-              transform: translate(-800px, 600px) rotate(45deg);
-              opacity: 0;
-            }
-          }
-          
-          @keyframes chunk4 {
-            0% { 
-              transform: translate(0, 0) rotate(0deg);
-              opacity: 1;
-            }
-            100% { 
-              transform: translate(800px, 600px) rotate(-45deg);
-              opacity: 0;
-            }
-          }
-          
-          @keyframes chunkCenter {
-            0% { 
-              transform: translate(-50%, -50%) rotate(0deg) scale(1);
-              opacity: 1;
-            }
-            100% { 
-              transform: translate(-50%, -50%) rotate(180deg) scale(0.3);
+              transform: translate(var(--velocity-x), var(--velocity-y)) scale(0.2);
               opacity: 0;
             }
           }
