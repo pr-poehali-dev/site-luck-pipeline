@@ -16,6 +16,7 @@ const Pricing = () => {
   const [strengthDay, setStrengthDay] = useState(5);
   const [strengthEvening, setStrengthEvening] = useState(5);
   const [nightStrength, setNightStrength] = useState(5);
+  const [recentlyChanged, setRecentlyChanged] = useState<Set<string>>(new Set());
   const confettiInterval = useRef<NodeJS.Timeout | null>(null);
 
   // Автоматический запуск яркого радужного конфетти при загрузке страницы
@@ -252,12 +253,25 @@ const Pricing = () => {
       case 'evening': setStrengthEvening(value); break;
       case 'night': setNightStrength(value); break;
     }
+    
+    // Отмечаем, что этот тип был недавно изменен
+    setRecentlyChanged(prev => new Set([...prev, type]));
   };
 
-  const handlePricingSelect = (price: number, duration: string, immediate: boolean) => {
+  const handlePricingSelect = (price: number, duration: string, immediate: boolean, type: string) => {
     if (!immediate && !selectedDate) {
       alert('Пожалуйста, укажите дату');
       return;
+    }
+    
+    // Если индикатор недавно изменялся, требуем повторный клик
+    if (recentlyChanged.has(type)) {
+      setRecentlyChanged(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(type);
+        return newSet;
+      });
+      return; // Не переходим, просто убираем из списка измененных
     }
     
     navigate('/payment', { 
@@ -294,7 +308,7 @@ const Pricing = () => {
                 <Button
                   key={index}
                   variant="outline"
-                  onClick={() => handlePricingSelect(option.price, option.duration, option.immediate)}
+                  onClick={() => handlePricingSelect(option.price, option.duration, option.immediate, option.type)}
                   className="w-full flex justify-between items-center p-4 h-auto hover:bg-purple-50 border-2 hover:border-purple-300"
                 >
                   <div className="flex flex-col items-start space-y-1">
