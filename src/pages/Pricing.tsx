@@ -298,7 +298,18 @@ const Pricing = () => {
                 type="text"
                 placeholder="ДД.ММ.ГГГГ (например: 15.12.2024)"
                 value={selectedDate}
-                onChange={(e) => setSelectedDate(e.target.value)}
+                onChange={(e) => {
+                  let value = e.target.value.replace(/\D/g, ''); // Только цифры
+                  
+                  if (value.length >= 2) {
+                    value = value.slice(0, 2) + '.' + value.slice(2);
+                  }
+                  if (value.length >= 5) {
+                    value = value.slice(0, 5) + '.' + value.slice(5, 9);
+                  }
+                  
+                  setSelectedDate(value);
+                }}
                 className="text-center"
               />
             </div>
