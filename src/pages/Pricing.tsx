@@ -430,11 +430,11 @@ const Pricing = () => {
                   className="w-full flex justify-between items-center p-4 h-auto hover:bg-purple-50 border-2 hover:border-purple-300"
                 >
                   <div className="flex flex-col items-start space-y-1">
-                    <span className="text-lg font-medium">{option.duration}</span>
+                    <span className="text-2xl font-bold">{option.duration}</span>
                     {option.immediate ? (
-                      <span className="text-sm text-green-600 font-medium">Действует сразу после оплаты</span>
+                      <span className="text-lg text-green-600 font-medium">Действует сразу после оплаты</span>
                     ) : (
-                      <span className="text-sm text-blue-600 font-medium">Укажите дату активации</span>
+                      <span className="text-lg text-blue-600 font-medium">Укажите дату активации</span>
                     )}
                   </div>
 
