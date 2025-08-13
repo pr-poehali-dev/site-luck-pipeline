@@ -9,6 +9,12 @@ const Pricing = () => {
   const navigate = useNavigate();
   const wishText = location.state?.wish || '';
   const [selectedDate, setSelectedDate] = useState('');
+  const [strength30min, setStrength30min] = useState(5);
+  const [strength1hour, setStrength1hour] = useState(5);
+  const [strengthEvent, setStrengthEvent] = useState(5);
+  const [strengthMorning, setStrengthMorning] = useState(5);
+  const [strengthDay, setStrengthDay] = useState(5);
+  const [strengthEvening, setStrengthEvening] = useState(5);
   const [nightStrength, setNightStrength] = useState(5);
   const confettiInterval = useRef<NodeJS.Timeout | null>(null);
 
@@ -215,14 +221,39 @@ const Pricing = () => {
   }, []);
 
   const pricingOptions = [
-    { duration: '30 минут', price: 250, immediate: true, isNight: false },
-    { duration: '1 час', price: 500, immediate: true, isNight: false },
-    { duration: 'Удача на событие', price: 1000, immediate: true, isNight: false },
-    { duration: 'Утро (6:00 - 12:00)', price: 1000, immediate: false, isNight: false },
-    { duration: 'День (12:00 - 18:00)', price: 1500, immediate: false, isNight: false },
-    { duration: 'Вечер (18:00 - 24:00)', price: 1500, immediate: false, isNight: false },
-    { duration: 'Ночь (00:00 - 6:00)', price: nightStrength * 100, immediate: false, isNight: true }
+    { duration: '30 минут', price: strength30min * 100, immediate: true, type: '30min' },
+    { duration: '1 час', price: strength1hour * 100, immediate: true, type: '1hour' },
+    { duration: 'Удача на событие', price: strengthEvent * 100, immediate: true, type: 'event' },
+    { duration: 'Утро (6:00 - 12:00)', price: strengthMorning * 100, immediate: false, type: 'morning' },
+    { duration: 'День (12:00 - 18:00)', price: strengthDay * 100, immediate: false, type: 'day' },
+    { duration: 'Вечер (18:00 - 24:00)', price: strengthEvening * 100, immediate: false, type: 'evening' },
+    { duration: 'Ночь (00:00 - 6:00)', price: nightStrength * 100, immediate: false, type: 'night' }
   ];
+
+  const getStrengthValue = (type: string) => {
+    switch (type) {
+      case '30min': return strength30min;
+      case '1hour': return strength1hour;
+      case 'event': return strengthEvent;
+      case 'morning': return strengthMorning;
+      case 'day': return strengthDay;
+      case 'evening': return strengthEvening;
+      case 'night': return nightStrength;
+      default: return 5;
+    }
+  };
+
+  const setStrengthValue = (type: string, value: number) => {
+    switch (type) {
+      case '30min': setStrength30min(value); break;
+      case '1hour': setStrength1hour(value); break;
+      case 'event': setStrengthEvent(value); break;
+      case 'morning': setStrengthMorning(value); break;
+      case 'day': setStrengthDay(value); break;
+      case 'evening': setStrengthEvening(value); break;
+      case 'night': setNightStrength(value); break;
+    }
+  };
 
   const handlePricingSelect = (price: number, duration: string, immediate: boolean) => {
     if (!immediate && !selectedDate) {
@@ -276,52 +307,49 @@ const Pricing = () => {
                     )}
                   </div>
                   
-                  {option.isNight ? (
-                    <div className="flex items-center space-x-3">
-                      <div className="w-64">
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="text-xs text-gray-600">Сила</span>
-                          <span className="text-xs font-bold text-purple-600">{nightStrength}</span>
-                        </div>
-                        <input
-                          type="range"
-                          min="1"
-                          max="9"
-                          value={nightStrength}
-                          onChange={(e) => {
-                            e.stopPropagation();
-                            setNightStrength(parseInt(e.target.value));
-                          }}
-                          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                          style={{
-                            background: (() => {
-                              const lightGreen = [220, 252, 231];
-                              const darkGreen = [21, 128, 61];
-                              const ratio = (nightStrength - 1) / 8; // от 1-9 = 0-1
-                              const r = Math.round(lightGreen[0] + (darkGreen[0] - lightGreen[0]) * ratio);
-                              const g = Math.round(lightGreen[1] + (darkGreen[1] - lightGreen[1]) * ratio);
-                              const b = Math.round(lightGreen[2] + (darkGreen[2] - lightGreen[2]) * ratio);
-                              return `rgb(${r}, ${g}, ${b})`;
-                            })()
-                          }}
-                        />
-                        <div className="flex justify-between text-xs text-gray-400 mt-1">
-                          <span>1</span>
-                          <span>2</span>
-                          <span>3</span>
-                          <span>4</span>
-                          <span>5</span>
-                          <span>6</span>
-                          <span>7</span>
-                          <span>8</span>
-                          <span>9</span>
-                        </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-64">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-xs text-gray-600">Сила</span>
+                        <span className="text-xs font-bold text-purple-600">{getStrengthValue(option.type)}</span>
                       </div>
-                      <span className="text-xl font-bold text-purple-600">{option.price} ₽</span>
+                      <input
+                        type="range"
+                        min="1"
+                        max="9"
+                        value={getStrengthValue(option.type)}
+                        onChange={(e) => {
+                          e.stopPropagation();
+                          setStrengthValue(option.type, parseInt(e.target.value));
+                        }}
+                        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                        style={{
+                          background: (() => {
+                            const strength = getStrengthValue(option.type);
+                            const lightGreen = [220, 252, 231];
+                            const darkGreen = [21, 128, 61];
+                            const ratio = (strength - 1) / 8; // от 1-9 = 0-1
+                            const r = Math.round(lightGreen[0] + (darkGreen[0] - lightGreen[0]) * ratio);
+                            const g = Math.round(lightGreen[1] + (darkGreen[1] - lightGreen[1]) * ratio);
+                            const b = Math.round(lightGreen[2] + (darkGreen[2] - lightGreen[2]) * ratio);
+                            return `rgb(${r}, ${g}, ${b})`;
+                          })()
+                        }}
+                      />
+                      <div className="flex justify-between text-xs text-gray-400 mt-1">
+                        <span>1</span>
+                        <span>2</span>
+                        <span>3</span>
+                        <span>4</span>
+                        <span>5</span>
+                        <span>6</span>
+                        <span>7</span>
+                        <span>8</span>
+                        <span>9</span>
+                      </div>
                     </div>
-                  ) : (
                     <span className="text-xl font-bold text-purple-600">{option.price} ₽</span>
-                  )}
+                  </div>
                 </Button>
               ))}
             </div>
