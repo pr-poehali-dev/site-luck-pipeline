@@ -373,7 +373,7 @@ const Pricing = () => {
                   <Button
                     variant="outline"
                     onClick={() => setShowStrengthSelector(false)}
-                    className="flex-1"
+                    className="flex-1 border-green-600 text-green-600 hover:bg-green-50"
                   >
                     ← Назад
                   </Button>
