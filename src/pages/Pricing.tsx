@@ -372,7 +372,7 @@ const Pricing = () => {
                         <span>9</span>
                       </div>
                     </div>
-                    <span className="text-xl font-bold text-purple-600">{option.price} ₽</span>
+
                   </div>
                 </Button>
               ))}
