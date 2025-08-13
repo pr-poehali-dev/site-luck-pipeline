@@ -317,12 +317,10 @@ const Pricing = () => {
                     className="w-full h-4 bg-gray-200 rounded-lg cursor-pointer"
                     style={{
                       background: `linear-gradient(to right, 
-                        #dcfce7 0%, 
-                        #86efac ${((currentStrength - 1) / 8) * 100}%, 
-                        #15803d ${((currentStrength - 1) / 8) * 100}%, 
-                        #dcfce7 100%)`,
-                      WebkitAppearance: 'none',
-                      appearance: 'none'
+                        #22c55e 0%, 
+                        #22c55e ${((currentStrength - 1) / 8) * 100}%, 
+                        #e5e7eb ${((currentStrength - 1) / 8) * 100}%, 
+                        #e5e7eb 100%)`
                     }}
                   />
                   <div className="flex justify-between text-sm text-gray-400 mt-2">
