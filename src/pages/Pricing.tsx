@@ -286,13 +286,16 @@ const Pricing = () => {
                   onChange={(e) => setSelectedLuckStrength(parseInt(e.target.value))}
                   className="w-full h-6 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
                   style={{
-                    background: selectedLuckStrength === 0 
-                      ? '#e5e7eb'
-                      : `linear-gradient(to right, 
-                          #dcfce7 0%, 
-                          #15803d ${selectedLuckStrength * 10}%, 
-                          #e5e7eb ${selectedLuckStrength * 10}%, 
-                          #e5e7eb 100%)`
+                    background: (() => {
+                      if (selectedLuckStrength === 0) return '#e5e7eb';
+                      const lightGreen = [220, 252, 231]; // #dcfce7
+                      const darkGreen = [21, 128, 61];    // #15803d
+                      const ratio = selectedLuckStrength / 10;
+                      const r = Math.round(lightGreen[0] + (darkGreen[0] - lightGreen[0]) * ratio);
+                      const g = Math.round(lightGreen[1] + (darkGreen[1] - lightGreen[1]) * ratio);
+                      const b = Math.round(lightGreen[2] + (darkGreen[2] - lightGreen[2]) * ratio);
+                      return `rgb(${r}, ${g}, ${b})`;
+                    })()
                   }}
                 />
                 <style jsx>{`
