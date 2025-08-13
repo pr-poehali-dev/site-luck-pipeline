@@ -317,12 +317,12 @@ const Pricing = () => {
                     className="w-full h-4 bg-gray-200 rounded-lg appearance-none cursor-pointer"
                     style={{
                       background: (() => {
-                        const lightPurple = [220, 208, 255];
-                        const darkPurple = [107, 33, 168];
+                        const lightGreen = [220, 252, 231];
+                        const darkGreen = [21, 128, 61];
                         const ratio = (currentStrength - 1) / 8;
-                        const r = Math.round(lightPurple[0] + (darkPurple[0] - lightPurple[0]) * ratio);
-                        const g = Math.round(lightPurple[1] + (darkPurple[1] - lightPurple[1]) * ratio);
-                        const b = Math.round(lightPurple[2] + (darkPurple[2] - lightPurple[2]) * ratio);
+                        const r = Math.round(lightGreen[0] + (darkGreen[0] - lightGreen[0]) * ratio);
+                        const g = Math.round(lightGreen[1] + (darkGreen[1] - lightGreen[1]) * ratio);
+                        const b = Math.round(lightGreen[2] + (darkGreen[2] - lightGreen[2]) * ratio);
                         return `rgb(${r}, ${g}, ${b})`;
                       })()
                     }}
