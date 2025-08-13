@@ -330,50 +330,7 @@ const Pricing = () => {
                       <span className="text-sm text-blue-600 font-medium">Укажите дату активации</span>
                     )}
                   </div>
-                  
-                  <div className="flex items-center space-x-3">
-                    <div className="w-64">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-xs text-gray-600">Выберите силу удачи</span>
-                        <span className="text-xs font-bold text-purple-600">{getStrengthValue(option.type)}</span>
-                      </div>
-                      <input
-                        type="range"
-                        min="1"
-                        max="9"
-                        value={getStrengthValue(option.type)}
-                        onChange={(e) => {
-                          e.stopPropagation();
-                          setStrengthValue(option.type, parseInt(e.target.value));
-                        }}
-                        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                        style={{
-                          background: (() => {
-                            const strength = getStrengthValue(option.type);
-                            const lightGreen = [220, 252, 231];
-                            const darkGreen = [21, 128, 61];
-                            const ratio = (strength - 1) / 8; // от 1-9 = 0-1
-                            const r = Math.round(lightGreen[0] + (darkGreen[0] - lightGreen[0]) * ratio);
-                            const g = Math.round(lightGreen[1] + (darkGreen[1] - lightGreen[1]) * ratio);
-                            const b = Math.round(lightGreen[2] + (darkGreen[2] - lightGreen[2]) * ratio);
-                            return `rgb(${r}, ${g}, ${b})`;
-                          })()
-                        }}
-                      />
-                      <div className="flex justify-between text-xs text-gray-400 mt-1">
-                        <span>1</span>
-                        <span>2</span>
-                        <span>3</span>
-                        <span>4</span>
-                        <span>5</span>
-                        <span>6</span>
-                        <span>7</span>
-                        <span>8</span>
-                        <span>9</span>
-                      </div>
-                    </div>
 
-                  </div>
                 </Button>
               ))}
             </div>
