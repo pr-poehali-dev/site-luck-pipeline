@@ -45,36 +45,103 @@ const Index = () => {
   if (showSplash) {
     return (
       <div 
-        className={`fixed inset-0 z-50 bg-black cursor-pointer overflow-hidden ${isBreaking ? 'breaking-glass' : ''}`}
+        className="fixed inset-0 z-50 cursor-pointer overflow-hidden"
         onClick={handleSplashClick}
       >
-        {/* Звездное небо */}
-        <div className="absolute inset-0">
-          {stars.map((star) => (
-            <div
-              key={star.id}
-              className={`absolute bg-white rounded-full ${isBreaking ? `shard-${star.id % 20}` : 'twinkle'}`}
-              style={{
-                left: `${star.x}%`,
-                top: `${star.y}%`,
-                width: `${star.size}px`,
-                height: `${star.size}px`,
-                opacity: star.opacity,
-                animationDelay: `${star.animationDelay}s`,
-              }}
-            />
-          ))}
-        </div>
-        
-        {/* Центральный текст */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className={`text-center text-white ${isBreaking ? 'fade-out' : 'fade-in'}`}>
-            <h1 className="text-6xl font-bold mb-4 text-shadow-lg">
-              САЙТ УДАЧИ
-            </h1>
-            <p className="text-xl opacity-80">
-              Нажмите, чтобы войти
-            </p>
+        {/* Крупные куски заставки */}
+        <div className={`absolute inset-0 ${isBreaking ? 'breaking' : ''}`}>
+          {/* Левый верхний кусок */}
+          <div className={`absolute bg-black w-1/2 h-1/2 top-0 left-0 ${isBreaking ? 'chunk-1' : ''}`}>
+            <div className="absolute inset-0 overflow-hidden">
+              {stars.slice(0, 50).map((star) => (
+                <div
+                  key={star.id}
+                  className="absolute bg-white rounded-full twinkle"
+                  style={{
+                    left: `${star.x * 2}%`,
+                    top: `${star.y * 2}%`,
+                    width: `${star.size}px`,
+                    height: `${star.size}px`,
+                    opacity: star.opacity,
+                    animationDelay: `${star.animationDelay}s`,
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Правый верхний кусок */}
+          <div className={`absolute bg-black w-1/2 h-1/2 top-0 right-0 ${isBreaking ? 'chunk-2' : ''}`}>
+            <div className="absolute inset-0 overflow-hidden">
+              {stars.slice(50, 100).map((star) => (
+                <div
+                  key={star.id}
+                  className="absolute bg-white rounded-full twinkle"
+                  style={{
+                    left: `${(star.x - 50) * 2}%`,
+                    top: `${star.y * 2}%`,
+                    width: `${star.size}px`,
+                    height: `${star.size}px`,
+                    opacity: star.opacity,
+                    animationDelay: `${star.animationDelay}s`,
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Левый нижний кусок */}
+          <div className={`absolute bg-black w-1/2 h-1/2 bottom-0 left-0 ${isBreaking ? 'chunk-3' : ''}`}>
+            <div className="absolute inset-0 overflow-hidden">
+              {stars.slice(100, 150).map((star) => (
+                <div
+                  key={star.id}
+                  className="absolute bg-white rounded-full twinkle"
+                  style={{
+                    left: `${star.x * 2}%`,
+                    top: `${(star.y - 50) * 2}%`,
+                    width: `${star.size}px`,
+                    height: `${star.size}px`,
+                    opacity: star.opacity,
+                    animationDelay: `${star.animationDelay}s`,
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Правый нижний кусок */}
+          <div className={`absolute bg-black w-1/2 h-1/2 bottom-0 right-0 ${isBreaking ? 'chunk-4' : ''}`}>
+            <div className="absolute inset-0 overflow-hidden">
+              {stars.slice(150, 200).map((star) => (
+                <div
+                  key={star.id}
+                  className="absolute bg-white rounded-full twinkle"
+                  style={{
+                    left: `${(star.x - 50) * 2}%`,
+                    top: `${(star.y - 50) * 2}%`,
+                    width: `${star.size}px`,
+                    height: `${star.size}px`,
+                    opacity: star.opacity,
+                    animationDelay: `${star.animationDelay}s`,
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Центральный кусок с текстом */}
+          <div className={`absolute bg-black w-64 h-32 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${isBreaking ? 'chunk-center' : ''}`}>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className={`text-center text-white ${isBreaking ? 'fade-out' : 'fade-in'}`}>
+                <h1 className="text-4xl font-bold mb-2 text-shadow-lg">
+                  САЙТ УДАЧИ
+                </h1>
+                <p className="text-sm opacity-80">
+                  Нажмите, чтобы войти
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -107,40 +174,92 @@ const Index = () => {
             100% { opacity: 0; }
           }
           
-          .breaking-glass {
-            animation: shatter 2s ease-out;
-          }
-          
-          @keyframes shatter {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.2); opacity: 0; }
-          }
-          
           .text-shadow-lg {
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.5),
                          0 0 40px rgba(255, 255, 255, 0.3),
                          0 0 60px rgba(255, 255, 255, 0.2);
           }
           
-          /* Анимации осколков */
-          ${Array.from({length: 20}, (_, i) => `
-            .shard-${i} {
-              animation: shard${i} 2s ease-out forwards;
+          /* Анимации кусков */
+          .chunk-1 {
+            animation: chunk1 2s ease-in-out forwards;
+            transform-origin: center center;
+          }
+          
+          .chunk-2 {
+            animation: chunk2 2s ease-in-out forwards;
+            transform-origin: center center;
+          }
+          
+          .chunk-3 {
+            animation: chunk3 2s ease-in-out forwards;
+            transform-origin: center center;
+          }
+          
+          .chunk-4 {
+            animation: chunk4 2s ease-in-out forwards;
+            transform-origin: center center;
+          }
+          
+          .chunk-center {
+            animation: chunkCenter 2s ease-in-out forwards;
+            transform-origin: center center;
+          }
+          
+          @keyframes chunk1 {
+            0% { 
+              transform: translate(0, 0) rotate(0deg);
+              opacity: 1;
             }
-            
-            @keyframes shard${i} {
-              0% { 
-                transform: translate(0, 0) rotate(0deg) scale(1);
-                opacity: 1;
-              }
-              100% { 
-                transform: translate(${(Math.random() - 0.5) * 2000}px, ${(Math.random() - 0.5) * 2000}px) 
-                           rotate(${Math.random() * 720}deg) 
-                           scale(${Math.random() * 0.5 + 0.2});
-                opacity: 0;
-              }
+            100% { 
+              transform: translate(-800px, -600px) rotate(-45deg);
+              opacity: 0;
             }
-          `).join('')}
+          }
+          
+          @keyframes chunk2 {
+            0% { 
+              transform: translate(0, 0) rotate(0deg);
+              opacity: 1;
+            }
+            100% { 
+              transform: translate(800px, -600px) rotate(45deg);
+              opacity: 0;
+            }
+          }
+          
+          @keyframes chunk3 {
+            0% { 
+              transform: translate(0, 0) rotate(0deg);
+              opacity: 1;
+            }
+            100% { 
+              transform: translate(-800px, 600px) rotate(45deg);
+              opacity: 0;
+            }
+          }
+          
+          @keyframes chunk4 {
+            0% { 
+              transform: translate(0, 0) rotate(0deg);
+              opacity: 1;
+            }
+            100% { 
+              transform: translate(800px, 600px) rotate(-45deg);
+              opacity: 0;
+            }
+          }
+          
+          @keyframes chunkCenter {
+            0% { 
+              transform: translate(-50%, -50%) rotate(0deg) scale(1);
+              opacity: 1;
+            }
+            100% { 
+              transform: translate(-50%, -50%) rotate(180deg) scale(0.3);
+              opacity: 0;
+            }
+          }
         `}</style>
       </div>
     );
