@@ -311,13 +311,18 @@ const Pricing = () => {
                     max="10"
                     value={currentStrength}
                     onChange={(e) => setCurrentStrength(parseInt(e.target.value))}
-                    className="w-full h-4 bg-gray-200 rounded-lg cursor-pointer"
+                    className="w-full h-8 bg-gray-200 rounded-lg cursor-pointer"
                     style={{
-                      background: `linear-gradient(to right, 
-                        #22c55e 0%, 
-                        #22c55e ${(currentStrength / 10) * 100}%, 
-                        #e5e7eb ${(currentStrength / 10) * 100}%, 
-                        #e5e7eb 100%)`
+                      background: (() => {
+                        const fillPercent = (currentStrength / 10) * 100;
+                        const lightGreen = '#dcfce7';
+                        const darkGreen = '#15803d';
+                        return `linear-gradient(to right, 
+                          ${lightGreen} 0%, 
+                          ${darkGreen} ${fillPercent}%, 
+                          #e5e7eb ${fillPercent}%, 
+                          #e5e7eb 100%)`;
+                      })()
                     }}
                   />
                   <div className="flex justify-between text-sm text-gray-400 mt-2">
