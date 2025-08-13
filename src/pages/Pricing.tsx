@@ -379,7 +379,7 @@ const Pricing = () => {
                   </Button>
                   <Button
                     onClick={handleStrengthConfirm}
-                    className="flex-1 bg-purple-600 hover:bg-purple-700 text-white"
+                    className="flex-1 bg-green-600 hover:bg-green-700 text-white"
                   >
                     Продолжить
                   </Button>
