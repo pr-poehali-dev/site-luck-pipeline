@@ -214,13 +214,13 @@ const Pricing = () => {
   }, []);
 
   const pricingOptions = [
-    { duration: '30 минут', price: 250, immediate: true },
-    { duration: '1 час', price: 500, immediate: true },
-    { duration: 'Удача на событие', price: 1000, immediate: true },
-    { duration: 'Утро (6:00 - 12:00)', price: 1000, immediate: false },
-    { duration: 'День (12:00 - 18:00)', price: 1500, immediate: false },
-    { duration: 'Вечер (18:00 - 24:00)', price: 1500, immediate: false },
-    { duration: 'Ночь (00:00 - 6:00)', price: 1000, immediate: false }
+    { duration: '30 минут', price: 250, immediate: true, luckStrength: 2.5 },
+    { duration: '1 час', price: 500, immediate: true, luckStrength: 5 },
+    { duration: 'Удача на событие', price: 1000, immediate: true, luckStrength: 10 },
+    { duration: 'Утро (6:00 - 12:00)', price: 1000, immediate: false, luckStrength: 10 },
+    { duration: 'День (12:00 - 18:00)', price: 1500, immediate: false, luckStrength: 15 },
+    { duration: 'Вечер (18:00 - 24:00)', price: 1500, immediate: false, luckStrength: 15 },
+    { duration: 'Ночь (00:00 - 6:00)', price: 1000, immediate: false, luckStrength: 10 }
   ];
 
   const handlePricingSelect = (price: number, duration: string, immediate: boolean) => {
@@ -273,6 +273,20 @@ const Pricing = () => {
                     ) : (
                       <span className="text-sm text-blue-600 font-medium">Укажите дату активации</span>
                     )}
+                    <div className="flex items-center gap-1 mt-1">
+                      <span className="text-xs text-gray-500">Сила удачи:</span>
+                      <div className="flex items-center">
+                        {Array.from({ length: 10 }, (_, i) => (
+                          <Icon 
+                            key={i} 
+                            name="Star" 
+                            size={12} 
+                            className={`${i < Math.floor(option.luckStrength) ? 'text-yellow-400 fill-current' : 'text-gray-300'}`}
+                          />
+                        ))}
+                        <span className="text-xs text-gray-600 ml-1">({option.luckStrength}/10)</span>
+                      </div>
+                    </div>
                   </div>
                   <span className="text-xl font-bold text-purple-600">{option.price} ₽</span>
                 </Button>
