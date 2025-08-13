@@ -286,7 +286,7 @@ const Pricing = () => {
                   onChange={(e) => setSelectedLuckStrength(parseInt(e.target.value))}
                   className="w-full h-6 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
                   style={{
-                    background: `linear-gradient(to right, #dcfce7 0%, #bbf7d0 10%, #86efac 20%, #4ade80 30%, #22c55e 40%, #16a34a 50%, #15803d 60%, #166534 70%, #14532d 80%, #052e16 90%, #052e16 100%)`
+                    background: `linear-gradient(to right, #dcfce7 0%, #16a34a ${selectedLuckStrength * 10}%, #e5e7eb ${selectedLuckStrength * 10}%, #e5e7eb 100%)`
                   }}
                 />
                 <style jsx>{`
@@ -295,10 +295,7 @@ const Pricing = () => {
                     width: 28px;
                     height: 28px;
                     border-radius: 50%;
-                    background: ${(() => {
-                      const colors = ['#dcfce7', '#bbf7d0', '#86efac', '#4ade80', '#22c55e', '#16a34a', '#15803d', '#166534', '#14532d', '#052e16', '#052e16'];
-                      return colors[selectedLuckStrength] || '#dcfce7';
-                    })()};
+                    background: ${selectedLuckStrength === 0 ? '#dcfce7' : `hsl(${120 - (selectedLuckStrength * 8)}, ${50 + selectedLuckStrength * 5}%, ${70 - selectedLuckStrength * 4}%)`};
                     border: 3px solid white;
                     box-shadow: 0 3px 8px rgba(0,0,0,0.3);
                     cursor: pointer;
@@ -307,10 +304,7 @@ const Pricing = () => {
                     width: 28px;
                     height: 28px;
                     border-radius: 50%;
-                    background: ${(() => {
-                      const colors = ['#dcfce7', '#bbf7d0', '#86efac', '#4ade80', '#22c55e', '#16a34a', '#15803d', '#166534', '#14532d', '#052e16', '#052e16'];
-                      return colors[selectedLuckStrength] || '#dcfce7';
-                    })()};
+                    background: ${selectedLuckStrength === 0 ? '#dcfce7' : `hsl(${120 - (selectedLuckStrength * 8)}, ${50 + selectedLuckStrength * 5}%, ${70 - selectedLuckStrength * 4}%)`};
                     border: 3px solid white;
                     box-shadow: 0 3px 8px rgba(0,0,0,0.3);
                     cursor: pointer;
