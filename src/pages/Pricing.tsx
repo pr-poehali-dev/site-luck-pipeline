@@ -277,8 +277,8 @@ const Pricing = () => {
                   </div>
                   
                   {option.isNight ? (
-                    <div className="flex items-center space-x-3">
-                      <div className="flex-1">
+                    <div className="flex items-center space-x-1">
+                      <div className="w-48">
                         <div className="flex items-center justify-between mb-1">
                           <span className="text-xs text-gray-600">Сила</span>
                           <span className="text-xs font-bold text-purple-600">{nightStrength}</span>
