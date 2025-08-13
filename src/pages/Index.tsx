@@ -38,17 +38,21 @@ const Index = () => {
   const generateShards = () => {
     const shards = [];
     for (let i = 0; i < 120; i++) {
+      const initialVelocityX = (Math.random() - 0.5) * 800; // горизонтальный разлет
+      const initialVelocityY = Math.random() * -400 - 200; // начальная скорость вверх
+      
       shards.push({
         id: i,
         x: Math.random() * 100,
         y: Math.random() * 100,
-        width: Math.random() * 30 + 15, // 15-45px
-        height: Math.random() * 30 + 15, // 15-45px
+        width: Math.random() * 25 + 10, // 10-35px
+        height: Math.random() * 25 + 10,
         rotation: Math.random() * 360,
-        velocityX: (Math.random() - 0.5) * 1500, // -750 to 750px
-        velocityY: (Math.random() - 0.5) * 1500,
-        rotationSpeed: (Math.random() - 0.5) * 1080, // -540 to 540 degrees
-        delay: Math.random() * 0.2 // 0-0.2s delay
+        initialVelocityX: initialVelocityX,
+        initialVelocityY: initialVelocityY,
+        rotationSpeed: (Math.random() - 0.5) * 720, // вращение
+        delay: Math.random() * 0.1, // короткая задержка
+        mass: Math.random() * 0.5 + 0.5 // масса для разной скорости падения
       });
     }
     return shards;
@@ -119,9 +123,10 @@ const Index = () => {
                   clipPath: 'polygon(20% 0%, 80% 10%, 100% 50%, 85% 90%, 15% 100%, 0% 60%)',
                   boxShadow: 'inset 0 0 10px rgba(255,255,255,0.1), 0 0 5px rgba(255,255,255,0.05)',
                   animationDelay: `${shard.delay}s`,
-                  '--velocity-x': `${shard.velocityX}px`,
-                  '--velocity-y': `${shard.velocityY}px`,
+                  '--initial-velocity-x': `${shard.initialVelocityX}px`,
+                  '--initial-velocity-y': `${shard.initialVelocityY}px`,
                   '--rotation-speed': `${shard.rotationSpeed}deg`,
+                  '--mass': shard.mass,
                 } as any}
               />
             ))}
@@ -182,15 +187,29 @@ const Index = () => {
           
           @keyframes shardBreak {
             0% { 
-              transform: rotate(var(--rotation)) scale(1);
+              transform: translate(0, 0) rotate(var(--rotation)) scale(1);
               opacity: 1;
             }
             10% {
-              transform: rotate(var(--rotation)) scale(1.1);
-              opacity: 0.9;
+              transform: translate(calc(var(--initial-velocity-x) * 0.1), calc(var(--initial-velocity-y) * 0.1 + 0px)) 
+                         rotate(calc(var(--rotation) + var(--rotation-speed) * 0.1)) 
+                         scale(1.05);
+              opacity: 0.95;
+            }
+            30% {
+              transform: translate(calc(var(--initial-velocity-x) * 0.3), calc(var(--initial-velocity-y) * 0.3 + 100px * var(--mass))) 
+                         rotate(calc(var(--rotation) + var(--rotation-speed) * 0.3)) 
+                         scale(0.9);
+              opacity: 0.8;
+            }
+            60% {
+              transform: translate(calc(var(--initial-velocity-x) * 0.6), calc(var(--initial-velocity-y) * 0.6 + 400px * var(--mass))) 
+                         rotate(calc(var(--rotation) + var(--rotation-speed) * 0.6)) 
+                         scale(0.7);
+              opacity: 0.6;
             }
             100% { 
-              transform: translate(var(--velocity-x), var(--velocity-y)) 
+              transform: translate(calc(var(--initial-velocity-x) * 1), calc(var(--initial-velocity-y) * 1 + 1000px * var(--mass))) 
                          rotate(calc(var(--rotation) + var(--rotation-speed))) 
                          scale(0.3);
               opacity: 0;
