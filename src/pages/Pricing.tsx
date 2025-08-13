@@ -310,7 +310,7 @@ const Pricing = () => {
                   
                   setSelectedDate(value);
                 }}
-                className="text-center"
+                className="text-center text-lg"
               />
             </div>
             
