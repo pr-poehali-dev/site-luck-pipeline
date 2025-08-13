@@ -286,7 +286,22 @@ const Pricing = () => {
                   onChange={(e) => setSelectedLuckStrength(parseInt(e.target.value))}
                   className="w-full h-6 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
                   style={{
-                    background: `linear-gradient(to right, #dcfce7 0%, #16a34a ${selectedLuckStrength * 10}%, #e5e7eb ${selectedLuckStrength * 10}%, #e5e7eb 100%)`
+                    background: selectedLuckStrength === 0 
+                      ? '#e5e7eb'
+                      : `linear-gradient(to right, 
+                          #dcfce7 0%, 
+                          #bbf7d0 ${Math.min(10, selectedLuckStrength * 10)}%, 
+                          #86efac ${Math.min(20, selectedLuckStrength * 10)}%, 
+                          #4ade80 ${Math.min(30, selectedLuckStrength * 10)}%, 
+                          #22c55e ${Math.min(40, selectedLuckStrength * 10)}%, 
+                          #16a34a ${Math.min(50, selectedLuckStrength * 10)}%, 
+                          #15803d ${Math.min(60, selectedLuckStrength * 10)}%, 
+                          #166534 ${Math.min(70, selectedLuckStrength * 10)}%, 
+                          #14532d ${Math.min(80, selectedLuckStrength * 10)}%, 
+                          #052e16 ${Math.min(90, selectedLuckStrength * 10)}%, 
+                          #052e16 ${selectedLuckStrength * 10}%, 
+                          #e5e7eb ${selectedLuckStrength * 10}%, 
+                          #e5e7eb 100%)`
                   }}
                 />
                 <style jsx>{`
