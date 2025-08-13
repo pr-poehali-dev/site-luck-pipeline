@@ -18,7 +18,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center p-4">
-      <div className="w-full max-w-2xl space-y-8 flex-1 flex flex-col justify-center">
+      <div className="w-full max-w-2xl space-y-8 flex flex-col justify-center" style={{minHeight: '100vh'}}>
         {/* Главный заголовок */}
         <div className="text-center space-y-4">
           <h1 className="font-bold text-gray-900 mb-8 text-8xl">
