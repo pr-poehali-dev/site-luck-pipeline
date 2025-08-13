@@ -311,7 +311,7 @@ const Pricing = () => {
                     max="10"
                     value={currentStrength}
                     onChange={(e) => setCurrentStrength(parseInt(e.target.value))}
-                    className="w-full h-8 bg-gray-200 rounded-lg cursor-pointer"
+                    className="w-full h-8 bg-gray-200 rounded-lg cursor-pointer appearance-none"
                     style={{
                       background: (() => {
                         const fillPercent = (currentStrength / 10) * 100;
@@ -322,7 +322,8 @@ const Pricing = () => {
                           ${darkGreen} ${fillPercent}%, 
                           #e5e7eb ${fillPercent}%, 
                           #e5e7eb 100%)`;
-                      })()
+                      })(),
+                      WebkitAppearance: 'none'
                     }}
                   />
                   <div className="flex justify-between text-sm text-gray-400 mt-2">
