@@ -17,6 +17,9 @@ const Pricing = () => {
   const [strengthEvening, setStrengthEvening] = useState(1);
   const [nightStrength, setNightStrength] = useState(1);
   const [recentlyChanged, setRecentlyChanged] = useState<Set<string>>(new Set());
+  const [showStrengthSelector, setShowStrengthSelector] = useState(false);
+  const [selectedOption, setSelectedOption] = useState<any>(null);
+  const [currentStrength, setCurrentStrength] = useState(1);
   const confettiInterval = useRef<NodeJS.Timeout | null>(null);
 
   // Автоматический запуск яркого радужного конфетти при загрузке страницы
@@ -264,25 +267,101 @@ const Pricing = () => {
       return;
     }
     
-    // Если индикатор недавно изменялся, требуем повторный клик
-    if (recentlyChanged.has(type)) {
-      setRecentlyChanged(prev => {
-        const newSet = new Set(prev);
-        newSet.delete(type);
-        return newSet;
-      });
-      return; // Не переходим, просто убираем из списка измененных
-    }
-    
+    setSelectedOption({ price, duration, immediate, type });
+    setShowStrengthSelector(true);
+  };
+
+  const handleStrengthConfirm = () => {
+    const finalPrice = currentStrength * 100;
     navigate('/payment', { 
       state: { 
         wish: wishText, 
-        price: price,
-        duration: duration,
-        date: immediate ? null : selectedDate
+        price: finalPrice,
+        duration: selectedOption.duration,
+        date: selectedOption.immediate ? null : selectedDate,
+        strength: currentStrength
       } 
     });
   };
+
+  if (showStrengthSelector) {
+    return (
+      <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
+        <div className="w-full max-w-md space-y-8">
+          <Card className="shadow-lg">
+            <CardContent className="pt-6">
+              <div className="text-center mb-6">
+                <h2 className="text-2xl font-bold text-gray-800 mb-2">
+                  Выберите силу удачи
+                </h2>
+                <p className="text-gray-600">{selectedOption?.duration}</p>
+              </div>
+              
+              <div className="space-y-6">
+                <div className="text-center">
+                  <div className="text-6xl font-bold text-purple-600 mb-2">
+                    {currentStrength}
+                  </div>
+                  <div className="text-2xl font-bold text-gray-800">
+                    {currentStrength * 100} ₽
+                  </div>
+                </div>
+                
+                <div className="w-full">
+                  <input
+                    type="range"
+                    min="1"
+                    max="9"
+                    value={currentStrength}
+                    onChange={(e) => setCurrentStrength(parseInt(e.target.value))}
+                    className="w-full h-4 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                    style={{
+                      background: (() => {
+                        const lightPurple = [220, 208, 255];
+                        const darkPurple = [107, 33, 168];
+                        const ratio = (currentStrength - 1) / 8;
+                        const r = Math.round(lightPurple[0] + (darkPurple[0] - lightPurple[0]) * ratio);
+                        const g = Math.round(lightPurple[1] + (darkPurple[1] - lightPurple[1]) * ratio);
+                        const b = Math.round(lightPurple[2] + (darkPurple[2] - lightPurple[2]) * ratio);
+                        return `rgb(${r}, ${g}, ${b})`;
+                      })()
+                    }}
+                  />
+                  <div className="flex justify-between text-sm text-gray-400 mt-2">
+                    <span>1</span>
+                    <span>2</span>
+                    <span>3</span>
+                    <span>4</span>
+                    <span>5</span>
+                    <span>6</span>
+                    <span>7</span>
+                    <span>8</span>
+                    <span>9</span>
+                  </div>
+                </div>
+                
+                <div className="flex gap-3">
+                  <Button
+                    variant="outline"
+                    onClick={() => setShowStrengthSelector(false)}
+                    className="flex-1"
+                  >
+                    ← Назад
+                  </Button>
+                  <Button
+                    onClick={handleStrengthConfirm}
+                    className="flex-1 bg-purple-600 hover:bg-purple-700 text-white"
+                  >
+                    Продолжить
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
