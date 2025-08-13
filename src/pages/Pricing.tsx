@@ -323,7 +323,7 @@ const Pricing = () => {
                   <div className="flex items-center space-x-3">
                     <div className="w-64">
                       <div className="flex items-center justify-between mb-1">
-                        <span className="text-xs text-gray-600">Сила</span>
+                        <span className="text-xs text-gray-600">Выберите силу удачи</span>
                         <span className="text-xs font-bold text-purple-600">{getStrengthValue(option.type)}</span>
                       </div>
                       <input
