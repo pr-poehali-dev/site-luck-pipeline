@@ -35,48 +35,34 @@ const Payment = () => {
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-    
-    const description = formData.get('description') as string;
-    const amount = formData.get('amount') as string;
-    const email = formData.get('email') as string;
-    if (!email) {
-      alert('Поле E-mail не должно быть пустым');
-      return;
+    const form = e.currentTarget as HTMLFormElement;
+    const { description, amount, email, phone, receipt } = form;
+
+    if (receipt) {
+      if (!email.value && !phone.value) {
+        return alert("Поле E-mail или Phone не должно быть пустым");
+      }
+
+      (receipt as HTMLInputElement).value = JSON.stringify({
+        "EmailCompany": "mail@mail.com",
+        "Taxation": "patent",
+        "FfdVersion": "1.2",
+        "Items": [
+          {
+            "Name": (description as HTMLInputElement).value || "Активация удачи",
+            "Price": Math.round(Number((amount as HTMLInputElement).value) * 100),
+            "Quantity": 1.00,
+            "Amount": Math.round(Number((amount as HTMLInputElement).value) * 100),
+            "PaymentMethod": "full_prepayment",
+            "PaymentObject": "service",
+            "Tax": "none",
+            "MeasurementUnit": "pc"
+          }
+        ]
+      });
     }
 
-    // Устанавливаем receipt
-    const receiptInput = form.querySelector('input[name="receipt"]') as HTMLInputElement;
-    receiptInput.value = JSON.stringify({
-      "EmailCompany": "mail@mail.com",
-      "Taxation": "patent",
-      "FfdVersion": "1.2",
-      "Items": [
-        {
-          "Name": description || "Активация удачи",
-          "Price": Math.round(Number(amount) * 100),
-          "Quantity": 1.00,
-          "Amount": Math.round(Number(amount) * 100),
-          "PaymentMethod": "full_prepayment",
-          "PaymentObject": "service",
-          "Tax": "none",
-          "MeasurementUnit": "pc"
-        }
-      ]
-    });
-
-    // Вызываем функцию pay из скрипта Тинькофф
-    console.log('Form data:', {
-      terminalkey: form.terminalkey.value,
-      amount: amount,
-      description: description,
-      email: email,
-
-    });
-
     if ((window as any).pay) {
-      console.log('Calling Tinkoff pay function');
       (window as any).pay(form);
     } else {
       console.error('Tinkoff pay function not available');
@@ -180,7 +166,7 @@ const Payment = () => {
                 border: 1px solid #FAB619;
               }
             `}</style>
-            <form className="payform-tbank" onSubmit={handleFormSubmit}>
+            <form className="payform-tbank" name="payform-tbank" id="payform-tbank" onSubmit={handleFormSubmit}>
               <input type="hidden" name="terminalkey" value="1755155028963DEMO" />
               <input type="hidden" name="frame" value="false" />
               <input type="hidden" name="language" value="ru" />
@@ -188,7 +174,7 @@ const Payment = () => {
               <input type="hidden" name="password" value="L^ZaKS_BltbH_bcq" />
               <input 
                 className="payform-tbank-row" 
-                type="number" 
+                type="text" 
                 placeholder="Сумма заказа" 
                 name="amount" 
                 value={price}
