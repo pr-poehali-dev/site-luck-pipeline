@@ -3,8 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import Icon from '@/components/ui/icon';
-import { useEffect, useState } from 'react';
-import BankTerminal from '@/components/BankTerminal';
+import { useEffect } from 'react';
 
 const Payment = () => {
   const location = useLocation();
@@ -13,8 +12,6 @@ const Payment = () => {
   const price = location.state?.price || 299;
   const duration = location.state?.duration || '';
   const date = location.state?.date || null;
-  const [showBankTerminal, setShowBankTerminal] = useState(false);
-  const [paymentActivated, setPaymentActivated] = useState(false);
 
   useEffect(() => {
     // Подгружаем скрипт Тинькофф
@@ -135,9 +132,9 @@ const Payment = () => {
         {/* Форма оплаты */}
         <Card>
           <CardHeader>
-            <CardTitle>Онлайн оплата через Т-Банк</CardTitle>
+            <CardTitle>Оплата через Т-Банк</CardTitle>
             <CardDescription>
-              Стандартная безопасная оплата через интернет-эквайринг
+              Безопасная оплата через Т-Банк
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -224,51 +221,6 @@ const Payment = () => {
           </CardContent>
         </Card>
 
-        {/* Активация платежной системы */}
-        <Card className="border-2 border-yellow-400 bg-gradient-to-r from-yellow-50 to-yellow-100">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-yellow-800">
-              <Icon name="CreditCard" size={24} />
-              Банковский терминал Т-Банк
-            </CardTitle>
-            <CardDescription className="text-yellow-700">
-              Альтернативный способ оплаты через терминальную систему
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="bg-yellow-200 p-4 rounded-lg border border-yellow-300">
-                <div className="flex items-center gap-2 mb-2">
-                  <Icon name="Shield" size={20} className="text-yellow-800" />
-                  <span className="font-semibold text-yellow-800">Системные данные для входа:</span>
-                </div>
-                <div className="space-y-1 text-sm text-yellow-800 font-mono">
-                  <div>ID: <strong>1754297590205DEMO</strong></div>
-                  <div>Пароль: <strong>T!asb9Hg7$MBmWXF</strong></div>
-                </div>
-              </div>
-              
-              <Button 
-                onClick={() => {
-                  setPaymentActivated(true);
-                  setShowBankTerminal(true);
-                }}
-                className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3"
-              >
-                <Icon name="Terminal" size={20} className="mr-2" />
-                {paymentActivated ? '🟢 Система активирована - Открыть терминал' : 'Активировать платежную систему'}
-              </Button>
-              
-              {paymentActivated && (
-                <div className="text-center text-green-600 font-semibold flex items-center justify-center gap-2">
-                  <Icon name="CheckCircle" size={20} />
-                  Платежная система успешно активирована!
-                </div>
-              )}
-            </div>
-          </CardContent>
-        </Card>
-
         {/* Кнопка назад */}
         <div className="text-center">
           <Button variant="outline" onClick={() => navigate('/')}>
@@ -277,12 +229,6 @@ const Payment = () => {
           </Button>
         </div>
       </div>
-      
-      {/* Банковский терминал */}
-      <BankTerminal 
-        isVisible={showBankTerminal} 
-        onClose={() => setShowBankTerminal(false)} 
-      />
     </div>
   );
 };
