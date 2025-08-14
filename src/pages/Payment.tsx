@@ -217,6 +217,12 @@ const Payment = () => {
                 name="email"
               />
               <input 
+                className="payform-tbank-row" 
+                type="tel" 
+                placeholder="Контактный телефон" 
+                name="phone"
+              />
+              <input 
                 className="payform-tbank-row payform-tbank-btn" 
                 type="submit" 
                 value="Оплатить"
