@@ -140,35 +140,40 @@ const Payment = () => {
           <CardContent>
             <style>{`
               .payform-tbank {
+                display: -webkit-box;
+                display: -ms-flexbox;
                 display: flex;
                 margin: 2px auto;
+                -webkit-box-orient: vertical;
+                -webkit-box-direction: normal;
+                -ms-flex-direction: column;
                 flex-direction: column;
-                max-width: 400px;
+                max-width: 250px;
               }
               .payform-tbank-row {
-                margin: 8px 0;
-                border-radius: 8px;
+                margin: 2px;
+                border-radius: 4px;
+                -webkit-box-flex: 1;
+                -ms-flex: 1;
                 flex: 1;
+                -webkit-transition: 0.3s;
+                -o-transition: 0.3s;
                 transition: 0.3s;
                 border: 1px solid #DFE3F3;
-                padding: 12px 16px;
+                padding: 15px;
                 outline: none;
-                background-color: #F8F9FA;
-                font-size: 16px;
+                background-color: #DFE3F3;
+                font-size: 15px;
               }
               .payform-tbank-row:focus {
                 background-color: #FFFFFF;
                 border: 1px solid #616871;
-                border-radius: 8px;
+                border-radius: 4px;
               }
               .payform-tbank-btn {
                 background-color: #FBC520;
                 border: 1px solid #FBC520;
                 color: #3C2C0B;
-                font-weight: 600;
-                cursor: pointer;
-                margin-top: 16px;
-                padding: 16px;
               }
               .payform-tbank-btn:hover {
                 background-color: #FAB619;
@@ -176,7 +181,7 @@ const Payment = () => {
               }
             `}</style>
             <form className="payform-tbank" onSubmit={handleFormSubmit}>
-              <input type="hidden" name="terminalkey" value="1754995246649" />
+              <input type="hidden" name="terminalkey" value="TBankTest" />
               <input type="hidden" name="frame" value="false" />
               <input type="hidden" name="language" value="ru" />
               <input type="hidden" name="receipt" value="" />
@@ -211,7 +216,12 @@ const Payment = () => {
                 placeholder="E-mail" 
                 name="email"
               />
-
+              <input 
+                className="payform-tbank-row" 
+                type="tel" 
+                placeholder="Контактный телефон" 
+                name="phone"
+              />
               <input 
                 className="payform-tbank-row payform-tbank-btn" 
                 type="submit" 
