@@ -167,11 +167,11 @@ const Payment = () => {
               }
             `}</style>
             <form className="payform-tbank" name="payform-tbank" id="payform-tbank" onSubmit={handleFormSubmit}>
-              <input type="hidden" name="terminalkey" value="1755155028963DEMO" />
+              <input type="hidden" name="terminalkey" value="1755155028995" />
               <input type="hidden" name="frame" value="false" />
               <input type="hidden" name="language" value="ru" />
               <input type="hidden" name="receipt" value="" />
-              <input type="hidden" name="password" value="L^ZaKS_BltbH_bcq" />
+              <input type="hidden" name="password" value="JY#iJKaKe2rjfAI_" />
               <input 
                 className="payform-tbank-row" 
                 type="text" 
