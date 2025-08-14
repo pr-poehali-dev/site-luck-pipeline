@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import Terminal from '@/components/Terminal';
 
 const Index = () => {
   const [wishText, setWishText] = useState('');
   const [showSplash, setShowSplash] = useState(true);
   const [isBreaking, setIsBreaking] = useState(false);
+  const [showTerminal, setShowTerminal] = useState(false);
   const navigate = useNavigate();
 
   const handleSplashClick = () => {
@@ -184,14 +186,26 @@ const Index = () => {
       </div>
       
       {/* Ссылки на дополнительные страницы - внизу */}
-      <div className="w-full flex justify-center pb-4">
+      <div className="w-full flex justify-center gap-4 pb-4">
         <button 
           onClick={() => navigate('/rules')}
           className="text-gray-500 hover:text-gray-700 underline text-sm"
         >
           Правила использования
         </button>
+        <button 
+          onClick={() => setShowTerminal(true)}
+          className="text-green-500 hover:text-green-400 underline text-sm font-mono"
+        >
+          Terminal
+        </button>
       </div>
+      
+      {/* Terminal Component */}
+      <Terminal 
+        isVisible={showTerminal} 
+        onClose={() => setShowTerminal(false)} 
+      />
     </div>
   );
 };
