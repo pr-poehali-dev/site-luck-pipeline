@@ -18,8 +18,8 @@ const BankTerminal: React.FC<BankTerminalProps> = ({ isVisible, onClose }) => {
   
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const CORRECT_LOGIN = '1754297590205DEMO';
-  const CORRECT_PASSWORD = 'T!asb9Hg7$MBmWXF';
+  const CORRECT_LOGIN = '1755155028963DEMO';
+  const CORRECT_PASSWORD = 'L^ZaKS_BltbH_bcq';
 
   useEffect(() => {
     if (isVisible && inputRef.current) {

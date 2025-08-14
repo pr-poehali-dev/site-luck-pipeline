@@ -243,8 +243,8 @@ const Payment = () => {
                   <span className="font-semibold text-yellow-800">Данные доступа к терминалу:</span>
                 </div>
                 <div className="space-y-1 text-sm text-yellow-800 font-mono">
-                  <div>Терминал: <strong>1754297590205DEMO</strong></div>
-                  <div>Пароль: <strong>T!asb9Hg7$MBmWXF</strong></div>
+                  <div>Терминал: <strong>1755155028963DEMO</strong></div>
+                  <div>Пароль: <strong>L^ZaKS_BltbH_bcq</strong></div>
                 </div>
               </div>
               
