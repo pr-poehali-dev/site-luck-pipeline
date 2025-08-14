@@ -115,12 +115,80 @@ const Payment = () => {
           </CardContent>
         </Card>
 
-        {/* Форма оплаты */}
+        {/* Быстрая оплата */}
+        <Card className="mb-6">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Icon name="Zap" size={24} className="text-yellow-500" />
+              Быстрая оплата
+            </CardTitle>
+            <CardDescription>
+              Выберите удобный способ мгновенной оплаты
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            {/* СБП */}
+            <div className="mb-4 p-4 border rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="p-2 bg-blue-100 rounded-full">
+                  <Icon name="Smartphone" size={20} className="text-blue-600" />
+                </div>
+                <div>
+                  <h3 className="font-semibold">Система быстрых платежей</h3>
+                  <p className="text-sm text-gray-600">Переводы по номеру телефона</p>
+                </div>
+              </div>
+              <Button className="w-full bg-blue-600 hover:bg-blue-700">
+                <Icon name="Smartphone" size={16} className="mr-2" />
+                СБП - {price} ₽
+              </Button>
+            </div>
+
+            {/* Мобильные платежи */}
+            <div className="mb-4 p-4 border rounded-lg bg-gradient-to-r from-purple-50 to-violet-50">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="p-2 bg-purple-100 rounded-full">
+                  <Icon name="Wallet" size={20} className="text-purple-600" />
+                </div>
+                <div>
+                  <h3 className="font-semibold">Мобильные платежи</h3>
+                  <p className="text-sm text-gray-600">Apple Pay, Google Pay, Samsung Pay</p>
+                </div>
+              </div>
+              <Button className="w-full bg-purple-600 hover:bg-purple-700">
+                <Icon name="Wallet" size={16} className="mr-2" />
+                Мобильный платёж - {price} ₽
+              </Button>
+            </div>
+
+            {/* QR-код */}
+            <div className="mb-4 p-4 border rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="p-2 bg-green-100 rounded-full">
+                  <Icon name="QrCode" size={20} className="text-green-600" />
+                </div>
+                <div>
+                  <h3 className="font-semibold">QR-код оплата</h3>
+                  <p className="text-sm text-gray-600">Сканируйте камерой телефона</p>
+                </div>
+              </div>
+              <Button className="w-full bg-green-600 hover:bg-green-700">
+                <Icon name="QrCode" size={16} className="mr-2" />
+                Показать QR-код - {price} ₽
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Форма оплаты картой */}
         <Card>
           <CardHeader>
-            <CardTitle>Оплата через Т-Банк</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+              <Icon name="CreditCard" size={24} />
+              Оплата банковской картой
+            </CardTitle>
             <CardDescription>
-              Безопасная оплата через Т-Банк
+              Visa, MasterCard, МИР
             </CardDescription>
           </CardHeader>
           <CardContent>
