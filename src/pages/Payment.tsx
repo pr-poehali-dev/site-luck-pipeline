@@ -172,6 +172,7 @@ const Payment = () => {
               <input type="hidden" name="language" value="ru" />
               <input type="hidden" name="receipt" value="" />
               <input type="hidden" name="password" value="JY#iJKaKe2rjfAI_" />
+              <input type="hidden" name="spb" value="true" />
               <input 
                 className="payform-tbank-row" 
                 type="text" 
