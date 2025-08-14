@@ -115,48 +115,16 @@ const Payment = () => {
           </CardContent>
         </Card>
 
-        {/* Способы оплаты */}
+        {/* Форма оплаты */}
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Icon name="CreditCard" size={24} />
-              Способы оплаты
-            </CardTitle>
+            <CardTitle>Оплата через Т-Банк</CardTitle>
             <CardDescription>
-              Выберите удобный способ оплаты
+              Безопасная оплата через Т-Банк
             </CardDescription>
           </CardHeader>
           <CardContent>
-            {/* СБП */}
-            <div className="mb-6 p-4 border rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="p-2 bg-blue-100 rounded-full">
-                  <Icon name="Smartphone" size={20} className="text-blue-600" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-lg">Система быстрых платежей</h3>
-                  <p className="text-sm text-gray-600">Быстро и безопасно</p>
-                </div>
-              </div>
-              <Button className="w-full bg-blue-600 hover:bg-blue-700">
-                <Icon name="Smartphone" size={16} className="mr-2" />
-                Оплатить через СБП - {price} ₽
-              </Button>
-            </div>
-
-            {/* Банковская карта */}
-            <div className="p-4 border rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="p-2 bg-green-100 rounded-full">
-                  <Icon name="CreditCard" size={20} className="text-green-600" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-lg">Банковская карта</h3>
-                  <p className="text-sm text-gray-600">Visa, MasterCard, МИР</p>
-                </div>
-              </div>
-              <div className="mt-4">
-                <style>{`
+            <style>{`
               .payform-tbank {
                 display: -webkit-box;
                 display: -ms-flexbox;
@@ -242,8 +210,6 @@ const Payment = () => {
                 value="Оплатить"
               />
             </form>
-              </div>
-            </div>
           </CardContent>
         </Card>
 
