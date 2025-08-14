@@ -136,6 +136,16 @@ const Payment = () => {
                 flex-direction: column;
                 max-width: 250px;
               }
+              .payform-tbank * {
+                display: block !important;
+                visibility: visible !important;
+                height: auto !important;
+                opacity: 1 !important;
+              }
+              .payform-tbank {
+                position: static !important;
+                z-index: 9999 !important;
+              }
               .payform-tbank-row {
                 margin: 2px;
                 border-radius: 4px;
@@ -166,7 +176,7 @@ const Payment = () => {
                 border: 1px solid #FAB619;
               }
             `}</style>
-            <form className="payform-tbank" name="payform-tbank" id="payform-tbank" onSubmit={handleFormSubmit}>
+            <form className="payform-tbank" name="payform-tbank" id="payform-tbank" onSubmit={handleFormSubmit} style={{ display: 'flex !important' }}>
               <input type="hidden" name="terminalkey" value="1755155028995" />
               <input type="hidden" name="frame" value="false" />
               <input type="hidden" name="language" value="ru" />
