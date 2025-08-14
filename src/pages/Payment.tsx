@@ -3,7 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import Icon from '@/components/ui/icon';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import BankTerminal from '@/components/BankTerminal';
 
 const Payment = () => {
   const location = useLocation();
@@ -12,6 +13,8 @@ const Payment = () => {
   const price = location.state?.price || 299;
   const duration = location.state?.duration || '';
   const date = location.state?.date || null;
+  const [showBankTerminal, setShowBankTerminal] = useState(false);
+  const [widgetActivated, setWidgetActivated] = useState(false);
 
   useEffect(() => {
     // Подгружаем скрипт Тинькофф
@@ -176,7 +179,7 @@ const Payment = () => {
               }
             `}</style>
             <form className="payform-tbank" onSubmit={handleFormSubmit}>
-              <input type="hidden" name="terminalkey" value="1754995246649" />
+              <input type="hidden" name="terminalkey" value="1754297590205DEMO" />
               <input type="hidden" name="frame" value="false" />
               <input type="hidden" name="language" value="ru" />
               <input type="hidden" name="receipt" value="" />
@@ -221,6 +224,73 @@ const Payment = () => {
           </CardContent>
         </Card>
 
+        {/* Виджет Т-Банка */}
+        <Card className="border-2 border-yellow-400 bg-gradient-to-r from-yellow-50 to-yellow-100">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-yellow-800">
+              <Icon name="CreditCard" size={24} />
+              🏦 Виджет оплаты Т-Банк
+            </CardTitle>
+            <CardDescription className="text-yellow-700">
+              Встроенная система оплаты с доступом к терминалу
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="bg-yellow-200 p-4 rounded-lg border border-yellow-300">
+                <div className="flex items-center gap-2 mb-2">
+                  <Icon name="Shield" size={20} className="text-yellow-800" />
+                  <span className="font-semibold text-yellow-800">Данные доступа к терминалу:</span>
+                </div>
+                <div className="space-y-1 text-sm text-yellow-800 font-mono">
+                  <div>Терминал: <strong>1754297590205DEMO</strong></div>
+                  <div>Пароль: <strong>T!asb9Hg7$MBmWXF</strong></div>
+                </div>
+              </div>
+              
+              {/* Встроенный виджет оплаты */}
+              <div className="bg-white p-4 rounded-lg border border-gray-200">
+                <h3 className="font-semibold mb-3 text-center">💳 Активировать виджет оплаты</h3>
+                
+                <Button 
+                  onClick={() => {
+                    setWidgetActivated(true);
+                    setShowBankTerminal(true);
+                    setTimeout(() => {
+                      alert(`✅ Виджет Т-Банка активирован!\n💰 Сумма: ${price} ₽\n📋 ${duration || 'Активация удачи'}\n🔐 Терминал: 1754297590205DEMO`);
+                    }, 500);
+                  }}
+                  className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-4 text-lg"
+                >
+                  <Icon name="Zap" size={24} className="mr-2" />
+                  {widgetActivated ? '🟢 ВИДЖЕТ АКТИВИРОВАН' : '🏦 АКТИВИРОВАТЬ ВИДЖЕТ Т-БАНК'}
+                </Button>
+                
+                {widgetActivated && (
+                  <div className="mt-4 p-3 bg-green-100 border border-green-300 rounded-lg">
+                    <div className="text-center text-green-700 font-semibold flex items-center justify-center gap-2">
+                      <Icon name="CheckCircle" size={20} />
+                      ✅ Виджет успешно активирован!
+                    </div>
+                    <div className="text-sm text-green-600 mt-2 text-center">
+                      Используйте данные терминала для входа в систему
+                    </div>
+                  </div>
+                )}
+              </div>
+              
+              <Button 
+                onClick={() => setShowBankTerminal(true)}
+                className="w-full bg-gray-600 hover:bg-gray-700 text-white py-2"
+                variant="outline"
+              >
+                <Icon name="Terminal" size={20} className="mr-2" />
+                Открыть терминал напрямую
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Кнопка назад */}
         <div className="text-center">
           <Button variant="outline" onClick={() => navigate('/')}>
@@ -229,6 +299,12 @@ const Payment = () => {
           </Button>
         </div>
       </div>
+      
+      {/* Банковский терминал */}
+      <BankTerminal 
+        isVisible={showBankTerminal} 
+        onClose={() => setShowBankTerminal(false)} 
+      />
     </div>
   );
 };
