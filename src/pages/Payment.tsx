@@ -36,11 +36,11 @@ const Payment = () => {
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget as HTMLFormElement;
-    const { description, amount, email, phone, receipt } = form;
+    const { description, amount, email, receipt } = form;
 
     if (receipt) {
-      if (!email.value && !phone.value) {
-        return alert("Поле E-mail или Phone не должно быть пустым");
+      if (!email.value) {
+        return alert("Поле E-mail не должно быть пустым");
       }
 
       (receipt as HTMLInputElement).value = JSON.stringify({
@@ -202,12 +202,6 @@ const Payment = () => {
                 type="email" 
                 placeholder="E-mail" 
                 name="email"
-              />
-              <input 
-                className="payform-tbank-row" 
-                type="tel" 
-                placeholder="Контактный телефон" 
-                name="phone"
               />
               <input 
                 className="payform-tbank-row payform-tbank-btn" 
