@@ -20,6 +20,7 @@ const OnePage = () => {
   const [selectedOption, setSelectedOption] = useState<any>(null);
   const [currentStrength, setCurrentStrength] = useState(0);
   const [currentSection, setCurrentSection] = useState('home');
+  const [showPricing, setShowPricing] = useState(false);
   const confettiInterval = useRef<NodeJS.Timeout | null>(null);
 
   // Refs для секций
@@ -60,6 +61,7 @@ const OnePage = () => {
 
   const handleSubmit = () => {
     if (wishText.trim()) {
+      setShowPricing(true);
       setCurrentSection('pricing');
       setTimeout(() => {
         scrollToSection(pricingRef, 'pricing');
@@ -486,14 +488,16 @@ const OnePage = () => {
           >
             Главная
           </button>
-          <button
-            onClick={() => scrollToSection(pricingRef, 'pricing')}
-            className={`px-4 py-2 rounded-lg transition-colors ${
-              currentSection === 'pricing' ? 'bg-blue-500 text-white' : 'text-gray-600 hover:bg-gray-100'
-            }`}
-          >
-            Тарифы
-          </button>
+          {showPricing && (
+            <button
+              onClick={() => scrollToSection(pricingRef, 'pricing')}
+              className={`px-4 py-2 rounded-lg transition-colors ${
+                currentSection === 'pricing' ? 'bg-blue-500 text-white' : 'text-gray-600 hover:bg-gray-100'
+              }`}
+            >
+              Тарифы
+            </button>
+          )}
           <button
             onClick={() => scrollToSection(paymentRef, 'payment')}
             className={`px-4 py-2 rounded-lg transition-colors ${
@@ -521,6 +525,77 @@ const OnePage = () => {
               САЙТ УДАЧИ
             </h1>
             <p className="text-xl text-gray-600">Напишите в чем нужна удача , после кнопки " ОК "  оплата</p>
+          </div>
+
+          {/* Блоки с инструкциями и правилами */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <Card className="border-blue-200 bg-blue-50/50">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-blue-800">
+                  <Icon name="Info" size={20} />
+                  Как это работает?
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3 text-blue-700">
+                  <p>1. Напишите ваше пожелание удачи</p>
+                  <p>2. Выберите подходящий тариф</p>
+                  <p>3. Оплатите услугу</p>
+                  <p>4. Удача активируется!</p>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-green-200 bg-green-50/50">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-green-800">
+                  <Icon name="CheckCircle" size={20} />
+                  Преимущества
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3 text-green-700">
+                  <p>✓ Психологическая поддержка</p>
+                  <p>✓ Повышение мотивации</p>
+                  <p>✓ Позитивный настрой</p>
+                  <p>✓ Безопасная оплата</p>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-orange-200 bg-orange-50/50">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-orange-800">
+                  <Icon name="Clock" size={20} />
+                  Тарифы
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3 text-orange-700">
+                  <p>• Событие - действует сразу</p>
+                  <p>• Утро, день, вечер, ночь</p>
+                  <p>• Выберите дату активации</p>
+                  <p>• Цена: от 100₽ до 1000₽</p>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-purple-200 bg-purple-50/50">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-purple-800">
+                  <Icon name="Shield" size={20} />
+                  Гарантии
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3 text-purple-700">
+                  <p>• Конфиденциальность данных</p>
+                  <p>• Безопасные платежи</p>
+                  <p>• Техническая поддержка</p>
+                  <p>• Качество сервиса</p>
+                </div>
+              </CardContent>
+            </Card>
           </div>
 
           <div className="space-y-6">
