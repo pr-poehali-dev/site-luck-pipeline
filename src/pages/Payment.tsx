@@ -183,7 +183,7 @@ const Payment = () => {
                 ) : (
                   <>
                     <Icon name="Download" size={20} className="mr-2" />
-                    Скачать Скрижаль Удачи (PDF)
+                    Скачать Скрижаль Удачи (PNG)
                   </>
                 )}
               </Button>
