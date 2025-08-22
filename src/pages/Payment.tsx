@@ -156,10 +156,31 @@ const Payment = () => {
 
         {/* Кнопка скачивания документа */}
         <div className="text-center">
+          <style jsx>{`
+            @keyframes pulseSlow {
+              0%, 100% {
+                background-color: rgb(147 51 234);
+                box-shadow: 0 0 15px rgba(147, 51, 234, 0.3);
+              }
+              50% {
+                background-color: rgb(168 85 247);
+                box-shadow: 0 0 25px rgba(168, 85, 247, 0.6);
+              }
+            }
+            .pulse-button {
+              animation: pulseSlow 2.5s ease-in-out infinite;
+            }
+            .pulse-button:hover {
+              animation-play-state: paused;
+            }
+            .pulse-button:disabled {
+              animation: none;
+            }
+          `}</style>
           <Button 
             onClick={handleDownloadDocument}
             disabled={isGeneratingDocument}
-            className="bg-purple-600 hover:bg-purple-700 text-white py-4 px-8 text-lg disabled:opacity-50"
+            className="pulse-button bg-purple-600 hover:bg-purple-700 text-white py-4 px-8 text-lg disabled:opacity-50"
           >
             {isGeneratingDocument ? (
               <>
