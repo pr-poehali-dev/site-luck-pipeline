@@ -3,9 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import Icon from '@/components/ui/icon';
-import { useEffect, useState, useRef } from 'react';
-import LuckDocument from '@/components/LuckDocument';
-import { generateLuckDocument, generateAffirmationText, type DocumentData } from '@/utils/documentGenerator';
+import { useEffect } from 'react';
 
 const Payment = () => {
   const location = useLocation();
@@ -14,10 +12,6 @@ const Payment = () => {
   const price = location.state?.price || 299;
   const duration = location.state?.duration || '';
   const date = location.state?.date || null;
-  const strength = location.state?.strength || 1;
-  const [showDocument, setShowDocument] = useState(false);
-  const [isGeneratingDocument, setIsGeneratingDocument] = useState(false);
-  const documentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Подгружаем скрипт Тинькофф
@@ -38,39 +32,6 @@ const Payment = () => {
       }
     };
   }, []);
-
-  const handleDownloadDocument = async () => {
-    if (!wish) {
-      alert('Ошибка: не найдено пожелание для создания документа');
-      return;
-    }
-
-    setIsGeneratingDocument(true);
-    try {
-      // Показываем документ для рендеринга
-      setShowDocument(true);
-      
-      // Ждём рендеринга
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      const documentData: DocumentData = {
-        wish,
-        powerLevel: strength,
-        userName: 'Получатель силы',
-        energyInvestment: price,
-        affirmationText: generateAffirmationText(wish, strength)
-      };
-      
-      await generateLuckDocument(documentData);
-      
-    } catch (error) {
-      console.error('Ошибка при создании документа:', error);
-      alert('Не удалось создать документ. Попробуйте еще раз.');
-    } finally {
-      setIsGeneratingDocument(false);
-      setShowDocument(false);
-    }
-  };
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -262,39 +223,6 @@ const Payment = () => {
           </CardContent>
         </Card>
 
-        {/* Кнопка скачивания документа */}
-        <Card className="bg-purple-50 border-purple-200">
-          <CardContent className="pt-6">
-            <div className="text-center space-y-4">
-              <div className="flex items-center justify-center gap-2 mb-4">
-                <Icon name="FileText" size={24} className="text-purple-600" />
-                <h3 className="text-xl font-bold text-purple-800">Скрижаль Удачи</h3>
-              </div>
-              <p className="text-purple-700 mb-4">
-                После оплаты вы сможете скачать персональный документ "Скрижаль Удачи" 
-                с вашим пожеланием и выбранной силой удачи.
-              </p>
-              <Button 
-                onClick={handleDownloadDocument}
-                disabled={isGeneratingDocument}
-                className="bg-purple-600 hover:bg-purple-700 text-white"
-              >
-                {isGeneratingDocument ? (
-                  <>
-                    <Icon name="Loader2" size={16} className="mr-2 animate-spin" />
-                    Создание документа...
-                  </>
-                ) : (
-                  <>
-                    <Icon name="Download" size={16} className="mr-2" />
-                    Скачать Скрижаль Удачи
-                  </>
-                )}
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-
         {/* Кнопка назад */}
         <div className="text-center">
           <Button variant="outline" onClick={() => navigate('/')}>
@@ -302,23 +230,6 @@ const Payment = () => {
             Вернуться назад
           </Button>
         </div>
-        
-        {/* Скрытый документ для генерации */}
-        {showDocument && (
-          <div 
-            ref={documentRef}
-            className="fixed -top-[9999px] left-0 pointer-events-none"
-            style={{ transform: 'scale(1)', transformOrigin: 'top left' }}
-          >
-            <LuckDocument 
-              wish={wish}
-              powerLevel={strength}
-              userName="Получатель силы"
-              energyInvestment={price}
-              affirmationText={generateAffirmationText(wish, strength)}
-            />
-          </div>
-        )}
       </div>
     </div>
   );
