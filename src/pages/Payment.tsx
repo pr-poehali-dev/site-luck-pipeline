@@ -155,46 +155,25 @@ const Payment = () => {
         </Card>
 
         {/* Кнопка скачивания документа */}
-        <Card className="bg-purple-50 border-purple-200">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-purple-800">
-              <Icon name="FileText" size={24} />
-              Скрижаль Удачи
-            </CardTitle>
-            <CardDescription className="text-purple-600">
-              Скачайте персональный документ силы
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="text-center space-y-4">
-              <p className="text-purple-700 text-sm">
-                После оплаты ваш персональный документ "Скрижаль Удачи" будет активирован с выбранной силой удачи.
-              </p>
-              <Button 
-                onClick={handleDownloadDocument}
-                disabled={isGeneratingDocument}
-                className="w-full bg-purple-600 hover:bg-purple-700 text-white py-6 text-lg disabled:opacity-50"
-              >
-                {isGeneratingDocument ? (
-                  <>
-                    <Icon name="Loader2" size={20} className="mr-2 animate-spin" />
-                    Создание документа...
-                  </>
-                ) : (
-                  <>
-                    <Icon name="Download" size={20} className="mr-2" />
-                    Скачать Скрижаль Удачи (PNG)
-                  </>
-                )}
-              </Button>
-              <div className="text-xs text-purple-500 space-y-1">
-                <p>✨ Персональные аффирмации</p>
-                <p>🎯 Ваше желание: "{wish}"</p>
-                <p>⚡ Уровень силы: {location.state?.strength || 1}/10</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        <div className="text-center">
+          <Button 
+            onClick={handleDownloadDocument}
+            disabled={isGeneratingDocument}
+            className="bg-purple-600 hover:bg-purple-700 text-white py-4 px-8 text-lg disabled:opacity-50"
+          >
+            {isGeneratingDocument ? (
+              <>
+                <Icon name="Loader2" size={20} className="mr-2 animate-spin" />
+                Создание документа...
+              </>
+            ) : (
+              <>
+                <Icon name="Download" size={20} className="mr-2" />
+                Скачать Скрижаль Удачи
+              </>
+            )}
+          </Button>
+        </div>
 
         {/* Форма оплаты */}
         <Card>
