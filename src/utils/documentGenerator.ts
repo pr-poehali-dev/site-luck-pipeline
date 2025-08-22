@@ -1,6 +1,3 @@
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
-
 export interface DocumentData {
   wish: string;
   powerLevel: number;
@@ -11,6 +8,10 @@ export interface DocumentData {
 
 export const generateLuckDocument = async (data: DocumentData): Promise<void> => {
   try {
+    // Динамические импорты для избежания проблем сборки
+    const html2canvas = (await import('html2canvas')).default;
+    const jsPDF = (await import('jspdf')).default;
+
     // Find the document element
     const element = document.getElementById('luck-document');
     if (!element) {
