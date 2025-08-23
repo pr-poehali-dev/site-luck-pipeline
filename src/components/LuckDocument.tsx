@@ -81,11 +81,14 @@ const LuckDocument: React.FC<LuckDocumentProps> = ({
         `
       }}>
         {/* Second border layer */}
-        <div className="absolute inset-2" style={{
-          background: `
-            linear-gradient(90deg, rgba(70,70,70,0.6) 0%, rgba(20,20,20,0.8) 20%, rgba(0,0,0,0.9) 40%, rgba(20,20,20,0.8) 60%, rgba(70,70,70,0.6) 80%, rgba(0,0,0,0.9) 100%),
-            linear-gradient(180deg, rgba(40,40,40,0.5) 0%, rgba(0,0,0,0.7) 50%, rgba(40,40,40,0.5) 100%)
-          `,
+        <div 
+          className="absolute inset-2 cursor-pointer transition-all duration-300 hover:shadow-lg"
+          onClick={() => setIsExpanded(!isExpanded)}
+          style={{
+            background: `
+              linear-gradient(90deg, rgba(70,70,70,0.6) 0%, rgba(20,20,20,0.8) 20%, rgba(0,0,0,0.9) 40%, rgba(20,20,20,0.8) 60%, rgba(70,70,70,0.6) 80%, rgba(0,0,0,0.9) 100%),
+              linear-gradient(180deg, rgba(40,40,40,0.5) 0%, rgba(0,0,0,0.7) 50%, rgba(40,40,40,0.5) 100%)
+            `,
           border: '4px solid rgba(20, 20, 20, 0.9)',
           borderRadius: '12px',
           boxShadow: `
