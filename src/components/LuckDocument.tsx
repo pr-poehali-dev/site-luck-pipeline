@@ -57,8 +57,15 @@ const LuckDocument: React.FC<LuckDocumentProps> = ({
       }}
     >
       {/* Ultra complex ornate border design with multiple gray and black layers */}
-      <div className="absolute inset-1" style={{
-        background: `
+      <div 
+        className="absolute inset-1 select-none touch-manipulation" 
+        style={{
+          userSelect: 'none',
+          WebkitUserSelect: 'none',
+          WebkitTouchCallout: 'none',
+          WebkitTapHighlightColor: 'transparent',
+          touchAction: 'manipulation',
+          background: `
           linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(30,30,30,0.8) 10%, rgba(60,60,60,0.6) 20%, rgba(30,30,30,0.8) 30%, rgba(0,0,0,0.9) 40%, rgba(30,30,30,0.8) 60%, rgba(60,60,60,0.6) 70%, rgba(30,30,30,0.8) 80%, rgba(0,0,0,0.9) 100%),
           linear-gradient(45deg, rgba(75,75,75,0.4) 0%, rgba(20,20,20,0.8) 25%, rgba(0,0,0,0.95) 50%, rgba(20,20,20,0.8) 75%, rgba(75,75,75,0.4) 100%),
           linear-gradient(-45deg, rgba(168, 85, 247, 0.15) 20%, rgba(0,0,0,0.6) 40%, rgba(50,50,50,0.4) 50%, rgba(0,0,0,0.6) 60%, rgba(168, 85, 247, 0.15) 80%),
