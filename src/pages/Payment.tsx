@@ -50,8 +50,16 @@ const Payment = () => {
       // Показываем документ для рендеринга
       setShowDocument(true);
       
-      // Ждём рендеринга
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Ждём рендеринга дольше для надежности
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      // Проверяем что элемент документа существует
+      const docElement = document.getElementById('luck-document');
+      if (!docElement) {
+        throw new Error('Документ не найден. Пожалуйста, попробуйте еще раз.');
+      }
+      
+      console.log('Document element found:', docElement);
       
       const documentData: DocumentData = {
         wish,
@@ -65,7 +73,8 @@ const Payment = () => {
       
     } catch (error) {
       console.error('Ошибка при создании документа:', error);
-      alert('Не удалось создать документ. Попробуйте еще раз.');
+      const errorMessage = error instanceof Error ? error.message : 'Не удалось создать документ. Попробуйте еще раз.';
+      alert(errorMessage);
     } finally {
       setIsGeneratingDocument(false);
       setShowDocument(false);
