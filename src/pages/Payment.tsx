@@ -47,37 +47,27 @@ const Payment = () => {
 
     setIsGeneratingDocument(true);
     try {
-      // Показываем документ для рендеринга
-      setShowDocument(true);
-      
-      // Ждём рендеринга дольше для надежности
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Проверяем что элемент документа существует
-      const docElement = document.getElementById('luck-document');
-      if (!docElement) {
-        throw new Error('Документ не найден. Пожалуйста, попробуйте еще раз.');
-      }
-      
-      console.log('Document element found:', docElement);
+      console.log('Создаю документ с данными:', { wish, strength, price });
       
       const documentData: DocumentData = {
-        wish,
-        powerLevel: strength,
+        wish: wish || 'Ваше желание',
+        powerLevel: strength || 1,
         userName: 'Получатель силы',
-        energyInvestment: price,
-        affirmationText: generateAffirmationText(wish, strength)
+        energyInvestment: price || 299,
+        affirmationText: generateAffirmationText(wish || 'пустое желание', strength || 1)
       };
       
+      console.log('Данные документа:', documentData);
+      
       await generateLuckDocument(documentData);
+      console.log('Документ должен быть скачан');
       
     } catch (error) {
       console.error('Ошибка при создании документа:', error);
       const errorMessage = error instanceof Error ? error.message : 'Не удалось создать документ. Попробуйте еще раз.';
-      alert(errorMessage);
+      alert('Ошибка: ' + errorMessage);
     } finally {
       setIsGeneratingDocument(false);
-      setShowDocument(false);
     }
   };
 

@@ -7,123 +7,158 @@ export interface DocumentData {
 }
 
 export const generateLuckDocument = async (data: DocumentData): Promise<void> => {
+  console.log('🚀 Начинаю генерацию документа с данными:', data);
+  
   try {
-    console.log('Generating simple working document');
-    
+    // Создаем canvas
     const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
+    canvas.width = 600;
+    canvas.height = 800;
     
+    const ctx = canvas.getContext('2d');
     if (!ctx) {
-      throw new Error('Canvas не поддерживается');
+      throw new Error('Canvas не поддерживается браузером');
     }
 
-    // Простые размеры
-    canvas.width = 800;
-    canvas.height = 1000;
+    console.log('✅ Canvas создан, размер:', canvas.width, 'x', canvas.height);
 
     // Фон
     ctx.fillStyle = '#2d1b69';
-    ctx.fillRect(0, 0, 800, 1000);
+    ctx.fillRect(0, 0, 600, 800);
+    console.log('✅ Фон нарисован');
 
-    // Простая рамка
-    ctx.strokeStyle = '#ffffff';
-    ctx.lineWidth = 3;
-    ctx.strokeRect(20, 20, 760, 960);
+    // Рамка
+    ctx.strokeStyle = 'white';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(10, 10, 580, 780);
+    console.log('✅ Рамка нарисована');
 
     // Заголовок
     ctx.fillStyle = 'white';
-    ctx.font = 'bold 28px Arial';
+    ctx.font = 'bold 24px sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('СКРИЖАЛЬ УДАЧИ', 400, 80);
+    ctx.fillText('СКРИЖАЛЬ УДАЧИ', 300, 50);
 
-    ctx.font = '16px Arial';
+    // Подзаголовок
     ctx.fillStyle = '#a855f7';
-    ctx.fillText('Персональный документ силы', 400, 110);
+    ctx.font = '14px sans-serif';
+    ctx.fillText('Персональный документ силы', 300, 80);
 
-    // Удача
+    // Секция УДАЧА
     ctx.fillStyle = 'white';
-    ctx.font = 'bold 20px Arial';
-    ctx.fillText('УДАЧА', 400, 160);
+    ctx.font = 'bold 18px sans-serif';
+    ctx.fillText('УДАЧА', 300, 120);
 
     // Желание
     ctx.fillStyle = '#a855f7';
-    ctx.font = '14px Arial';
-    const wishText = data.wish.length > 50 ? data.wish.substring(0, 50) + '...' : data.wish;
-    ctx.fillText(`"${wishText}"`, 400, 200);
+    ctx.font = '12px sans-serif';
+    const wish = data.wish.length > 60 ? data.wish.substring(0, 60) + '...' : data.wish;
+    ctx.fillText(`"${wish}"`, 300, 150);
 
     // Статистика
     ctx.fillStyle = 'white';
-    ctx.font = '16px Arial';
+    ctx.font = '14px sans-serif';
     ctx.textAlign = 'left';
-    ctx.fillText(`Уровень силы: ${data.powerLevel}/10`, 50, 260);
-    ctx.fillText(`Энергетический вклад: ${data.energyInvestment} ₽`, 50, 290);
+    ctx.fillText(`Уровень силы: ${data.powerLevel}/10`, 30, 200);
+    ctx.fillText(`Энергетический вклад: ${data.energyInvestment} ₽`, 30, 230);
 
     // Аффирмации
     ctx.textAlign = 'center';
-    ctx.font = 'bold 18px Arial';
-    ctx.fillText('ПЕРСОНАЛЬНЫЕ АФФИРМАЦИИ', 400, 340);
-    ctx.font = 'bold 14px Arial';
+    ctx.font = 'bold 16px sans-serif';
+    ctx.fillText('ПЕРСОНАЛЬНЫЕ АФФИРМАЦИИ', 300, 280);
+    
+    ctx.font = 'bold 12px sans-serif';
     ctx.fillStyle = '#a855f7';
-    ctx.fillText('ПРИНЯТИЕ ЛЮБВИ', 400, 365);
+    ctx.fillText('ПРИНЯТИЕ ЛЮБВИ', 300, 300);
 
-    // Текст аффирмаций
-    ctx.font = '12px Arial';
-    const affText = data.affirmationText.length > 80 ? data.affirmationText.substring(0, 80) + '...' : data.affirmationText;
-    ctx.fillText(affText, 400, 400);
+    ctx.font = '10px sans-serif';
+    const affText = data.affirmationText.length > 100 ? data.affirmationText.substring(0, 100) + '...' : data.affirmationText;
+    ctx.fillText(affText, 300, 330);
 
     // Печать
     ctx.fillStyle = '#4c1d95';
     ctx.beginPath();
-    ctx.arc(650, 500, 30, 0, Math.PI * 2);
+    ctx.arc(480, 380, 25, 0, Math.PI * 2);
     ctx.fill();
     
     ctx.fillStyle = 'white';
-    ctx.font = 'bold 8px Arial';
-    ctx.fillText('POEHALI.DEV', 650, 505);
+    ctx.font = 'bold 6px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('POEHALI.DEV', 480, 385);
 
-    // Дата
-    const now = new Date();
-    const dateStr = now.toLocaleDateString('ru-RU');
+    // Дата и номер
     ctx.fillStyle = 'white';
-    ctx.font = '12px Arial';
+    ctx.font = '10px sans-serif';
     ctx.textAlign = 'left';
-    ctx.fillText(`Дата: ${dateStr}`, 50, 600);
-    ctx.fillText(`Документ №: WD${Date.now()}`, 50, 620);
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('ru-RU', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+    ctx.fillText(`Документ №: WD${Date.now()}`, 30, 450);
+    ctx.fillText(`Дата активации:`, 30, 470);
+    ctx.fillText(dateStr, 30, 490);
 
     // Предупреждение
     ctx.fillStyle = '#FBC520';
-    ctx.fillRect(50, 750, 700, 40);
+    ctx.fillRect(30, 550, 540, 30);
+    ctx.strokeStyle = '#F59E0B';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(30, 550, 540, 30);
+    
     ctx.fillStyle = 'black';
-    ctx.font = 'bold 14px Arial';
+    ctx.font = 'bold 10px sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('⚠️ ДОКУМЕНТ ДЕЙСТВУЕТ ПОСЛЕ ОПЛАТЫ СИЛЫ! ⚠️', 400, 775);
+    ctx.fillText('⚠️ ДОКУМЕНТ ДЕЙСТВУЕТ ПОСЛЕ ОПЛАТЫ СИЛЫ! ⚠️', 300, 570);
 
     // Получатель
     ctx.fillStyle = '#a855f7';
-    ctx.font = '10px Arial';
-    ctx.fillText(`Получатель: ${data.userName || 'Получатель силы'} • Email: user@example.com`, 400, 850);
+    ctx.font = '8px sans-serif';
+    ctx.fillText(`Получатель: ${data.userName} • Email: user@example.com`, 300, 620);
 
-    // Скачивание
-    setTimeout(() => {
+    console.log('✅ Рисование завершено, начинаю скачивание');
+
+    // Скачивание - используем промис для лучшего контроля
+    return new Promise((resolve, reject) => {
       canvas.toBlob((blob) => {
+        console.log('📦 Blob создан:', blob);
+        
         if (blob) {
-          const link = document.createElement('a');
-          link.download = 'Скрижаль_Удачи.png';
-          link.href = URL.createObjectURL(blob);
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          URL.revokeObjectURL(link.href);
-          console.log('Документ успешно скачан');
+          try {
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `Скрижаль_Удачи_${new Date().toISOString().slice(0, 10)}.png`;
+            link.style.display = 'none';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Небольшая задержка перед очисткой URL
+            setTimeout(() => {
+              URL.revokeObjectURL(url);
+            }, 1000);
+            
+            console.log('🎉 Файл скачан успешно!');
+            resolve();
+          } catch (error) {
+            console.error('❌ Ошибка при скачивании:', error);
+            reject(new Error('Ошибка при скачивании файла'));
+          }
         } else {
-          console.error('Не удалось создать blob');
+          console.error('❌ Не удалось создать blob');
+          reject(new Error('Не удалось создать blob из canvas'));
         }
-      }, 'image/png');
-    }, 100);
+      }, 'image/png', 1.0);
+    });
     
   } catch (error) {
-    console.error('Error generating document:', error);
-    alert('Ошибка создания документа: ' + (error as Error).message);
+    console.error('❌ Ошибка при создании документа:', error);
+    throw error;
   }
 };
 
