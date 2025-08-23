@@ -380,53 +380,32 @@ const LuckDocument: React.FC<LuckDocumentProps> = ({
           </div>
         </div>
       </div>
-    </div>
 
-    {/* Модальное окно для увеличенного просмотра */}
-    {isExpanded && (
-      <div 
-        className="fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center p-4"
-        onClick={() => setIsExpanded(false)}
-      >
+      {/* Модальное окно для увеличенного просмотра */}
+      {isExpanded && (
         <div 
-          className="relative max-w-4xl max-h-screen overflow-auto"
-          onClick={(e) => e.stopPropagation()}
+          className="fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center p-4"
+          onClick={() => setIsExpanded(false)}
         >
-          <button
-            onClick={() => setIsExpanded(false)}
-            className="absolute top-4 right-4 z-10 bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors"
+          <div 
+            className="relative max-w-4xl max-h-screen overflow-auto"
+            onClick={(e) => e.stopPropagation()}
           >
-            ✕
-          </button>
-          <div style={{ transform: 'scale(0.8)', transformOrigin: 'top center' }}>
-            <div 
-              id="luck-document-expanded"
-              className="w-[210mm] h-[297mm] mx-auto relative p-8 font-serif text-white overflow-hidden"
-              style={{
-                background: `
-                  linear-gradient(135deg, #1a0b3d 0%, #2d1b69 10%, #4c1d95 20%, #5b21b6 30%, #7c3aed 40%, #8b5cf6 50%, #a855f7 60%, #c084fc 70%, #7c3aed 80%, #5b21b6 90%, #2d1b69 100%),
-                  radial-gradient(ellipse at 20% 30%, rgba(168, 85, 247, 0.6) 0%, transparent 70%),
-                  radial-gradient(ellipse at 80% 70%, rgba(124, 58, 237, 0.5) 0%, transparent 70%),
-                  radial-gradient(ellipse at 50% 50%, rgba(91, 33, 182, 0.3) 0%, transparent 80%),
-                  url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIgZmlsbD0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjEpIi8+Cjwvc3ZnPg==')
-                `,
-                backgroundBlendMode: 'multiply, screen, overlay, soft-light, normal',
-                boxShadow: `
-                  inset 0 0 150px rgba(26, 11, 61, 0.9),
-                  inset 0 0 80px rgba(124, 58, 237, 0.4),
-                  0 0 40px rgba(124, 58, 237, 0.3),
-                  0 0 80px rgba(168, 85, 247, 0.2)
-                `
-              }}
+            <button
+              onClick={() => setIsExpanded(false)}
+              className="absolute top-4 right-4 z-10 bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors"
             >
-              {/* Контент документа - копия основного содержимого */}
-              {/* Здесь будет весь контент документа */}
+              ✕
+            </button>
+            <div style={{ transform: 'scale(0.9)', transformOrigin: 'top center' }}>
+              <p className="text-white text-center text-2xl font-bold p-8">
+                Увеличенный просмотр документа
+              </p>
             </div>
           </div>
         </div>
-      </div>
-    )}
-  </div>
+      )}
+    </div>
   );
 };
 
