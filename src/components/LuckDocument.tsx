@@ -56,18 +56,79 @@ const LuckDocument: React.FC<LuckDocumentProps> = ({
         `
       }}
     >
-      {/* Ornate border design */}
-      <div className="absolute inset-2" style={{
+      {/* Ultra complex ornate border design with multiple gray and black layers */}
+      <div className="absolute inset-1" style={{
         background: `
-          linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%),
-          linear-gradient(-45deg, transparent 30%, rgba(168, 85, 247, 0.3) 50%, transparent 70%)
+          linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(30,30,30,0.8) 10%, rgba(60,60,60,0.6) 20%, rgba(30,30,30,0.8) 30%, rgba(0,0,0,0.9) 40%, rgba(30,30,30,0.8) 60%, rgba(60,60,60,0.6) 70%, rgba(30,30,30,0.8) 80%, rgba(0,0,0,0.9) 100%),
+          linear-gradient(45deg, rgba(75,75,75,0.4) 0%, rgba(20,20,20,0.8) 25%, rgba(0,0,0,0.95) 50%, rgba(20,20,20,0.8) 75%, rgba(75,75,75,0.4) 100%),
+          linear-gradient(-45deg, rgba(168, 85, 247, 0.15) 20%, rgba(0,0,0,0.6) 40%, rgba(50,50,50,0.4) 50%, rgba(0,0,0,0.6) 60%, rgba(168, 85, 247, 0.15) 80%),
+          radial-gradient(ellipse at top left, rgba(100,100,100,0.3) 0%, transparent 50%),
+          radial-gradient(ellipse at bottom right, rgba(80,80,80,0.2) 0%, transparent 50%)
         `,
-        borderRadius: '12px',
-        border: '3px solid rgba(255, 255, 255, 0.3)',
-        boxShadow: 'inset 0 0 30px rgba(168, 85, 247, 0.3)'
+        borderRadius: '15px',
+        border: '6px solid rgba(0, 0, 0, 0.95)',
+        boxShadow: `
+          inset 0 0 40px rgba(0, 0, 0, 0.8),
+          inset 0 0 80px rgba(40, 40, 40, 0.4),
+          inset 0 2px 0 rgba(120, 120, 120, 0.3),
+          inset 0 -2px 0 rgba(0, 0, 0, 0.8),
+          0 0 30px rgba(0, 0, 0, 0.7),
+          0 0 60px rgba(0, 0, 0, 0.4)
+        `
       }}>
-        <div className="absolute inset-3 border-2 border-white/20 rounded-lg">
-          <div className="absolute inset-2 border border-white/10 rounded-md"></div>
+        {/* Second border layer */}
+        <div className="absolute inset-2" style={{
+          background: `
+            linear-gradient(90deg, rgba(70,70,70,0.6) 0%, rgba(20,20,20,0.8) 20%, rgba(0,0,0,0.9) 40%, rgba(20,20,20,0.8) 60%, rgba(70,70,70,0.6) 80%, rgba(0,0,0,0.9) 100%),
+            linear-gradient(180deg, rgba(40,40,40,0.5) 0%, rgba(0,0,0,0.7) 50%, rgba(40,40,40,0.5) 100%)
+          `,
+          border: '4px solid rgba(20, 20, 20, 0.9)',
+          borderRadius: '12px',
+          boxShadow: `
+            inset 0 0 25px rgba(0, 0, 0, 0.6),
+            inset 0 0 50px rgba(60, 60, 60, 0.2),
+            inset 2px 2px 0 rgba(80, 80, 80, 0.3),
+            inset -2px -2px 0 rgba(0, 0, 0, 0.8)
+          `
+        }}>
+          {/* Third border layer */}
+          <div className="absolute inset-3" style={{
+            background: `
+              linear-gradient(135deg, rgba(50,50,50,0.4) 0%, rgba(10,10,10,0.8) 30%, rgba(0,0,0,0.9) 50%, rgba(10,10,10,0.8) 70%, rgba(50,50,50,0.4) 100%),
+              conic-gradient(from 0deg, rgba(60,60,60,0.3), rgba(0,0,0,0.6), rgba(40,40,40,0.4), rgba(0,0,0,0.6))
+            `,
+            border: '3px solid rgba(40, 40, 40, 0.8)',
+            borderRadius: '10px',
+            boxShadow: `
+              inset 0 0 20px rgba(0, 0, 0, 0.5),
+              inset 0 0 40px rgba(50, 50, 50, 0.2),
+              inset 1px 1px 0 rgba(70, 70, 70, 0.3),
+              inset -1px -1px 0 rgba(0, 0, 0, 0.9)
+            `
+          }}>
+            {/* Fourth inner border layer */}
+            <div className="absolute inset-2" style={{
+              background: `
+                linear-gradient(45deg, rgba(30,30,30,0.6) 0%, rgba(0,0,0,0.8) 25%, rgba(20,20,20,0.7) 50%, rgba(0,0,0,0.8) 75%, rgba(30,30,30,0.6) 100%),
+                radial-gradient(circle at center, rgba(40,40,40,0.3) 0%, rgba(0,0,0,0.6) 70%)
+              `,
+              border: '2px solid rgba(60, 60, 60, 0.6)',
+              borderRadius: '8px',
+              boxShadow: `
+                inset 0 0 15px rgba(0, 0, 0, 0.4),
+                inset 0 0 30px rgba(30, 30, 30, 0.3)
+              `
+            }}>
+              {/* Innermost border */}
+              <div className="absolute inset-1 border border-gray-700 rounded-md" style={{
+                background: `
+                  linear-gradient(0deg, rgba(25,25,25,0.5) 0%, rgba(0,0,0,0.7) 50%, rgba(25,25,25,0.5) 100%),
+                  linear-gradient(90deg, rgba(35,35,35,0.4) 0%, rgba(0,0,0,0.6) 50%, rgba(35,35,35,0.4) 100%)
+                `,
+                boxShadow: 'inset 0 0 10px rgba(0, 0, 0, 0.3)'
+              }}></div>
+            </div>
+          </div>
         </div>
       </div>
 
