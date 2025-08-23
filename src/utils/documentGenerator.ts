@@ -8,8 +8,8 @@ export interface DocumentData {
 
 export const generateLuckDocument = async (data: DocumentData): Promise<void> => {
   try {
-    console.log('Generating asymmetric document with sharp borders');
-    return await generateAsymmetricDocument(data);
+    console.log('Generating document identical to demo preview');
+    return await generateDemoIdenticalDocument(data);
     
   } catch (error) {
     console.error('Error generating document:', error);
@@ -17,7 +17,7 @@ export const generateLuckDocument = async (data: DocumentData): Promise<void> =>
   }
 };
 
-const generateAsymmetricDocument = async (data: DocumentData): Promise<void> => {
+const generateDemoIdenticalDocument = async (data: DocumentData): Promise<void> => {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
   
@@ -25,168 +25,160 @@ const generateAsymmetricDocument = async (data: DocumentData): Promise<void> => 
     throw new Error('Cannot create canvas context');
   }
 
-  // Размеры A4 документа
-  canvas.width = 1240;
-  canvas.height = 1754;
+  // Размеры A4 документа (масштаб x3 для четкости)
+  canvas.width = 3720; // 1240 * 3
+  canvas.height = 5262; // 1754 * 3
+  const scale = 3;
 
-  // ОСНОВНОЙ ФОН - БАЗОВЫЙ ФИОЛЕТОВЫЙ БЕЗ ГРАДИЕНТА
+  // ОСНОВНОЙ ФОН
   ctx.fillStyle = '#2d1b69';
-  ctx.fillRect(0, 0, 1240, 1754);
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // СВЕТЛЫЕ ЗОНЫ БЕЗ ПЕРЕТЕКАНИЯ
+  // ЧЕТКИЕ ЦВЕТОВЫЕ ЗОНЫ БЕЗ ПЕРЕТЕКАНИЯ (как в демо)
   ctx.fillStyle = '#4c1d95';
-  ctx.fillRect(200, 100, 800, 300);
+  ctx.fillRect(600 * scale, 300 * scale, 2400 * scale, 900 * scale);
   
   ctx.fillStyle = '#5b21b6';
-  ctx.fillRect(0, 400, 600, 400);
+  ctx.fillRect(0, 1200 * scale, 1800 * scale, 1200 * scale);
   
   ctx.fillStyle = '#7c3aed';
-  ctx.fillRect(640, 800, 600, 400);
+  ctx.fillRect(1920 * scale, 2400 * scale, 1800 * scale, 1200 * scale);
   
   ctx.fillStyle = '#8b5cf6';
-  ctx.fillRect(300, 1200, 700, 300);
+  ctx.fillRect(900 * scale, 3600 * scale, 2100 * scale, 900 * scale);
 
-  // АСИММЕТРИЧНЫЕ РАМКИ С ЧЕТКИМИ ГРАНИЦАМИ
-  // Внешняя рамка - неравномерная толщина
+  // АСИММЕТРИЧНЫЕ РАМКИ КАК В ДЕМО
   ctx.strokeStyle = '#000000';
-  ctx.lineWidth = 15;
-  ctx.strokeRect(5, 5, 1230, 1744);
+  ctx.lineWidth = 15 * scale;
+  ctx.strokeRect(15 * scale, 15 * scale, 3690 * scale, 5232 * scale);
   
-  // Вторая рамка - асимметричная
   ctx.strokeStyle = '#1a1a1a';
-  ctx.lineWidth = 12;
-  ctx.strokeRect(20, 15, 1200, 1724);
+  ctx.lineWidth = 12 * scale;
+  ctx.strokeRect(60 * scale, 45 * scale, 3600 * scale, 5172 * scale);
   
-  // Третья рамка - неравномерная
   ctx.strokeStyle = '#2a2a2a';
-  ctx.lineWidth = 8;
-  ctx.strokeRect(35, 25, 1170, 1704);
+  ctx.lineWidth = 8 * scale;
+  ctx.strokeRect(105 * scale, 75 * scale, 3510 * scale, 5112 * scale);
   
-  // Четвертая рамка - асимметричная
   ctx.strokeStyle = '#3c3c3c';
-  ctx.lineWidth = 6;
-  ctx.strokeRect(50, 40, 1140, 1674);
+  ctx.lineWidth = 6 * scale;
+  ctx.strokeRect(150 * scale, 120 * scale, 3420 * scale, 5022 * scale);
   
-  // Внутренняя рамка - неравномерная
   ctx.strokeStyle = '#4b4b4b';
-  ctx.lineWidth = 4;
-  ctx.strokeRect(65, 55, 1110, 1644);
+  ctx.lineWidth = 4 * scale;
+  ctx.strokeRect(195 * scale, 165 * scale, 3330 * scale, 4932 * scale);
 
-  // АСИММЕТРИЧНЫЕ УГЛОВЫЕ ЭЛЕМЕНТЫ - ЧЕТКИЕ ФОРМЫ
-  // Верхний левый - большой треугольник
+  // АСИММЕТРИЧНЫЕ УГЛОВЫЕ ТРЕУГОЛЬНИКИ
+  // Верхний левый - большой
   ctx.fillStyle = '#a855f7';
   ctx.beginPath();
-  ctx.moveTo(70, 70);
-  ctx.lineTo(140, 70);
-  ctx.lineTo(70, 140);
+  ctx.moveTo(210 * scale, 210 * scale);
+  ctx.lineTo(420 * scale, 210 * scale);
+  ctx.lineTo(210 * scale, 420 * scale);
   ctx.closePath();
   ctx.fill();
   
-  // Верхний правый - маленький треугольник
+  // Верхний правый - маленький
   ctx.fillStyle = '#c084fc';
   ctx.beginPath();
-  ctx.moveTo(1170, 70);
-  ctx.lineTo(1130, 70);
-  ctx.lineTo(1170, 110);
+  ctx.moveTo(3510 * scale, 210 * scale);
+  ctx.lineTo(3390 * scale, 210 * scale);
+  ctx.lineTo(3510 * scale, 330 * scale);
   ctx.closePath();
   ctx.fill();
   
-  // Нижний левый - средний треугольник
+  // Нижний левый - средний
   ctx.fillStyle = '#8b5cf6';
   ctx.beginPath();
-  ctx.moveTo(70, 1684);
-  ctx.lineTo(120, 1684);
-  ctx.lineTo(70, 1634);
+  ctx.moveTo(210 * scale, 5052 * scale);
+  ctx.lineTo(360 * scale, 5052 * scale);
+  ctx.lineTo(210 * scale, 4902 * scale);
   ctx.closePath();
   ctx.fill();
   
-  // Нижний правый - большой треугольник
+  // Нижний правый - большой
   ctx.fillStyle = '#7c3aed';
   ctx.beginPath();
-  ctx.moveTo(1170, 1684);
-  ctx.lineTo(1100, 1684);
-  ctx.lineTo(1170, 1614);
+  ctx.moveTo(3510 * scale, 5052 * scale);
+  ctx.lineTo(3300 * scale, 5052 * scale);
+  ctx.lineTo(3510 * scale, 4842 * scale);
   ctx.closePath();
   ctx.fill();
 
   // ЗАГОЛОВОК - АСИММЕТРИЧНЫЙ БЛОК
-  ctx.save();
-  
-  // Фон заголовка - асимметричный прямоугольник
+  // Основной блок заголовка
   ctx.fillStyle = '#1a0b3d';
-  ctx.fillRect(120, 150, 900, 120);
+  ctx.fillRect(360 * scale, 450 * scale, 2700 * scale, 360 * scale);
   
   // Дополнительный блок справа
   ctx.fillStyle = '#4c1d95';
-  ctx.fillRect(1020, 150, 100, 120);
+  ctx.fillRect(3060 * scale, 450 * scale, 300 * scale, 360 * scale);
   
-  // Рамка заголовка - асимметричная
+  // Рамка заголовка
   ctx.strokeStyle = '#ffffff';
-  ctx.lineWidth = 3;
-  ctx.strokeRect(120, 150, 1000, 120);
+  ctx.lineWidth = 6 * scale;
+  ctx.strokeRect(360 * scale, 450 * scale, 3000 * scale, 360 * scale);
   
   // Главный заголовок
   ctx.fillStyle = 'white';
-  ctx.font = 'bold 64px serif';
+  ctx.font = `bold ${192 * scale}px serif`;
   ctx.textAlign = 'center';
   ctx.shadowColor = '#000000';
-  ctx.shadowBlur = 4;
-  ctx.shadowOffsetX = 2;
-  ctx.shadowOffsetY = 2;
-  ctx.fillText('СКРИЖАЛЬ УДАЧИ', 620, 220);
+  ctx.shadowBlur = 12 * scale;
+  ctx.shadowOffsetX = 6 * scale;
+  ctx.shadowOffsetY = 6 * scale;
+  ctx.fillText('СКРИЖАЛЬ УДАЧИ', 1860 * scale, 660 * scale);
   
   // Подзаголовок
-  ctx.font = 'italic 28px serif';
+  ctx.font = `italic ${84 * scale}px serif`;
   ctx.fillStyle = '#a855f7';
-  ctx.shadowColor = '#000000';
-  ctx.shadowBlur = 2;
-  ctx.fillText('Персональный документ силы', 620, 250);
-  
-  ctx.restore();
+  ctx.shadowBlur = 6 * scale;
+  ctx.fillText('Персональный документ силы', 1860 * scale, 750 * scale);
 
   // СЕКЦИЯ УДАЧА - АСИММЕТРИЧНЫЙ БЛОК
-  ctx.save();
+  const wishY = 900 * scale;
   
-  // Основной блок удачи - неправильная форма
+  // Основной блок удачи
   ctx.fillStyle = '#5b21b6';
-  ctx.fillRect(80, 300, 950, 180);
+  ctx.fillRect(240 * scale, wishY, 2850 * scale, 540 * scale);
   
   // Дополнительный блок справа
   ctx.fillStyle = '#7c3aed';
-  ctx.fillRect(1030, 320, 140, 140);
+  ctx.fillRect(3090 * scale, wishY + 60 * scale, 420 * scale, 420 * scale);
   
   // Рамка секции удачи
   ctx.strokeStyle = '#ffffff';
-  ctx.lineWidth = 2;
-  ctx.strokeRect(80, 300, 1090, 180);
+  ctx.lineWidth = 6 * scale;
+  ctx.strokeRect(240 * scale, wishY, 3270 * scale, 540 * scale);
   
   // Заголовок УДАЧА
   ctx.fillStyle = 'white';
-  ctx.font = 'bold 48px serif';
+  ctx.font = `bold ${144 * scale}px serif`;
   ctx.textAlign = 'center';
   ctx.shadowColor = '#000000';
-  ctx.shadowBlur = 3;
-  ctx.fillText('УДАЧА', 620, 350);
+  ctx.shadowBlur = 9 * scale;
+  ctx.fillText('УДАЧА', 1860 * scale, wishY + 150 * scale);
   
   // Поле для желания - асимметричное
   ctx.fillStyle = '#1a0b3d';
-  ctx.fillRect(140, 370, 800, 80);
+  ctx.fillRect(420 * scale, wishY + 210 * scale, 2400 * scale, 240 * scale);
   
   // Дополнительное поле
   ctx.fillStyle = '#2d1b69';
-  ctx.fillRect(940, 380, 180, 60);
+  ctx.fillRect(2820 * scale, wishY + 240 * scale, 540 * scale, 180 * scale);
   
   ctx.strokeStyle = '#ffffff';
-  ctx.lineWidth = 1;
-  ctx.strokeRect(140, 370, 980, 80);
+  ctx.lineWidth = 3 * scale;
+  ctx.strokeRect(420 * scale, wishY + 210 * scale, 2940 * scale, 240 * scale);
   
   // Текст желания
   ctx.fillStyle = '#a855f7';
-  ctx.font = '26px serif';
+  ctx.font = `${78 * scale}px serif`;
   ctx.shadowColor = '#000000';
-  ctx.shadowBlur = 2;
+  ctx.shadowBlur = 6 * scale;
   
   const wishText = `"${data.wish || 'ваше желание'}"`;
+  const maxWidth = 2250 * scale;
   const words = wishText.split(' ');
   const lines = [];
   let currentLine = '';
@@ -194,7 +186,7 @@ const generateAsymmetricDocument = async (data: DocumentData): Promise<void> => 
   for (const word of words) {
     const testLine = currentLine + (currentLine ? ' ' : '') + word;
     const metrics = ctx.measureText(testLine);
-    if (metrics.width > 750 && currentLine) {
+    if (metrics.width > maxWidth && currentLine) {
       lines.push(currentLine);
       currentLine = word;
     } else {
@@ -203,98 +195,96 @@ const generateAsymmetricDocument = async (data: DocumentData): Promise<void> => 
   }
   lines.push(currentLine);
   
-  const wishStartY = 400;
+  const wishStartY = wishY + 300 * scale;
   lines.forEach((line, index) => {
-    ctx.fillText(line, 630, wishStartY + index * 32);
+    ctx.fillText(line, 1890 * scale, wishStartY + index * 96 * scale);
   });
-  
-  ctx.restore();
 
   // СТАТИСТИКА - АСИММЕТРИЧНЫЕ БЛОКИ
-  ctx.save();
+  const statsY = wishY + 600 * scale;
   
-  // Блок уровня силы - неправильной формы
+  // Блок уровня силы
   ctx.fillStyle = '#4c1d95';
-  ctx.fillRect(100, 520, 700, 60);
+  ctx.fillRect(300 * scale, statsY, 2100 * scale, 180 * scale);
   
   ctx.fillStyle = '#7c3aed';
-  ctx.fillRect(800, 530, 300, 40);
+  ctx.fillRect(2400 * scale, statsY + 30 * scale, 900 * scale, 120 * scale);
   
   ctx.strokeStyle = '#ffffff';
-  ctx.lineWidth = 2;
-  ctx.strokeRect(100, 520, 1000, 60);
+  ctx.lineWidth = 6 * scale;
+  ctx.strokeRect(300 * scale, statsY, 3000 * scale, 180 * scale);
   
   ctx.fillStyle = 'white';
-  ctx.font = 'bold 32px serif';
+  ctx.font = `bold ${96 * scale}px serif`;
   ctx.textAlign = 'left';
   ctx.shadowColor = '#000000';
-  ctx.shadowBlur = 2;
-  ctx.fillText(`Уровень силы: ${data.powerLevel}/10`, 120, 560);
+  ctx.shadowBlur = 6 * scale;
+  ctx.fillText(`Уровень силы: ${data.powerLevel}/10`, 360 * scale, statsY + 120 * scale);
   
-  // Блок энергетического вклада - другая форма
+  // Блок энергетического вклада
+  const energyY = statsY + 240 * scale;
   ctx.fillStyle = '#8b5cf6';
-  ctx.fillRect(150, 600, 800, 60);
+  ctx.fillRect(450 * scale, energyY, 2400 * scale, 180 * scale);
   
   ctx.fillStyle = '#5b21b6';
-  ctx.fillRect(80, 610, 70, 40);
+  ctx.fillRect(240 * scale, energyY + 30 * scale, 210 * scale, 120 * scale);
   
   ctx.strokeStyle = '#ffffff';
-  ctx.lineWidth = 2;
-  ctx.strokeRect(80, 600, 1020, 60);
+  ctx.lineWidth = 6 * scale;
+  ctx.strokeRect(240 * scale, energyY, 3060 * scale, 180 * scale);
   
   ctx.fillStyle = 'white';
-  ctx.textAlign = 'left';
-  ctx.fillText(`Энергетический вклад: ${data.energyInvestment} ₽`, 120, 640);
-  
-  ctx.restore();
+  ctx.fillText(`Энергетический вклад: ${data.energyInvestment} ₽`, 360 * scale, energyY + 120 * scale);
 
-  // СЕКЦИЯ АФФИРМАЦИЙ - АСИММЕТРИЧНЫЙ БЛОК
-  ctx.save();
+  // СЕКЦИЯ АФФИРМАЦИЙ
+  const affY = energyY + 360 * scale;
   
   // Заголовок аффирмаций
   ctx.fillStyle = 'white';
-  ctx.font = 'bold 42px serif';
+  ctx.font = `bold ${126 * scale}px serif`;
   ctx.textAlign = 'center';
   ctx.shadowColor = '#000000';
-  ctx.shadowBlur = 3;
-  ctx.fillText('ПЕРСОНАЛЬНЫЕ АФФИРМАЦИИ', 620, 740);
+  ctx.shadowBlur = 9 * scale;
+  ctx.fillText('ПЕРСОНАЛЬНЫЕ АФФИРМАЦИИ', 1860 * scale, affY + 60 * scale);
   
   // Подзаголовок
-  ctx.font = 'bold 32px serif';
+  ctx.font = `bold ${96 * scale}px serif`;
   ctx.fillStyle = '#a855f7';
   ctx.shadowColor = '#000000';
-  ctx.shadowBlur = 2;
-  ctx.fillText('ПРИНЯТИЕ ЛЮБВИ', 620, 780);
+  ctx.shadowBlur = 6 * scale;
+  ctx.fillText('ПРИНЯТИЕ ЛЮБВИ', 1860 * scale, affY + 180 * scale);
   
   // Блок для текста аффирмаций - сложная асимметричная форма
+  const affTextY = affY + 240 * scale;
   ctx.fillStyle = '#1a0b3d';
-  ctx.fillRect(120, 800, 800, 180);
+  ctx.fillRect(360 * scale, affTextY, 2400 * scale, 540 * scale);
   
   ctx.fillStyle = '#2d1b69';
-  ctx.fillRect(920, 820, 200, 140);
+  ctx.fillRect(2760 * scale, affTextY + 60 * scale, 600 * scale, 420 * scale);
   
   ctx.fillStyle = '#4c1d95';
-  ctx.fillRect(80, 850, 40, 100);
+  ctx.fillRect(240 * scale, affTextY + 150 * scale, 120 * scale, 300 * scale);
   
   ctx.strokeStyle = '#ffffff';
-  ctx.lineWidth = 2;
-  ctx.strokeRect(80, 800, 1040, 180);
+  ctx.lineWidth = 6 * scale;
+  ctx.strokeRect(240 * scale, affTextY, 3120 * scale, 540 * scale);
   
   // Текст аффирмаций
   ctx.fillStyle = '#a855f7';
-  ctx.font = '24px serif';
+  ctx.font = `${72 * scale}px serif`;
   ctx.textAlign = 'center';
   ctx.shadowColor = '#000000';
-  ctx.shadowBlur = 2;
+  ctx.shadowBlur = 6 * scale;
   
   const affWords = data.affirmationText.split(' ');
   const affLines = [];
   let currentAffLine = '';
+  const affMaxWidth = 2700 * scale;
   
   for (const word of affWords) {
     const testLine = currentAffLine + (currentAffLine ? ' ' : '') + word;
     const metrics = ctx.measureText(testLine);
-    if (metrics.width > 900 && currentAffLine) {
+    if (metrics.width > affMaxWidth && currentAffLine) {
       affLines.push(currentAffLine);
       currentAffLine = word;
     } else {
@@ -303,103 +293,15 @@ const generateAsymmetricDocument = async (data: DocumentData): Promise<void> => 
   }
   affLines.push(currentAffLine);
   
-  const affStartY = 840;
+  const affStartY = affTextY + 180 * scale;
   affLines.forEach((line, index) => {
-    ctx.fillText(line, 620, affStartY + index * 32);
+    ctx.fillText(line, 1860 * scale, affStartY + index * 96 * scale);
   });
-  
-  ctx.restore();
 
-  // АСИММЕТРИЧНАЯ ПЕЧАТЬ
-  ctx.save();
-  ctx.translate(950, 1200);
+  // ИНФОРМАЦИЯ О ДОКУМЕНТЕ И ПЕЧАТЬ
+  const infoY = affTextY + 720 * scale;
   
-  // Внешние декоративные элементы - асимметричные
-  for (let i = 0; i < 10; i++) {
-    const angle = (i * Math.PI * 2) / 10;
-    const distance = 90 + (i % 3) * 10; // разные расстояния
-    const x1 = Math.cos(angle) * distance;
-    const y1 = Math.sin(angle) * distance;
-    const x2 = Math.cos(angle) * (distance - 15);
-    const y2 = Math.sin(angle) * (distance - 15);
-    
-    ctx.strokeStyle = '#2a2a2a';
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
-    ctx.stroke();
-    
-    // Точки разных размеров
-    ctx.fillStyle = '#1a1a1a';
-    ctx.beginPath();
-    ctx.arc(x1, y1, 2 + (i % 3), 0, Math.PI * 2);
-    ctx.fill();
-  }
-  
-  // Основной круг печати - асимметричный
-  ctx.fillStyle = '#4c1d95';
-  ctx.beginPath();
-  ctx.arc(0, 0, 70, 0, Math.PI * 2);
-  ctx.fill();
-  
-  // Дополнительный элемент
-  ctx.fillStyle = '#7c3aed';
-  ctx.fillRect(-20, -20, 40, 40);
-  
-  // Рамки печати - разной толщины
-  ctx.strokeStyle = '#ffffff';
-  ctx.lineWidth = 4;
-  ctx.beginPath();
-  ctx.arc(0, 0, 65, 0, Math.PI * 2);
-  ctx.stroke();
-  
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.arc(0, 0, 58, 0, Math.PI * 2);
-  ctx.stroke();
-  
-  // Многоугольник - асимметричный
-  ctx.strokeStyle = '#a855f7';
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.moveTo(45, 0);
-  ctx.lineTo(20, 40);
-  ctx.lineTo(-30, 35);
-  ctx.lineTo(-45, -10);
-  ctx.lineTo(-20, -40);
-  ctx.lineTo(25, -35);
-  ctx.closePath();
-  ctx.stroke();
-  
-  // Текст печати
-  ctx.fillStyle = 'white';
-  ctx.font = 'bold 16px sans-serif';
-  ctx.textAlign = 'center';
-  ctx.shadowColor = '#000000';
-  ctx.shadowBlur = 2;
-  ctx.fillText('САЙТ ЖЕЛАНИЙ', 0, -10);
-  
-  ctx.font = '12px sans-serif';
-  ctx.fillStyle = '#c084fc';
-  ctx.fillText('POEHALI.DEV', 0, 8);
-  ctx.fillText('2025', 0, 24);
-  
-  ctx.restore();
-
-  // ИНФОРМАЦИЯ О ДОКУМЕНТЕ - АСИММЕТРИЧНЫЙ БЛОК
-  ctx.save();
-  
-  ctx.fillStyle = '#1a0b3d';
-  ctx.fillRect(80, 1400, 600, 120);
-  
-  ctx.fillStyle = '#2d1b69';
-  ctx.fillRect(680, 1420, 100, 80);
-  
-  ctx.strokeStyle = '#ffffff';
-  ctx.lineWidth = 2;
-  ctx.strokeRect(80, 1400, 700, 120);
-  
+  // Генерация данных документа
   const timestamp = new Date().toLocaleDateString('ru-RU', {
     day: '2-digit',
     month: 'long', 
@@ -409,64 +311,110 @@ const generateAsymmetricDocument = async (data: DocumentData): Promise<void> => 
   });
   const docNumber = `WD${Date.now()}${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
   
+  // Блок информации о документе
+  ctx.fillStyle = '#1a0b3d';
+  ctx.fillRect(240 * scale, infoY, 1800 * scale, 360 * scale);
+  
+  ctx.fillStyle = '#2d1b69';
+  ctx.fillRect(2040 * scale, infoY + 60 * scale, 300 * scale, 240 * scale);
+  
+  ctx.strokeStyle = '#ffffff';
+  ctx.lineWidth = 6 * scale;
+  ctx.strokeRect(240 * scale, infoY, 2100 * scale, 360 * scale);
+  
   ctx.fillStyle = 'white';
-  ctx.font = 'bold 20px serif';
+  ctx.font = `bold ${60 * scale}px serif`;
   ctx.textAlign = 'left';
   ctx.shadowColor = '#000000';
-  ctx.shadowBlur = 2;
+  ctx.shadowBlur = 6 * scale;
   
-  ctx.fillText(`Документ №: ${docNumber}`, 100, 1430);
-  ctx.fillText(`Дата: ${timestamp}`, 100, 1460);
+  ctx.fillText(`Документ №: ${docNumber}`, 300 * scale, infoY + 90 * scale);
+  ctx.fillText(`Дата активации:`, 300 * scale, infoY + 180 * scale);
   
-  ctx.font = 'bold 22px serif';
+  ctx.font = `bold ${66 * scale}px serif`;
   ctx.fillStyle = '#a855f7';
-  ctx.fillText(`Получатель: ${data.userName || 'Получатель силы'}`, 100, 1490);
+  ctx.fillText(timestamp, 300 * scale, infoY + 270 * scale);
+
+  // АСИММЕТРИЧНАЯ ПЕЧАТЬ
+  ctx.save();
+  ctx.translate(2850 * scale, infoY + 180 * scale);
+  
+  // Основной круг печати
+  ctx.fillStyle = '#4c1d95';
+  ctx.beginPath();
+  ctx.arc(0, 0, 210 * scale, 0, Math.PI * 2);
+  ctx.fill();
+  
+  // Дополнительный квадратный элемент поверх
+  ctx.fillStyle = '#7c3aed';
+  ctx.fillRect(-60 * scale, -60 * scale, 120 * scale, 120 * scale);
+  
+  // Рамки печати
+  ctx.strokeStyle = '#ffffff';
+  ctx.lineWidth = 12 * scale;
+  ctx.beginPath();
+  ctx.arc(0, 0, 195 * scale, 0, Math.PI * 2);
+  ctx.stroke();
+  
+  ctx.lineWidth = 6 * scale;
+  ctx.beginPath();
+  ctx.arc(0, 0, 174 * scale, 0, Math.PI * 2);
+  ctx.stroke();
+  
+  // Текст печати
+  ctx.fillStyle = 'white';
+  ctx.font = `bold ${48 * scale}px sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.shadowColor = '#000000';
+  ctx.shadowBlur = 6 * scale;
+  ctx.fillText('САЙТ ЖЕЛАНИЙ', 0, -30 * scale);
+  
+  ctx.font = `${36 * scale}px sans-serif`;
+  ctx.fillStyle = '#c084fc';
+  ctx.fillText('POEHALI.DEV', 0, 24 * scale);
+  ctx.fillText('2025', 0, 72 * scale);
   
   ctx.restore();
 
   // ПРЕДУПРЕЖДЕНИЕ - АСИММЕТРИЧНЫЙ БЛОК
-  ctx.save();
+  const warnY = infoY + 480 * scale;
   
   ctx.fillStyle = '#FBC520';
-  ctx.fillRect(100, 1560, 900, 50);
+  ctx.fillRect(300 * scale, warnY, 2700 * scale, 150 * scale);
   
   ctx.fillStyle = '#FAB619';
-  ctx.fillRect(1000, 1565, 140, 40);
+  ctx.fillRect(3000 * scale, warnY + 15 * scale, 420 * scale, 120 * scale);
   
   ctx.strokeStyle = '#F59E0B';
-  ctx.lineWidth = 3;
-  ctx.strokeRect(100, 1560, 1040, 50);
+  ctx.lineWidth = 9 * scale;
+  ctx.strokeRect(300 * scale, warnY, 3120 * scale, 150 * scale);
   
   ctx.fillStyle = 'black';
-  ctx.font = 'bold 26px serif';
+  ctx.font = `bold ${78 * scale}px serif`;
   ctx.textAlign = 'center';
   ctx.shadowColor = '#ffffff';
-  ctx.shadowBlur = 1;
-  ctx.fillText('⚠️ ДОКУМЕНТ ДЕЙСТВУЕТ ПОСЛЕ ОПЛАТЫ СИЛЫ! ⚠️', 620, 1590);
-  
-  ctx.restore();
+  ctx.shadowBlur = 3 * scale;
+  ctx.fillText('⚠️ ДОКУМЕНТ ДЕЙСТВУЕТ ПОСЛЕ ОПЛАТЫ СИЛЫ! ⚠️', 1860 * scale, warnY + 105 * scale);
 
   // ПОЛУЧАТЕЛЬ И EMAIL - АСИММЕТРИЧНЫЙ БЛОК
-  ctx.save();
+  const userY = warnY + 240 * scale;
   
   ctx.fillStyle = '#2d1b69';
-  ctx.fillRect(120, 1640, 800, 50);
+  ctx.fillRect(360 * scale, userY, 2400 * scale, 150 * scale);
   
   ctx.fillStyle = '#4c1d95';
-  ctx.fillRect(920, 1650, 200, 30);
+  ctx.fillRect(2760 * scale, userY + 30 * scale, 600 * scale, 90 * scale);
   
   ctx.strokeStyle = '#ffffff';
-  ctx.lineWidth = 1;
-  ctx.strokeRect(120, 1640, 1000, 50);
+  ctx.lineWidth = 3 * scale;
+  ctx.strokeRect(360 * scale, userY, 3000 * scale, 150 * scale);
   
   ctx.fillStyle = '#a855f7';
-  ctx.font = '18px serif';
+  ctx.font = `${54 * scale}px serif`;
   ctx.textAlign = 'center';
   ctx.shadowColor = '#000000';
-  ctx.shadowBlur = 1;
-  ctx.fillText(`Получатель: ${data.userName || 'Получатель силы'} • Email: user@example.com`, 620, 1670);
-  
-  ctx.restore();
+  ctx.shadowBlur = 3 * scale;
+  ctx.fillText(`Получатель: ${data.userName || 'Получатель силы'} • Email: user@example.com`, 1860 * scale, userY + 105 * scale);
 
   // Скачивание документа
   canvas.toBlob((blob) => {
