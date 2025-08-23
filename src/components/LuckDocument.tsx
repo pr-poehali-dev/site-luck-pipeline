@@ -56,18 +56,26 @@ const LuckDocument: React.FC<LuckDocumentProps> = ({
         `
       }}
     >
-      {/* Ornate border design */}
+      {/* Complex ornate border design with gray and black colors */}
       <div className="absolute inset-2" style={{
         background: `
-          linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%),
-          linear-gradient(-45deg, transparent 30%, rgba(168, 85, 247, 0.3) 50%, transparent 70%)
+          linear-gradient(45deg, rgba(75,75,75,0.4) 0%, rgba(50,50,50,0.6) 25%, rgba(0,0,0,0.8) 50%, rgba(50,50,50,0.6) 75%, rgba(75,75,75,0.4) 100%),
+          linear-gradient(-45deg, rgba(168, 85, 247, 0.2) 20%, rgba(0,0,0,0.4) 50%, rgba(168, 85, 247, 0.2) 80%)
         `,
         borderRadius: '12px',
-        border: '3px solid rgba(255, 255, 255, 0.3)',
-        boxShadow: 'inset 0 0 30px rgba(168, 85, 247, 0.3)'
+        border: '4px solid rgba(0, 0, 0, 0.8)',
+        boxShadow: `
+          inset 0 0 30px rgba(0, 0, 0, 0.6),
+          inset 0 0 60px rgba(75, 75, 75, 0.3),
+          0 0 20px rgba(0, 0, 0, 0.5)
+        `
       }}>
-        <div className="absolute inset-3 border-2 border-white/20 rounded-lg">
-          <div className="absolute inset-2 border border-white/10 rounded-md"></div>
+        <div className="absolute inset-3 border-3 border-gray-600 rounded-lg" style={{
+          boxShadow: 'inset 0 0 15px rgba(0, 0, 0, 0.4)'
+        }}>
+          <div className="absolute inset-2 border-2 border-gray-800 rounded-md" style={{
+            background: 'linear-gradient(135deg, rgba(50,50,50,0.3) 0%, rgba(0,0,0,0.5) 100%)'
+          }}></div>
         </div>
       </div>
 
@@ -178,7 +186,7 @@ const LuckDocument: React.FC<LuckDocumentProps> = ({
             <h2 className="text-2xl font-bold mb-6 tracking-[0.2em] text-white" style={{
               textShadow: '0 0 8px rgba(255,255,255,0.6), 1px 1px 3px rgba(0,0,0,0.8)'
             }}>
-              ЖЕЛАНИЕ
+              УДАЧА
             </h2>
             <div 
               className="min-h-[4rem] flex items-center justify-center px-6 py-4 mx-4 rounded-md"
@@ -257,32 +265,58 @@ const LuckDocument: React.FC<LuckDocumentProps> = ({
             
             <div className="text-center">
               <div 
-                className="w-24 h-24 flex flex-col items-center justify-center text-xs backdrop-blur-md"
+                className="w-28 h-28 flex flex-col items-center justify-center text-xs backdrop-blur-md relative"
                 style={{
                   background: `
-                    radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(168, 85, 247, 0.4) 30%, rgba(0,0,0,0.3) 100%),
-                    conic-gradient(from 0deg, rgba(255,255,255,0.4), rgba(168, 85, 247, 0.6), rgba(124, 58, 237, 0.8), rgba(255,255,255,0.4))
+                    radial-gradient(circle, rgba(0,0,0,0.8) 0%, rgba(50,50,50,0.6) 40%, rgba(168, 85, 247, 0.4) 70%, rgba(0,0,0,0.9) 100%)
                   `,
-                  borderRadius: '50%',
-                  border: '3px solid rgba(255,255,255,0.4)',
+                  border: '4px solid rgba(0, 0, 0, 0.9)',
                   boxShadow: `
-                    inset 0 0 15px rgba(168, 85, 247, 0.4),
-                    0 0 20px rgba(168, 85, 247, 0.3),
-                    inset 0 2px 0 rgba(255,255,255,0.4),
-                    inset 0 -2px 0 rgba(0,0,0,0.2)
-                  `,
-                  clipPath: 'polygon(15% 0%, 85% 0%, 100% 15%, 100% 85%, 85% 100%, 15% 100%, 0% 85%, 0% 15%)'
+                    inset 0 0 20px rgba(0, 0, 0, 0.8),
+                    inset 0 0 40px rgba(75, 75, 75, 0.3),
+                    0 0 25px rgba(0, 0, 0, 0.6),
+                    0 0 50px rgba(168, 85, 247, 0.2)
+                  `
                 }}
               >
-                <div className="font-bold text-white text-xs" style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.8)' }}>
-                  САЙТ ЖЕЛАНИЙ
+                {/* Pentagram shape */}
+                <div 
+                  className="absolute inset-2 flex items-center justify-center"
+                  style={{
+                    clipPath: 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)'
+                  }}
+                >
+                  <div 
+                    className="w-full h-full"
+                    style={{
+                      background: `
+                        linear-gradient(135deg, rgba(168, 85, 247, 0.6) 0%, rgba(0,0,0,0.4) 50%, rgba(168, 85, 247, 0.6) 100%),
+                        radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%)
+                      `,
+                      border: '2px solid rgba(168, 85, 247, 0.8)',
+                      boxShadow: 'inset 0 0 15px rgba(168, 85, 247, 0.4)'
+                    }}
+                  ></div>
                 </div>
-                <div className="text-[10px] text-purple-200 mt-1" style={{ textShadow: '1px 1px 1px rgba(0,0,0,0.8)' }}>
-                  POEHALI.DEV
+                
+                {/* Center content */}
+                <div className="relative z-10 text-center">
+                  <div className="font-bold text-white text-[10px] mb-1" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.9)' }}>
+                    САЙТ УДАЧИ
+                  </div>
+                  <div className="text-[8px] text-gray-300" style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.9)' }}>
+                    POEHALI.DEV
+                  </div>
+                  <div className="text-[8px] text-gray-400" style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.9)' }}>
+                    2025
+                  </div>
                 </div>
-                <div className="text-[10px] text-purple-200" style={{ textShadow: '1px 1px 1px rgba(0,0,0,0.8)' }}>
-                  2025
-                </div>
+                
+                {/* Additional decorative elements */}
+                <div className="absolute top-1 left-1 w-2 h-2 bg-gray-600 rounded-full opacity-60"></div>
+                <div className="absolute top-1 right-1 w-2 h-2 bg-gray-600 rounded-full opacity-60"></div>
+                <div className="absolute bottom-1 left-1 w-2 h-2 bg-gray-600 rounded-full opacity-60"></div>
+                <div className="absolute bottom-1 right-1 w-2 h-2 bg-gray-600 rounded-full opacity-60"></div>
               </div>
             </div>
           </div>
