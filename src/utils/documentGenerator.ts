@@ -8,8 +8,8 @@ export interface DocumentData {
 
 export const generateLuckDocument = async (data: DocumentData): Promise<void> => {
   try {
-    console.log('Generating beautiful document matching demo design');
-    return await generateBeautifulDocument(data);
+    console.log('Generating asymmetric document with sharp borders');
+    return await generateAsymmetricDocument(data);
     
   } catch (error) {
     console.error('Error generating document:', error);
@@ -17,7 +17,7 @@ export const generateLuckDocument = async (data: DocumentData): Promise<void> =>
   }
 };
 
-const generateBeautifulDocument = async (data: DocumentData): Promise<void> => {
+const generateAsymmetricDocument = async (data: DocumentData): Promise<void> => {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
   
@@ -29,217 +29,163 @@ const generateBeautifulDocument = async (data: DocumentData): Promise<void> => {
   canvas.width = 1240;
   canvas.height = 1754;
 
-  // СЛОЖНЫЙ МНОГОСЛОЙНЫЙ ФОН КАК В ДЕМО
-  // Основной фиолетовый градиент
-  const mainGradient = ctx.createLinearGradient(0, 0, 1240, 1754);
-  mainGradient.addColorStop(0, '#1a0b3d');
-  mainGradient.addColorStop(0.1, '#2d1b69');
-  mainGradient.addColorStop(0.2, '#4c1d95');
-  mainGradient.addColorStop(0.3, '#5b21b6');
-  mainGradient.addColorStop(0.4, '#7c3aed');
-  mainGradient.addColorStop(0.5, '#8b5cf6');
-  mainGradient.addColorStop(0.6, '#a855f7');
-  mainGradient.addColorStop(0.7, '#c084fc');
-  mainGradient.addColorStop(0.8, '#7c3aed');
-  mainGradient.addColorStop(0.9, '#5b21b6');
-  mainGradient.addColorStop(1, '#2d1b69');
+  // ОСНОВНОЙ ФОН - БАЗОВЫЙ ФИОЛЕТОВЫЙ БЕЗ ГРАДИЕНТА
+  ctx.fillStyle = '#2d1b69';
+  ctx.fillRect(0, 0, 1240, 1754);
+
+  // СВЕТЛЫЕ ЗОНЫ БЕЗ ПЕРЕТЕКАНИЯ
+  ctx.fillStyle = '#4c1d95';
+  ctx.fillRect(200, 100, 800, 300);
   
-  ctx.fillStyle = mainGradient;
-  ctx.fillRect(0, 0, 1240, 1754);
-
-  // Радиальные световые эффекты
-  const radial1 = ctx.createRadialGradient(248, 525, 0, 248, 525, 600);
-  radial1.addColorStop(0, 'rgba(168, 85, 247, 0.6)');
-  radial1.addColorStop(0.7, 'rgba(168, 85, 247, 0.2)');
-  radial1.addColorStop(1, 'transparent');
-  ctx.fillStyle = radial1;
-  ctx.fillRect(0, 0, 1240, 1754);
-
-  const radial2 = ctx.createRadialGradient(992, 1229, 0, 992, 1229, 500);
-  radial2.addColorStop(0, 'rgba(124, 58, 237, 0.5)');
-  radial2.addColorStop(0.7, 'rgba(124, 58, 237, 0.2)');
-  radial2.addColorStop(1, 'transparent');
-  ctx.fillStyle = radial2;
-  ctx.fillRect(0, 0, 1240, 1754);
-
-  const radial3 = ctx.createRadialGradient(620, 877, 0, 620, 877, 400);
-  radial3.addColorStop(0, 'rgba(91, 33, 182, 0.3)');
-  radial3.addColorStop(1, 'transparent');
-  ctx.fillStyle = radial3;
-  ctx.fillRect(0, 0, 1240, 1754);
-
-  // СЛОЖНАЯ МНОГОСЛОЙНАЯ РАМКА (КАК В ДЕМО)
-  ctx.save();
+  ctx.fillStyle = '#5b21b6';
+  ctx.fillRect(0, 400, 600, 400);
   
-  // Первая рамка (самая внешняя)
-  const border1 = ctx.createLinearGradient(0, 0, 1240, 1754);
-  border1.addColorStop(0, 'rgba(0,0,0,0.9)');
-  border1.addColorStop(0.1, 'rgba(30,30,30,0.8)');
-  border1.addColorStop(0.2, 'rgba(60,60,60,0.6)');
-  border1.addColorStop(0.3, 'rgba(30,30,30,0.8)');
-  border1.addColorStop(0.4, 'rgba(0,0,0,0.9)');
-  border1.addColorStop(0.6, 'rgba(30,30,30,0.8)');
-  border1.addColorStop(0.7, 'rgba(60,60,60,0.6)');
-  border1.addColorStop(0.8, 'rgba(30,30,30,0.8)');
-  border1.addColorStop(1, 'rgba(0,0,0,0.9)');
+  ctx.fillStyle = '#7c3aed';
+  ctx.fillRect(640, 800, 600, 400);
   
-  ctx.strokeStyle = border1;
+  ctx.fillStyle = '#8b5cf6';
+  ctx.fillRect(300, 1200, 700, 300);
+
+  // АСИММЕТРИЧНЫЕ РАМКИ С ЧЕТКИМИ ГРАНИЦАМИ
+  // Внешняя рамка - неравномерная толщина
+  ctx.strokeStyle = '#000000';
+  ctx.lineWidth = 15;
+  ctx.strokeRect(5, 5, 1230, 1744);
+  
+  // Вторая рамка - асимметричная
+  ctx.strokeStyle = '#1a1a1a';
   ctx.lineWidth = 12;
-  ctx.strokeRect(6, 6, 1228, 1742);
-
-  // Вторая рамка
-  const border2 = ctx.createLinearGradient(0, 0, 1240, 0);
-  border2.addColorStop(0, 'rgba(75,75,75,0.4)');
-  border2.addColorStop(0.25, 'rgba(20,20,20,0.8)');
-  border2.addColorStop(0.5, 'rgba(0,0,0,0.95)');
-  border2.addColorStop(0.75, 'rgba(20,20,20,0.8)');
-  border2.addColorStop(1, 'rgba(75,75,75,0.4)');
+  ctx.strokeRect(20, 15, 1200, 1724);
   
-  ctx.strokeStyle = border2;
-  ctx.lineWidth = 10;
-  ctx.strokeRect(18, 18, 1204, 1718);
-
-  // Третья рамка
-  ctx.strokeStyle = 'rgba(40, 40, 40, 0.8)';
+  // Третья рамка - неравномерная
+  ctx.strokeStyle = '#2a2a2a';
   ctx.lineWidth = 8;
-  ctx.strokeRect(28, 28, 1184, 1698);
-
-  // Четвёртая рамка
-  ctx.strokeStyle = 'rgba(60, 60, 60, 0.6)';
+  ctx.strokeRect(35, 25, 1170, 1704);
+  
+  // Четвертая рамка - асимметричная
+  ctx.strokeStyle = '#3c3c3c';
   ctx.lineWidth = 6;
-  ctx.strokeRect(36, 36, 1168, 1682);
-
-  // Внутренняя рамка
-  ctx.strokeStyle = 'rgba(75, 75, 75, 0.4)';
+  ctx.strokeRect(50, 40, 1140, 1674);
+  
+  // Внутренняя рамка - неравномерная
+  ctx.strokeStyle = '#4b4b4b';
   ctx.lineWidth = 4;
-  ctx.strokeRect(44, 44, 1152, 1666);
+  ctx.strokeRect(65, 55, 1110, 1644);
 
-  ctx.restore();
-
-  // УГЛОВЫЕ ДЕКОРАТИВНЫЕ ЭЛЕМЕНТЫ
-  // Верхний левый
-  ctx.save();
-  const cornerGrad1 = ctx.createRadialGradient(70, 70, 0, 70, 70, 30);
-  cornerGrad1.addColorStop(0, 'rgba(255,255,255,0.4)');
-  cornerGrad1.addColorStop(0.3, 'rgba(168, 85, 247, 0.6)');
-  cornerGrad1.addColorStop(1, 'transparent');
-  ctx.fillStyle = cornerGrad1;
+  // АСИММЕТРИЧНЫЕ УГЛОВЫЕ ЭЛЕМЕНТЫ - ЧЕТКИЕ ФОРМЫ
+  // Верхний левый - большой треугольник
+  ctx.fillStyle = '#a855f7';
   ctx.beginPath();
-  ctx.moveTo(50, 50);
-  ctx.lineTo(90, 50);
-  ctx.lineTo(50, 90);
+  ctx.moveTo(70, 70);
+  ctx.lineTo(140, 70);
+  ctx.lineTo(70, 140);
   ctx.closePath();
   ctx.fill();
-  ctx.restore();
-
-  // Верхний правый
-  ctx.save();
-  ctx.fillStyle = 'rgba(168, 85, 247, 0.6)';
+  
+  // Верхний правый - маленький треугольник
+  ctx.fillStyle = '#c084fc';
   ctx.beginPath();
-  ctx.moveTo(1190, 50);
-  ctx.lineTo(1150, 50);
-  ctx.lineTo(1190, 90);
+  ctx.moveTo(1170, 70);
+  ctx.lineTo(1130, 70);
+  ctx.lineTo(1170, 110);
   ctx.closePath();
   ctx.fill();
-  ctx.restore();
-
-  // Нижний левый
-  ctx.save();
-  ctx.fillStyle = 'rgba(168, 85, 247, 0.6)';
+  
+  // Нижний левый - средний треугольник
+  ctx.fillStyle = '#8b5cf6';
   ctx.beginPath();
-  ctx.moveTo(50, 1704);
-  ctx.lineTo(90, 1704);
-  ctx.lineTo(50, 1664);
+  ctx.moveTo(70, 1684);
+  ctx.lineTo(120, 1684);
+  ctx.lineTo(70, 1634);
   ctx.closePath();
   ctx.fill();
-  ctx.restore();
-
-  // Нижний правый
-  ctx.save();
-  ctx.fillStyle = 'rgba(168, 85, 247, 0.6)';
+  
+  // Нижний правый - большой треугольник
+  ctx.fillStyle = '#7c3aed';
   ctx.beginPath();
-  ctx.moveTo(1190, 1704);
-  ctx.lineTo(1150, 1704);
-  ctx.lineTo(1190, 1664);
+  ctx.moveTo(1170, 1684);
+  ctx.lineTo(1100, 1684);
+  ctx.lineTo(1170, 1614);
   ctx.closePath();
   ctx.fill();
-  ctx.restore();
 
-  // ЗАГОЛОВОК - СКРИЖАЛЬ УДАЧИ
+  // ЗАГОЛОВОК - АСИММЕТРИЧНЫЙ БЛОК
   ctx.save();
   
-  // Фон заголовка
-  const headerBg = ctx.createLinearGradient(60, 120, 1180, 280);
-  headerBg.addColorStop(0, 'rgba(255,255,255,0.15)');
-  headerBg.addColorStop(0.5, 'rgba(168, 85, 247, 0.25)');
-  headerBg.addColorStop(1, 'rgba(0,0,0,0.1)');
+  // Фон заголовка - асимметричный прямоугольник
+  ctx.fillStyle = '#1a0b3d';
+  ctx.fillRect(120, 150, 900, 120);
   
-  ctx.fillStyle = headerBg;
-  ctx.fillRect(60, 120, 1120, 160);
+  // Дополнительный блок справа
+  ctx.fillStyle = '#4c1d95';
+  ctx.fillRect(1020, 150, 100, 120);
   
-  // Дополнительный световой эффект
-  const headerLight = ctx.createLinearGradient(60, 150, 1180, 200);
-  headerLight.addColorStop(0, 'transparent');
-  headerLight.addColorStop(0.5, 'rgba(255,255,255,0.1)');
-  headerLight.addColorStop(1, 'transparent');
-  ctx.fillStyle = headerLight;
-  ctx.fillRect(60, 150, 1120, 50);
+  // Рамка заголовка - асимметричная
+  ctx.strokeStyle = '#ffffff';
+  ctx.lineWidth = 3;
+  ctx.strokeRect(120, 150, 1000, 120);
   
   // Главный заголовок
   ctx.fillStyle = 'white';
-  ctx.font = 'bold 72px serif';
+  ctx.font = 'bold 64px serif';
   ctx.textAlign = 'center';
-  ctx.shadowColor = 'rgba(255,255,255,0.8)';
-  ctx.shadowBlur = 15;
-  ctx.shadowOffsetX = 0;
-  ctx.shadowOffsetY = 0;
-  ctx.fillText('СКРИЖАЛЬ УДАЧИ', 620, 215);
+  ctx.shadowColor = '#000000';
+  ctx.shadowBlur = 4;
+  ctx.shadowOffsetX = 2;
+  ctx.shadowOffsetY = 2;
+  ctx.fillText('СКРИЖАЛЬ УДАЧИ', 620, 220);
   
   // Подзаголовок
-  ctx.font = 'italic 36px serif';
-  ctx.fillStyle = 'rgba(168, 85, 247, 0.9)';
-  ctx.shadowColor = 'rgba(0,0,0,0.8)';
-  ctx.shadowBlur = 6;
-  ctx.fillText('Персональный документ силы', 620, 260);
+  ctx.font = 'italic 28px serif';
+  ctx.fillStyle = '#a855f7';
+  ctx.shadowColor = '#000000';
+  ctx.shadowBlur = 2;
+  ctx.fillText('Персональный документ силы', 620, 250);
   
   ctx.restore();
 
-  // СЕКЦИЯ УДАЧА
+  // СЕКЦИЯ УДАЧА - АСИММЕТРИЧНЫЙ БЛОК
   ctx.save();
   
-  // Фон секции
-  const wishBg = ctx.createLinearGradient(60, 320, 1180, 520);
-  wishBg.addColorStop(0, 'rgba(255,255,255,0.1)');
-  wishBg.addColorStop(0.5, 'rgba(168, 85, 247, 0.2)');
-  wishBg.addColorStop(1, 'rgba(0,0,0,0.1)');
+  // Основной блок удачи - неправильная форма
+  ctx.fillStyle = '#5b21b6';
+  ctx.fillRect(80, 300, 950, 180);
   
-  ctx.fillStyle = wishBg;
-  ctx.fillRect(60, 320, 1120, 200);
+  // Дополнительный блок справа
+  ctx.fillStyle = '#7c3aed';
+  ctx.fillRect(1030, 320, 140, 140);
+  
+  // Рамка секции удачи
+  ctx.strokeStyle = '#ffffff';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(80, 300, 1090, 180);
   
   // Заголовок УДАЧА
   ctx.fillStyle = 'white';
-  ctx.font = 'bold 56px serif';
+  ctx.font = 'bold 48px serif';
   ctx.textAlign = 'center';
-  ctx.shadowColor = 'rgba(255,255,255,0.6)';
-  ctx.shadowBlur = 10;
-  ctx.fillText('УДАЧА', 620, 380);
+  ctx.shadowColor = '#000000';
+  ctx.shadowBlur = 3;
+  ctx.fillText('УДАЧА', 620, 350);
   
-  // Поле для желания
-  const textFieldBg = ctx.createLinearGradient(120, 410, 1120, 500);
-  textFieldBg.addColorStop(0, 'rgba(0,0,0,0.3)');
-  textFieldBg.addColorStop(0.5, 'rgba(0,0,0,0.4)');
-  textFieldBg.addColorStop(1, 'rgba(0,0,0,0.3)');
+  // Поле для желания - асимметричное
+  ctx.fillStyle = '#1a0b3d';
+  ctx.fillRect(140, 370, 800, 80);
   
-  ctx.fillStyle = textFieldBg;
-  ctx.fillRect(120, 410, 1000, 90);
+  // Дополнительное поле
+  ctx.fillStyle = '#2d1b69';
+  ctx.fillRect(940, 380, 180, 60);
+  
+  ctx.strokeStyle = '#ffffff';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(140, 370, 980, 80);
   
   // Текст желания
-  ctx.fillStyle = 'rgba(168, 85, 247, 0.9)';
-  ctx.font = '32px serif';
-  ctx.shadowColor = 'rgba(0,0,0,0.8)';
-  ctx.shadowBlur = 3;
+  ctx.fillStyle = '#a855f7';
+  ctx.font = '26px serif';
+  ctx.shadowColor = '#000000';
+  ctx.shadowBlur = 2;
   
-  // Разбивка текста на строки
   const wishText = `"${data.wish || 'ваше желание'}"`;
   const words = wishText.split(' ');
   const lines = [];
@@ -248,7 +194,7 @@ const generateBeautifulDocument = async (data: DocumentData): Promise<void> => {
   for (const word of words) {
     const testLine = currentLine + (currentLine ? ' ' : '') + word;
     const metrics = ctx.measureText(testLine);
-    if (metrics.width > 900 && currentLine) {
+    if (metrics.width > 750 && currentLine) {
       lines.push(currentLine);
       currentLine = word;
     } else {
@@ -257,78 +203,89 @@ const generateBeautifulDocument = async (data: DocumentData): Promise<void> => {
   }
   lines.push(currentLine);
   
-  const wishStartY = 445;
+  const wishStartY = 400;
   lines.forEach((line, index) => {
-    ctx.fillText(line, 620, wishStartY + index * 40);
+    ctx.fillText(line, 630, wishStartY + index * 32);
   });
   
   ctx.restore();
 
-  // СТАТИСТИКА
+  // СТАТИСТИКА - АСИММЕТРИЧНЫЕ БЛОКИ
   ctx.save();
   
-  // Блок уровня силы
-  const powerBg = ctx.createLinearGradient(60, 560, 1180, 630);
-  powerBg.addColorStop(0, 'rgba(168, 85, 247, 0.3)');
-  powerBg.addColorStop(0.5, 'rgba(0,0,0,0.4)');
-  powerBg.addColorStop(1, 'rgba(168, 85, 247, 0.3)');
+  // Блок уровня силы - неправильной формы
+  ctx.fillStyle = '#4c1d95';
+  ctx.fillRect(100, 520, 700, 60);
   
-  ctx.fillStyle = powerBg;
-  ctx.fillRect(60, 560, 1120, 70);
+  ctx.fillStyle = '#7c3aed';
+  ctx.fillRect(800, 530, 300, 40);
   
-  ctx.fillStyle = 'white';
-  ctx.font = 'bold 36px serif';
-  ctx.textAlign = 'center';
-  ctx.shadowColor = 'rgba(0,0,0,0.9)';
-  ctx.shadowBlur = 4;
-  ctx.fillText(`Уровень силы: ${data.powerLevel}/10`, 620, 610);
-  
-  // Блок энергетического вклада
-  const energyBg = ctx.createLinearGradient(60, 650, 1180, 720);
-  energyBg.addColorStop(0, 'rgba(168, 85, 247, 0.3)');
-  energyBg.addColorStop(0.5, 'rgba(0,0,0,0.4)');
-  energyBg.addColorStop(1, 'rgba(168, 85, 247, 0.3)');
-  
-  ctx.fillStyle = energyBg;
-  ctx.fillRect(60, 650, 1120, 70);
+  ctx.strokeStyle = '#ffffff';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(100, 520, 1000, 60);
   
   ctx.fillStyle = 'white';
-  ctx.fillText(`Энергетический вклад: ${data.energyInvestment} ₽`, 620, 700);
+  ctx.font = 'bold 32px serif';
+  ctx.textAlign = 'left';
+  ctx.shadowColor = '#000000';
+  ctx.shadowBlur = 2;
+  ctx.fillText(`Уровень силы: ${data.powerLevel}/10`, 120, 560);
+  
+  // Блок энергетического вклада - другая форма
+  ctx.fillStyle = '#8b5cf6';
+  ctx.fillRect(150, 600, 800, 60);
+  
+  ctx.fillStyle = '#5b21b6';
+  ctx.fillRect(80, 610, 70, 40);
+  
+  ctx.strokeStyle = '#ffffff';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(80, 600, 1020, 60);
+  
+  ctx.fillStyle = 'white';
+  ctx.textAlign = 'left';
+  ctx.fillText(`Энергетический вклад: ${data.energyInvestment} ₽`, 120, 640);
   
   ctx.restore();
 
-  // СЕКЦИЯ АФФИРМАЦИЙ
+  // СЕКЦИЯ АФФИРМАЦИЙ - АСИММЕТРИЧНЫЙ БЛОК
   ctx.save();
   
   // Заголовок аффирмаций
   ctx.fillStyle = 'white';
-  ctx.font = 'bold 48px serif';
+  ctx.font = 'bold 42px serif';
   ctx.textAlign = 'center';
-  ctx.shadowColor = 'rgba(255,255,255,0.6)';
-  ctx.shadowBlur = 10;
-  ctx.fillText('ПЕРСОНАЛЬНЫЕ АФФИРМАЦИИ', 620, 800);
+  ctx.shadowColor = '#000000';
+  ctx.shadowBlur = 3;
+  ctx.fillText('ПЕРСОНАЛЬНЫЕ АФФИРМАЦИИ', 620, 740);
   
   // Подзаголовок
-  ctx.font = 'bold 38px serif';
-  ctx.fillStyle = 'rgba(168, 85, 247, 0.9)';
-  ctx.shadowColor = 'rgba(168, 85, 247, 0.8)';
-  ctx.shadowBlur = 8;
-  ctx.fillText('ПРИНЯТИЕ ЛЮБВИ', 620, 850);
+  ctx.font = 'bold 32px serif';
+  ctx.fillStyle = '#a855f7';
+  ctx.shadowColor = '#000000';
+  ctx.shadowBlur = 2;
+  ctx.fillText('ПРИНЯТИЕ ЛЮБВИ', 620, 780);
   
-  // Фон для текста аффирмаций
-  const affBg = ctx.createLinearGradient(60, 880, 1180, 1080);
-  affBg.addColorStop(0, 'rgba(0,0,0,0.2)');
-  affBg.addColorStop(0.5, 'rgba(0,0,0,0.3)');
-  affBg.addColorStop(1, 'rgba(0,0,0,0.2)');
+  // Блок для текста аффирмаций - сложная асимметричная форма
+  ctx.fillStyle = '#1a0b3d';
+  ctx.fillRect(120, 800, 800, 180);
   
-  ctx.fillStyle = affBg;
-  ctx.fillRect(60, 880, 1120, 200);
+  ctx.fillStyle = '#2d1b69';
+  ctx.fillRect(920, 820, 200, 140);
+  
+  ctx.fillStyle = '#4c1d95';
+  ctx.fillRect(80, 850, 40, 100);
+  
+  ctx.strokeStyle = '#ffffff';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(80, 800, 1040, 180);
   
   // Текст аффирмаций
-  ctx.fillStyle = 'rgba(168, 85, 247, 0.9)';
-  ctx.font = '28px serif';
-  ctx.shadowColor = 'rgba(0,0,0,0.8)';
-  ctx.shadowBlur = 3;
+  ctx.fillStyle = '#a855f7';
+  ctx.font = '24px serif';
+  ctx.textAlign = 'center';
+  ctx.shadowColor = '#000000';
+  ctx.shadowBlur = 2;
   
   const affWords = data.affirmationText.split(' ');
   const affLines = [];
@@ -337,7 +294,7 @@ const generateBeautifulDocument = async (data: DocumentData): Promise<void> => {
   for (const word of affWords) {
     const testLine = currentAffLine + (currentAffLine ? ' ' : '') + word;
     const metrics = ctx.measureText(testLine);
-    if (metrics.width > 1000 && currentAffLine) {
+    if (metrics.width > 900 && currentAffLine) {
       affLines.push(currentAffLine);
       currentAffLine = word;
     } else {
@@ -346,107 +303,103 @@ const generateBeautifulDocument = async (data: DocumentData): Promise<void> => {
   }
   affLines.push(currentAffLine);
   
-  const affStartY = 920;
+  const affStartY = 840;
   affLines.forEach((line, index) => {
-    ctx.fillText(line, 620, affStartY + index * 40);
+    ctx.fillText(line, 620, affStartY + index * 32);
   });
   
   ctx.restore();
 
-  // КРУГЛАЯ ПЕЧАТЬ (КАК В ДЕМО)
+  // АСИММЕТРИЧНАЯ ПЕЧАТЬ
   ctx.save();
-  ctx.translate(950, 1300);
+  ctx.translate(950, 1200);
   
-  // Внешние декоративные лучи (тёмные)
-  ctx.strokeStyle = 'rgba(30, 30, 30, 0.8)';
-  ctx.lineWidth = 3;
-  for (let i = 0; i < 12; i++) {
-    const angle = (i * Math.PI * 2) / 12;
-    const x1 = Math.cos(angle) * 100;
-    const y1 = Math.sin(angle) * 100;
-    const x2 = Math.cos(angle) * 85;
-    const y2 = Math.sin(angle) * 85;
+  // Внешние декоративные элементы - асимметричные
+  for (let i = 0; i < 10; i++) {
+    const angle = (i * Math.PI * 2) / 10;
+    const distance = 90 + (i % 3) * 10; // разные расстояния
+    const x1 = Math.cos(angle) * distance;
+    const y1 = Math.sin(angle) * distance;
+    const x2 = Math.cos(angle) * (distance - 15);
+    const y2 = Math.sin(angle) * (distance - 15);
     
+    ctx.strokeStyle = '#2a2a2a';
+    ctx.lineWidth = 3;
     ctx.beginPath();
     ctx.moveTo(x1, y1);
     ctx.lineTo(x2, y2);
     ctx.stroke();
     
-    // Декоративные точки
-    ctx.fillStyle = 'rgba(50, 50, 50, 0.9)';
+    // Точки разных размеров
+    ctx.fillStyle = '#1a1a1a';
     ctx.beginPath();
-    ctx.arc(x1, y1, 3, 0, Math.PI * 2);
+    ctx.arc(x1, y1, 2 + (i % 3), 0, Math.PI * 2);
     ctx.fill();
   }
   
-  // Основной круг печати
-  const sealGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, 80);
-  sealGradient.addColorStop(0, 'rgba(255,255,255,0.3)');
-  sealGradient.addColorStop(0.3, 'rgba(168, 85, 247, 0.4)');
-  sealGradient.addColorStop(1, 'rgba(0,0,0,0.3)');
-  
-  ctx.fillStyle = sealGradient;
-  ctx.beginPath();
-  ctx.arc(0, 0, 80, 0, Math.PI * 2);
-  ctx.fill();
-  
-  // Коническая окружность
-  ctx.strokeStyle = 'rgba(255,255,255,0.4)';
-  ctx.lineWidth = 6;
-  ctx.beginPath();
-  ctx.arc(0, 0, 75, 0, Math.PI * 2);
-  ctx.stroke();
-  
-  // Внутренняя рамка
-  ctx.strokeStyle = 'rgba(168, 85, 247, 0.8)';
-  ctx.lineWidth = 4;
+  // Основной круг печати - асимметричный
+  ctx.fillStyle = '#4c1d95';
   ctx.beginPath();
   ctx.arc(0, 0, 70, 0, Math.PI * 2);
+  ctx.fill();
+  
+  // Дополнительный элемент
+  ctx.fillStyle = '#7c3aed';
+  ctx.fillRect(-20, -20, 40, 40);
+  
+  // Рамки печати - разной толщины
+  ctx.strokeStyle = '#ffffff';
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  ctx.arc(0, 0, 65, 0, Math.PI * 2);
   ctx.stroke();
   
-  // Многоугольная форма (имитация clipPath)
-  ctx.strokeStyle = 'rgba(255,255,255,0.3)';
   ctx.lineWidth = 2;
   ctx.beginPath();
-  for (let i = 0; i < 8; i++) {
-    const angle = (i * Math.PI * 2) / 8;
-    const x = Math.cos(angle) * 65;
-    const y = Math.sin(angle) * 65;
-    if (i === 0) ctx.moveTo(x, y);
-    else ctx.lineTo(x, y);
-  }
+  ctx.arc(0, 0, 58, 0, Math.PI * 2);
+  ctx.stroke();
+  
+  // Многоугольник - асимметричный
+  ctx.strokeStyle = '#a855f7';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(45, 0);
+  ctx.lineTo(20, 40);
+  ctx.lineTo(-30, 35);
+  ctx.lineTo(-45, -10);
+  ctx.lineTo(-20, -40);
+  ctx.lineTo(25, -35);
   ctx.closePath();
   ctx.stroke();
   
   // Текст печати
   ctx.fillStyle = 'white';
-  ctx.font = 'bold 18px sans-serif';
+  ctx.font = 'bold 16px sans-serif';
   ctx.textAlign = 'center';
-  ctx.shadowColor = 'rgba(0,0,0,0.9)';
-  ctx.shadowBlur = 4;
-  ctx.fillText('САЙТ ЖЕЛАНИЙ', 0, -15);
+  ctx.shadowColor = '#000000';
+  ctx.shadowBlur = 2;
+  ctx.fillText('САЙТ ЖЕЛАНИЙ', 0, -10);
   
-  ctx.font = '14px sans-serif';
-  ctx.fillStyle = 'rgba(168, 85, 247, 0.9)';
-  ctx.fillText('POEHALI.DEV', 0, 5);
-  
-  ctx.font = '14px sans-serif';
-  ctx.fillText('2025', 0, 25);
+  ctx.font = '12px sans-serif';
+  ctx.fillStyle = '#c084fc';
+  ctx.fillText('POEHALI.DEV', 0, 8);
+  ctx.fillText('2025', 0, 24);
   
   ctx.restore();
 
-  // ИНФОРМАЦИЯ О ДОКУМЕНТЕ
+  // ИНФОРМАЦИЯ О ДОКУМЕНТЕ - АСИММЕТРИЧНЫЙ БЛОК
   ctx.save();
   
-  // Фон для информации
-  const infoBg = ctx.createLinearGradient(60, 1400, 800, 1550);
-  infoBg.addColorStop(0, 'rgba(0,0,0,0.4)');
-  infoBg.addColorStop(1, 'rgba(168, 85, 247, 0.2)');
+  ctx.fillStyle = '#1a0b3d';
+  ctx.fillRect(80, 1400, 600, 120);
   
-  ctx.fillStyle = infoBg;
-  ctx.fillRect(60, 1400, 740, 150);
+  ctx.fillStyle = '#2d1b69';
+  ctx.fillRect(680, 1420, 100, 80);
   
-  // Данные документа
+  ctx.strokeStyle = '#ffffff';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(80, 1400, 700, 120);
+  
   const timestamp = new Date().toLocaleDateString('ru-RU', {
     day: '2-digit',
     month: 'long', 
@@ -457,52 +410,61 @@ const generateBeautifulDocument = async (data: DocumentData): Promise<void> => {
   const docNumber = `WD${Date.now()}${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
   
   ctx.fillStyle = 'white';
-  ctx.font = 'bold 24px serif';
+  ctx.font = 'bold 20px serif';
   ctx.textAlign = 'left';
-  ctx.shadowColor = 'rgba(0,0,0,0.9)';
-  ctx.shadowBlur = 3;
+  ctx.shadowColor = '#000000';
+  ctx.shadowBlur = 2;
   
-  ctx.fillText(`Документ №: ${docNumber}`, 80, 1440);
-  ctx.fillText(`Дата активации: ${timestamp}`, 80, 1480);
+  ctx.fillText(`Документ №: ${docNumber}`, 100, 1430);
+  ctx.fillText(`Дата: ${timestamp}`, 100, 1460);
   
-  ctx.font = 'bold 26px serif';
-  ctx.fillStyle = 'rgba(168, 85, 247, 0.9)';
-  ctx.fillText(`Получатель: ${data.userName || 'Получатель силы'}`, 80, 1520);
+  ctx.font = 'bold 22px serif';
+  ctx.fillStyle = '#a855f7';
+  ctx.fillText(`Получатель: ${data.userName || 'Получатель силы'}`, 100, 1490);
   
   ctx.restore();
 
-  // ПРЕДУПРЕЖДЕНИЕ
+  // ПРЕДУПРЕЖДЕНИЕ - АСИММЕТРИЧНЫЙ БЛОК
   ctx.save();
   
-  // Фон предупреждения
-  const warnGradient = ctx.createLinearGradient(60, 1580, 1180, 1630);
-  warnGradient.addColorStop(0, 'rgba(255, 193, 7, 0.9)');
-  warnGradient.addColorStop(1, 'rgba(255, 152, 0, 0.8)');
+  ctx.fillStyle = '#FBC520';
+  ctx.fillRect(100, 1560, 900, 50);
   
-  ctx.fillStyle = warnGradient;
-  ctx.fillRect(60, 1580, 1120, 50);
+  ctx.fillStyle = '#FAB619';
+  ctx.fillRect(1000, 1565, 140, 40);
+  
+  ctx.strokeStyle = '#F59E0B';
+  ctx.lineWidth = 3;
+  ctx.strokeRect(100, 1560, 1040, 50);
   
   ctx.fillStyle = 'black';
-  ctx.font = 'bold 30px serif';
+  ctx.font = 'bold 26px serif';
   ctx.textAlign = 'center';
-  ctx.shadowColor = 'rgba(255,255,255,0.7)';
-  ctx.shadowBlur = 3;
-  ctx.fillText('⚠️ ДОКУМЕНТ ДЕЙСТВУЕТ ПОСЛЕ ОПЛАТЫ СИЛЫ! ⚠️', 620, 1610);
+  ctx.shadowColor = '#ffffff';
+  ctx.shadowBlur = 1;
+  ctx.fillText('⚠️ ДОКУМЕНТ ДЕЙСТВУЕТ ПОСЛЕ ОПЛАТЫ СИЛЫ! ⚠️', 620, 1590);
   
   ctx.restore();
 
-  // ПОЛУЧАТЕЛЬ И EMAIL
+  // ПОЛУЧАТЕЛЬ И EMAIL - АСИММЕТРИЧНЫЙ БЛОК
   ctx.save();
   
-  ctx.fillStyle = 'rgba(0,0,0,0.2)';
-  ctx.fillRect(60, 1650, 1120, 50);
+  ctx.fillStyle = '#2d1b69';
+  ctx.fillRect(120, 1640, 800, 50);
   
-  ctx.fillStyle = 'rgba(168, 85, 247, 0.9)';
-  ctx.font = '20px serif';
+  ctx.fillStyle = '#4c1d95';
+  ctx.fillRect(920, 1650, 200, 30);
+  
+  ctx.strokeStyle = '#ffffff';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(120, 1640, 1000, 50);
+  
+  ctx.fillStyle = '#a855f7';
+  ctx.font = '18px serif';
   ctx.textAlign = 'center';
-  ctx.shadowColor = 'rgba(0,0,0,0.8)';
-  ctx.shadowBlur = 2;
-  ctx.fillText(`Получатель: ${data.userName || 'Получатель силы'} • Email: user@example.com`, 620, 1680);
+  ctx.shadowColor = '#000000';
+  ctx.shadowBlur = 1;
+  ctx.fillText(`Получатель: ${data.userName || 'Получатель силы'} • Email: user@example.com`, 620, 1670);
   
   ctx.restore();
 
