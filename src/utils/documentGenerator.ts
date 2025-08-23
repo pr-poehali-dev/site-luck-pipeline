@@ -53,7 +53,7 @@ export const generateLuckDocument = async (data: DocumentData): Promise<void> =>
     
     // Желание
     ctx.font = 'bold 18px serif';
-    ctx.fillText('ЖЕЛАНИЕ', rect.width / 2, 150);
+    ctx.fillText('УДАЧА', rect.width / 2, 150);
     
     ctx.font = '16px serif';
     ctx.fillStyle = '#e0e0e0';

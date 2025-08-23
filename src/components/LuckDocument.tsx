@@ -246,7 +246,7 @@ const LuckDocument: React.FC<LuckDocumentProps> = ({
             <h2 className="text-2xl font-bold mb-6 tracking-[0.2em] text-white" style={{
               textShadow: '0 0 8px rgba(255,255,255,0.6), 1px 1px 3px rgba(0,0,0,0.8)'
             }}>
-              ЖЕЛАНИЕ
+              УДАЧА
             </h2>
             <div 
               className="min-h-[4rem] flex items-center justify-center px-6 py-4 mx-4 rounded-md"

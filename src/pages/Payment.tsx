@@ -339,15 +339,23 @@ const Payment = () => {
         )}
 
         {/* Временный видимый документ для тестирования */}
-        <div className="mt-8 w-full max-w-4xl mx-auto overflow-hidden">
+        <div className="mt-8 w-full max-w-4xl mx-auto overflow-hidden rounded-lg shadow-2xl">
           <div style={{ transform: 'scale(0.3)', transformOrigin: 'top center' }}>
-            <LuckDocument 
-              wish={wish}
-              powerLevel={strength}
-              userName="Получатель силы"
-              energyInvestment={price}
-              affirmationText={generateAffirmationText(wish, strength)}
-            />
+            <div className="relative">
+              <LuckDocument 
+                wish={wish}
+                powerLevel={strength}
+                userName="Получатель силы"
+                energyInvestment={price}
+                affirmationText={generateAffirmationText(wish, strength)}
+              />
+              {/* Overlay с подсказкой */}
+              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-300 cursor-pointer rounded-lg">
+                <div className="bg-white bg-opacity-90 text-black px-4 py-2 rounded-lg text-sm font-semibold opacity-0 hover:opacity-100 transition-opacity duration-300">
+                  🔍 Нажмите для увеличения
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
