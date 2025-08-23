@@ -180,32 +180,44 @@ const generateSimpleDocument = async (data: DocumentData): Promise<void> => {
   
   ctx.restore();
 
-  // Статистика в блоках
+  // Статистика в блоках (улучшенные размеры)
   ctx.save();
   
-  // Блок "Уровень силы"
-  ctx.fillStyle = 'rgba(0,0,0,0.2)';
-  ctx.fillRect(260, 490, 300, 50);
-  ctx.strokeStyle = 'rgba(255,255,255,0.2)';
-  ctx.lineWidth = 2;
-  ctx.strokeRect(260, 490, 300, 50);
+  // Блок "Уровень силы" - увеличен и улучшен
+  const powerBg = ctx.createLinearGradient(200, 490, 580, 560);
+  powerBg.addColorStop(0, 'rgba(168, 85, 247, 0.3)');
+  powerBg.addColorStop(1, 'rgba(0,0,0,0.4)');
+  
+  ctx.fillStyle = powerBg;
+  ctx.fillRect(200, 490, 380, 70);
+  ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+  ctx.lineWidth = 3;
+  ctx.strokeRect(200, 490, 380, 70);
   
   ctx.fillStyle = 'white';
-  ctx.font = 'bold 25px serif';
+  ctx.font = 'bold 28px serif';
   ctx.textAlign = 'left';
-  ctx.shadowColor = 'rgba(0,0,0,0.8)';
-  ctx.shadowBlur = 2;
-  ctx.fillText(`Уровень силы: ${data.powerLevel}/10`, 270, 520);
+  ctx.shadowColor = 'rgba(0,0,0,0.9)';
+  ctx.shadowBlur = 3;
+  ctx.fillText(`Уровень силы: ${data.powerLevel}/10`, 210, 530);
   
-  // Блок "Энергетический вклад"
-  ctx.fillStyle = 'rgba(0,0,0,0.2)';
-  ctx.fillRect(680, 490, 300, 50);
-  ctx.strokeStyle = 'rgba(255,255,255,0.2)';
-  ctx.lineWidth = 2;
-  ctx.strokeRect(680, 490, 300, 50);
+  // Блок "Энергетический вклад" - увеличен и улучшен
+  const energyBg = ctx.createLinearGradient(660, 490, 1040, 560);
+  energyBg.addColorStop(0, 'rgba(168, 85, 247, 0.3)');
+  energyBg.addColorStop(1, 'rgba(0,0,0,0.4)');
+  
+  ctx.fillStyle = energyBg;
+  ctx.fillRect(660, 490, 380, 70);
+  ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+  ctx.lineWidth = 3;
+  ctx.strokeRect(660, 490, 380, 70);
   
   ctx.fillStyle = 'white';
-  ctx.fillText(`Энергетический вклад: ${data.energyInvestment} ₽`, 690, 520);
+  ctx.font = 'bold 24px serif';
+  ctx.fillText(`Энергетический вклад:`, 670, 520);
+  ctx.font = 'bold 28px serif';
+  ctx.fillStyle = '#f0f0f0';
+  ctx.fillText(`${data.energyInvestment} ₽`, 670, 550);
   
   ctx.restore();
 
@@ -256,36 +268,73 @@ const generateSimpleDocument = async (data: DocumentData): Promise<void> => {
   
   ctx.restore();
 
-  // Пентаграмма-печать
+  // Увеличенная печать с декоративным узором
   ctx.save();
-  ctx.translate(1015, 1450);
+  ctx.translate(1000, 1400);
   
-  // Круг для печати
+  // Внешний декоративный узор
+  ctx.strokeStyle = 'rgba(168, 85, 247, 0.4)';
+  ctx.lineWidth = 2;
+  for (let i = 0; i < 16; i++) {
+    const angle = (i * Math.PI * 2) / 16;
+    const x1 = Math.cos(angle) * 130;
+    const y1 = Math.sin(angle) * 130;
+    const x2 = Math.cos(angle) * 120;
+    const y2 = Math.sin(angle) * 120;
+    
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+    
+    // Маленькие точки
+    ctx.fillStyle = 'rgba(168, 85, 247, 0.6)';
+    ctx.beginPath();
+    ctx.arc(x1, y1, 2, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  
+  // Декоративные дуги между лучами
+  ctx.strokeStyle = 'rgba(168, 85, 247, 0.3)';
+  ctx.lineWidth = 1;
+  for (let i = 0; i < 16; i++) {
+    const angle1 = (i * Math.PI * 2) / 16;
+    const angle2 = ((i + 1) * Math.PI * 2) / 16;
+    
+    ctx.beginPath();
+    ctx.arc(0, 0, 125, angle1, angle2);
+    ctx.stroke();
+  }
+  
+  // Главный круг для печати (увеличен)
   ctx.fillStyle = 'rgba(0,0,0,0.9)';
   ctx.beginPath();
-  ctx.arc(0, 0, 90, 0, Math.PI * 2);
+  ctx.arc(0, 0, 110, 0, Math.PI * 2);
   ctx.fill();
   
   ctx.strokeStyle = 'rgba(0, 0, 0, 0.95)';
-  ctx.lineWidth = 8;
+  ctx.lineWidth = 10;
   ctx.stroke();
   
-  // Внутренний круг
-  ctx.strokeStyle = 'rgba(168, 85, 247, 0.8)';
-  ctx.lineWidth = 4;
+  // Средний круг с градиентом
+  const sealGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, 100);
+  sealGradient.addColorStop(0, 'rgba(168, 85, 247, 0.8)');
+  sealGradient.addColorStop(1, 'rgba(168, 85, 247, 0.3)');
+  ctx.strokeStyle = sealGradient;
+  ctx.lineWidth = 6;
   ctx.beginPath();
-  ctx.arc(0, 0, 80, 0, Math.PI * 2);
+  ctx.arc(0, 0, 95, 0, Math.PI * 2);
   ctx.stroke();
   
-  // Пентаграмма (5-угольная звезда)
-  ctx.strokeStyle = 'rgba(168, 85, 247, 0.6)';
-  ctx.fillStyle = 'rgba(168, 85, 247, 0.4)';
-  ctx.lineWidth = 3;
+  // Пентаграмма (5-угольная звезда) - увеличена
+  ctx.strokeStyle = 'rgba(168, 85, 247, 0.7)';
+  ctx.fillStyle = 'rgba(168, 85, 247, 0.5)';
+  ctx.lineWidth = 4;
   ctx.beginPath();
   
   const points = 5;
-  const outerRadius = 60;
-  const innerRadius = 24;
+  const outerRadius = 75;
+  const innerRadius = 30;
   
   for (let i = 0; i < points * 2; i++) {
     const radius = i % 2 === 0 ? outerRadius : innerRadius;
@@ -306,43 +355,52 @@ const generateSimpleDocument = async (data: DocumentData): Promise<void> => {
   // Центральный круг
   ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
   ctx.beginPath();
-  ctx.arc(0, 0, 18, 0, Math.PI * 2);
+  ctx.arc(0, 0, 25, 0, Math.PI * 2);
   ctx.fill();
   
-  ctx.strokeStyle = 'rgba(50, 50, 50, 0.9)';
+  ctx.strokeStyle = 'rgba(168, 85, 247, 0.8)';
   ctx.lineWidth = 3;
   ctx.stroke();
   
-  // Текст на печати
+  // Текст на печати (увеличен)
   ctx.fillStyle = 'white';
-  ctx.font = 'bold 12px sans-serif';
+  ctx.font = 'bold 16px sans-serif';
   ctx.textAlign = 'center';
   ctx.shadowColor = 'rgba(0,0,0,0.9)';
-  ctx.shadowBlur = 3;
-  ctx.fillText('САЙТ УДАЧИ', 0, -8);
+  ctx.shadowBlur = 4;
+  ctx.fillText('САЙТ УДАЧИ', 0, -5);
   
-  ctx.font = '9px sans-serif';
+  ctx.font = '11px sans-serif';
   ctx.fillStyle = '#ccc';
-  ctx.fillText('POEHALI.DEV', 0, 8);
-  ctx.fillText('2025', 0, 20);
+  ctx.fillText('POEHALI.DEV', 0, 10);
+  ctx.fillText('2025', 0, 25);
   
   ctx.restore();
 
-  // Информация о документе
+  // Информация о документе (перенесена внутрь)
   ctx.save();
   
-  // Блок с информацией о документе
-  ctx.fillStyle = 'rgba(0,0,0,0.2)';
-  ctx.fillRect(260, 1550, 500, 150);
-  ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+  // Красивый блок с информацией о документе
+  const infoBg = ctx.createLinearGradient(150, 1350, 600, 1500);
+  infoBg.addColorStop(0, 'rgba(0,0,0,0.4)');
+  infoBg.addColorStop(1, 'rgba(168, 85, 247, 0.2)');
+  
+  ctx.fillStyle = infoBg;
+  ctx.fillRect(150, 1350, 600, 200);
+  ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+  ctx.lineWidth = 3;
+  ctx.strokeRect(150, 1350, 600, 200);
+  
+  // Внутренняя рамка
+  ctx.strokeStyle = 'rgba(168, 85, 247, 0.4)';
   ctx.lineWidth = 2;
-  ctx.strokeRect(260, 1550, 500, 150);
+  ctx.strokeRect(160, 1360, 580, 180);
   
   ctx.fillStyle = 'white';
-  ctx.font = '18px serif';
+  ctx.font = '20px serif';
   ctx.textAlign = 'left';
-  ctx.shadowColor = 'rgba(0,0,0,0.8)';
-  ctx.shadowBlur = 2;
+  ctx.shadowColor = 'rgba(0,0,0,0.9)';
+  ctx.shadowBlur = 3;
   
   const timestamp = new Date().toLocaleDateString('ru-RU', {
     day: '2-digit',
@@ -353,36 +411,47 @@ const generateSimpleDocument = async (data: DocumentData): Promise<void> => {
   });
   const docNumber = `WD${Date.now()}${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
   
-  ctx.fillText(`Документ №: ${docNumber}`, 270, 1580);
-  ctx.fillText(`Дата активации:`, 270, 1610);
-  ctx.font = 'bold 20px serif';
+  ctx.fillText(`Документ №: ${docNumber}`, 170, 1390);
+  ctx.fillText(`Дата активации:`, 170, 1420);
+  ctx.font = 'bold 22px serif';
   ctx.fillStyle = '#e0e0e0';
-  ctx.fillText(`${timestamp}`, 270, 1640);
-  ctx.fillText(`Получатель: ${data.userName || 'Получатель силы'}`, 270, 1670);
+  ctx.fillText(`${timestamp}`, 170, 1450);
+  
+  ctx.font = '20px serif';
+  ctx.fillStyle = 'white';
+  ctx.fillText(`Получатель:`, 170, 1480);
+  ctx.font = 'bold 22px serif';
+  ctx.fillStyle = '#f0f0f0';
+  ctx.fillText(`${data.userName || 'Получатель силы'}`, 170, 1510);
   
   ctx.restore();
 
-  // Центральное предупреждение
+  // Центральное предупреждение (перенесено внутрь)
   ctx.save();
   
   // Фон для предупреждения
-  const warnGradient = ctx.createLinearGradient(260, 1725, 980, 1750);
+  const warnGradient = ctx.createLinearGradient(150, 1580, 750, 1620);
   warnGradient.addColorStop(0, 'rgba(255, 193, 7, 0.9)');
   warnGradient.addColorStop(1, 'rgba(255, 152, 0, 0.8)');
   
   ctx.fillStyle = warnGradient;
-  ctx.fillRect(260, 1725, 720, 40);
+  ctx.fillRect(150, 1580, 600, 50);
   
-  ctx.strokeStyle = 'rgba(255, 193, 7, 0.6)';
-  ctx.lineWidth = 3;
-  ctx.strokeRect(260, 1725, 720, 40);
+  ctx.strokeStyle = 'rgba(255, 193, 7, 0.8)';
+  ctx.lineWidth = 4;
+  ctx.strokeRect(150, 1580, 600, 50);
+  
+  // Дополнительная внутренняя рамка
+  ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(155, 1585, 590, 40);
   
   ctx.fillStyle = 'black';
-  ctx.font = 'bold 21px serif';
+  ctx.font = 'bold 22px serif';
   ctx.textAlign = 'center';
-  ctx.shadowColor = 'rgba(255,255,255,0.5)';
-  ctx.shadowBlur = 2;
-  ctx.fillText('⚠️ ДОКУМЕНТ ДЕЙСТВУЕТ ПОСЛЕ ОПЛАТЫ СИЛЫ! ⚠️', 620, 1750);
+  ctx.shadowColor = 'rgba(255,255,255,0.7)';
+  ctx.shadowBlur = 3;
+  ctx.fillText('⚠️ ДОКУМЕНТ ДЕЙСТВУЕТ ПОСЛЕ ОПЛАТЫ СИЛЫ! ⚠️', 450, 1610);
   
   ctx.restore();
 
