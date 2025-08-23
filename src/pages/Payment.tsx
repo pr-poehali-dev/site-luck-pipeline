@@ -328,6 +328,19 @@ const Payment = () => {
             />
           </div>
         )}
+
+        {/* Временный видимый документ для тестирования */}
+        <div className="mt-8 w-full max-w-4xl mx-auto overflow-hidden">
+          <div style={{ transform: 'scale(0.3)', transformOrigin: 'top center' }}>
+            <LuckDocument 
+              wish={wish}
+              powerLevel={strength}
+              userName="Получатель силы"
+              energyInvestment={price}
+              affirmationText={generateAffirmationText(wish, strength)}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
