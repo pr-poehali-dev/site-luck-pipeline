@@ -15,6 +15,7 @@ const LuckDocument: React.FC<LuckDocumentProps> = ({
   energyInvestment,
   affirmationText
 }) => {
+  const [isExpanded, setIsExpanded] = React.useState(false);
   const generateDocumentNumber = () => {
     const timestamp = Date.now();
     const random = Math.random().toString(36).substring(2, 8).toUpperCase();
@@ -58,13 +59,9 @@ const LuckDocument: React.FC<LuckDocumentProps> = ({
     >
       {/* Ultra complex ornate border design with multiple gray and black layers */}
       <div 
-        className="absolute inset-1 select-none touch-manipulation" 
+        className="absolute inset-1 cursor-pointer transition-transform duration-300 hover:scale-105" 
+        onClick={() => setIsExpanded(!isExpanded)}
         style={{
-          userSelect: 'none',
-          WebkitUserSelect: 'none',
-          WebkitTouchCallout: 'none',
-          WebkitTapHighlightColor: 'transparent',
-          touchAction: 'manipulation',
           background: `
           linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(30,30,30,0.8) 10%, rgba(60,60,60,0.6) 20%, rgba(30,30,30,0.8) 30%, rgba(0,0,0,0.9) 40%, rgba(30,30,30,0.8) 60%, rgba(60,60,60,0.6) 70%, rgba(30,30,30,0.8) 80%, rgba(0,0,0,0.9) 100%),
           linear-gradient(45deg, rgba(75,75,75,0.4) 0%, rgba(20,20,20,0.8) 25%, rgba(0,0,0,0.95) 50%, rgba(20,20,20,0.8) 75%, rgba(75,75,75,0.4) 100%),
@@ -384,6 +381,52 @@ const LuckDocument: React.FC<LuckDocumentProps> = ({
         </div>
       </div>
     </div>
+
+    {/* Модальное окно для увеличенного просмотра */}
+    {isExpanded && (
+      <div 
+        className="fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center p-4"
+        onClick={() => setIsExpanded(false)}
+      >
+        <div 
+          className="relative max-w-4xl max-h-screen overflow-auto"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button
+            onClick={() => setIsExpanded(false)}
+            className="absolute top-4 right-4 z-10 bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors"
+          >
+            ✕
+          </button>
+          <div style={{ transform: 'scale(0.8)', transformOrigin: 'top center' }}>
+            <div 
+              id="luck-document-expanded"
+              className="w-[210mm] h-[297mm] mx-auto relative p-8 font-serif text-white overflow-hidden"
+              style={{
+                background: `
+                  linear-gradient(135deg, #1a0b3d 0%, #2d1b69 10%, #4c1d95 20%, #5b21b6 30%, #7c3aed 40%, #8b5cf6 50%, #a855f7 60%, #c084fc 70%, #7c3aed 80%, #5b21b6 90%, #2d1b69 100%),
+                  radial-gradient(ellipse at 20% 30%, rgba(168, 85, 247, 0.6) 0%, transparent 70%),
+                  radial-gradient(ellipse at 80% 70%, rgba(124, 58, 237, 0.5) 0%, transparent 70%),
+                  radial-gradient(ellipse at 50% 50%, rgba(91, 33, 182, 0.3) 0%, transparent 80%),
+                  url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIgZmlsbD0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjEpIi8+Cjwvc3ZnPg==')
+                `,
+                backgroundBlendMode: 'multiply, screen, overlay, soft-light, normal',
+                boxShadow: `
+                  inset 0 0 150px rgba(26, 11, 61, 0.9),
+                  inset 0 0 80px rgba(124, 58, 237, 0.4),
+                  0 0 40px rgba(124, 58, 237, 0.3),
+                  0 0 80px rgba(168, 85, 247, 0.2)
+                `
+              }}
+            >
+              {/* Контент документа - копия основного содержимого */}
+              {/* Здесь будет весь контент документа */}
+            </div>
+          </div>
+        </div>
+      </div>
+    )}
+  </div>
   );
 };
 
