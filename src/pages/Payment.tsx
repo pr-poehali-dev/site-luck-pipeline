@@ -423,33 +423,7 @@ const Payment = () => {
                     </div>
                   </div>
 
-                  {/* Нижняя секция */}
-                  <div className="absolute bottom-20 left-8 right-8">
-                    <div className="mb-6">
-                      <p className="text-sm mb-2">Не хотите получить другие силлнк</p>
-                      <p className="text-sm mb-4">Обычные Аффармации</p>
-                      <p className="text-sm">напиши на их?</p>
-                    </div>
 
-                    <div className="text-center mb-6">
-                      <div className="bg-yellow-600 text-black px-8 py-3 rounded-lg inline-block font-bold text-lg">
-                        Я подпишу такой сигнал о деятельности
-                      </div>
-                    </div>
-
-                    <p className="text-center text-sm text-gray-400">
-                      немного подождите отставления на ваши
-                    </p>
-                  </div>
-
-                  {/* Круглая кнопка в правом углу */}
-                  <div className="absolute bottom-16 right-16">
-                    <div className="w-24 h-24 bg-purple-600 rounded-full flex items-center justify-center">
-                      <div className="text-center text-sm font-bold leading-tight">
-                        СДЕЛАТЬ<br />НОВОГО<br />ЛЕЧУ
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
               
