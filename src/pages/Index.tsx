@@ -186,7 +186,7 @@ const Index = () => {
       {/* Ссылки на дополнительные страницы - внизу */}
       <div className="w-full flex justify-center pb-4">
         <button 
-          className="text-gray-500 hover:text-gray-700 underline text-sm"
+          className="text-gray-500 hover:text-gray-700 underline font-medium text-base"
           onClick={() => navigate('/rules')}
         >
           Правила использования
