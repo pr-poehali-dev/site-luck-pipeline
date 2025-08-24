@@ -344,34 +344,7 @@ const Payment = () => {
                     </div>
                   </div>
 
-                  {/* Печать пентаграммы */}
-                  <div className="absolute top-1/2 right-8 transform -translate-y-1/2">
-                    <div className="relative w-32 h-32">
-                      <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="50" cy="50" r="48" stroke="#8B5CF6" strokeWidth="2" fill="none" strokeDasharray="4,2" opacity="0.7" />
-                        <circle cx="50" cy="50" r="42" stroke="#A78BFA" strokeWidth="1" fill="none" strokeDasharray="2,1" opacity="0.5" />
-                        <path d="M50 8 L61.8 38.2 L95.1 38.2 L69.1 58.8 L80.9 89 L50 68.4 L19.1 89 L30.9 58.8 L4.9 38.2 L38.2 38.2 Z" 
-                              stroke="#7C3AED" strokeWidth="2" fill="#1F1B3A" fillOpacity="0.8" />
-                        <path d="M50 30 L58.5 42 L72 42 L62.5 51 L66.5 64 L50 56 L33.5 64 L37.5 51 L28 42 L41.5 42 Z" 
-                              fill="#4C1D95" fillOpacity="0.6" />
-                        <circle cx="50" cy="15" r="2" fill="#8B5CF6" />
-                        <circle cx="85" cy="35" r="1.5" fill="#A78BFA" />
-                        <circle cx="75" cy="80" r="1.5" fill="#A78BFA" />
-                        <circle cx="25" cy="80" r="1.5" fill="#A78BFA" />
-                        <circle cx="15" cy="35" r="1.5" fill="#A78BFA" />
-                      </svg>
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="text-center">
-                          <div className="text-purple-300 text-xs font-bold tracking-wide">
-                            САЙТ
-                          </div>
-                          <div className="text-purple-300 text-xs font-bold tracking-wide">
-                            УДАЧИ
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+
 
                   {/* Данные активации */}
                   <div className="mb-8 space-y-6">
@@ -392,17 +365,14 @@ const Payment = () => {
                           СИЛА УДАЧИ
                         </h3>
                         <p className="text-lg text-purple-300 font-semibold">
-                          {strength === 1 ? 'Базовая сила' : 
-                           strength === 2 ? 'Средняя сила' : 
-                           strength === 3 ? 'Высокая сила' : 
-                           'Максимальная сила'}
+                          {Math.max(1, Math.min(10, strength))}/10
                         </p>
                       </div>
                     </div>
                   </div>
 
                   {/* Информация о документе */}
-                  <div className="mb-8">
+                  <div className="mb-12">
                     <div className="bg-black bg-opacity-40 border-2 border-gray-800 p-6 rounded">
                       <div className="text-center mb-4">
                         <h3 className="text-xl font-bold tracking-wide mb-3">
@@ -417,6 +387,48 @@ const Payment = () => {
                           </p>
                           <p className="text-sm text-gray-300">
                             Энергетическая инвестиция: <span className="text-green-400 font-semibold">{price} руб.</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Нижняя секция с печатью и предупреждением */}
+                  <div className="absolute bottom-8 left-8 right-8">
+                    <div className="flex justify-between items-end">
+                      {/* Печать пентаграммы */}
+                      <div className="relative w-28 h-28">
+                        <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="50" cy="50" r="48" stroke="#8B5CF6" strokeWidth="2" fill="none" strokeDasharray="4,2" opacity="0.7" />
+                          <circle cx="50" cy="50" r="42" stroke="#A78BFA" strokeWidth="1" fill="none" strokeDasharray="2,1" opacity="0.5" />
+                          <path d="M50 8 L61.8 38.2 L95.1 38.2 L69.1 58.8 L80.9 89 L50 68.4 L19.1 89 L30.9 58.8 L4.9 38.2 L38.2 38.2 Z" 
+                                stroke="#7C3AED" strokeWidth="2" fill="#1F1B3A" fillOpacity="0.8" />
+                          <path d="M50 30 L58.5 42 L72 42 L62.5 51 L66.5 64 L50 56 L33.5 64 L37.5 51 L28 42 L41.5 42 Z" 
+                                fill="#4C1D95" fillOpacity="0.6" />
+                          <circle cx="50" cy="15" r="2" fill="#8B5CF6" />
+                          <circle cx="85" cy="35" r="1.5" fill="#A78BFA" />
+                          <circle cx="75" cy="80" r="1.5" fill="#A78BFA" />
+                          <circle cx="25" cy="80" r="1.5" fill="#A78BFA" />
+                          <circle cx="15" cy="35" r="1.5" fill="#A78BFA" />
+                        </svg>
+                        
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="text-center">
+                            <div className="text-purple-300 text-xs font-bold tracking-wide">
+                              САЙТ
+                            </div>
+                            <div className="text-purple-300 text-xs font-bold tracking-wide">
+                              УДАЧИ
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Предупреждение */}
+                      <div className="text-center flex-1 mx-8">
+                        <div className="bg-red-900 bg-opacity-30 border border-red-600 p-3 rounded">
+                          <p className="text-red-300 text-sm font-semibold">
+                            ⚠️ ВАЖНО: Скрижаль Удачи вступает в силу только после оплаты
                           </p>
                         </div>
                       </div>
