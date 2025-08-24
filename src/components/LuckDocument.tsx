@@ -130,9 +130,16 @@ const LuckDocument: React.FC<LuckDocumentProps> = ({
           </div>
         </div>
 
-        {/* Нижняя секция с печатью и предупреждением */}
+        {/* Нижняя секция с предупреждением и печатью */}
         <div className="absolute bottom-8 left-8 right-8">
           <div className="flex justify-between items-end">
+            {/* Предупреждение */}
+            <div className="text-left flex-1 mr-8">
+              <p className="text-red-500 text-sm font-bold">
+                ⚠️ ВАЖНО: Скрижаль Удачи вступает в силу только после оплаты
+              </p>
+            </div>
+
             {/* Печать пентаграммы */}
             <div className="relative w-28 h-28">
               <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -166,15 +173,6 @@ const LuckDocument: React.FC<LuckDocumentProps> = ({
                     УДАЧИ
                   </div>
                 </div>
-              </div>
-            </div>
-
-            {/* Предупреждение */}
-            <div className="text-center flex-1 mx-8">
-              <div className="bg-red-900 bg-opacity-30 border border-red-600 p-3 rounded">
-                <p className="text-red-300 text-sm font-semibold">
-                  ⚠️ ВАЖНО: Скрижаль Удачи вступает в силу только после оплаты
-                </p>
               </div>
             </div>
           </div>
