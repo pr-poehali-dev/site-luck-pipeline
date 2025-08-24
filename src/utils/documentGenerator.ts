@@ -6,26 +6,22 @@ export interface DocumentData {
   powerLevel: number;
   userName: string;
   energyInvestment: number;
-  affirmationText: string;
+  activationDate?: string;
+  documentNumber?: string;
+  documentDate?: string;
 }
 
-export const generateAffirmationText = (wish: string, powerLevel: number): string => {
-  const baseTexts = [
-    "Я наполнён(а) до фон, во мне горит сильная звезда. Я поп-няю, вырываюсь из. С помощью этой энергии преодолеваю любое бремя в весёлой.",
-    "Моя внутренняя сила растет с каждым днем. Энергия удачи течет через меня, принося успех и радость в каждый момент.",
-    "Я притягиваю удачу как магнит. Вселенная работает в мою пользу, создавая возможности для процветания.",
-    "Каждый день я становлюсь сильнее. Моя энергия светится, привлекая все самое лучшее в мою жизнь."
-  ];
-  
-  const powerModifiers = {
-    1: "базовой силы",
-    2: "средней силы", 
-    3: "высокой силы",
-    4: "максимальной силы"
-  };
+export const generateDocumentNumber = (): string => {
+  return `LU-${Date.now().toString().slice(-8)}`;
+};
 
-  const selectedText = baseTexts[Math.floor(Math.random() * baseTexts.length)];
-  return selectedText.replace("энергии", `энергии ${powerModifiers[powerLevel as keyof typeof powerModifiers] || "базовой силы"}`);
+export const formatDocumentDate = (): string => {
+  const date = new Date();
+  return date.toLocaleDateString('ru-RU', { 
+    day: '2-digit', 
+    month: '2-digit', 
+    year: 'numeric' 
+  });
 };
 
 export const generateLuckDocument = async (data: DocumentData): Promise<void> => {
@@ -55,7 +51,9 @@ export const generateLuckDocument = async (data: DocumentData): Promise<void> =>
           powerLevel: data.powerLevel,
           userName: data.userName,
           energyInvestment: data.energyInvestment,
-          affirmationText: data.affirmationText
+          activationDate: data.activationDate,
+          documentNumber: data.documentNumber || generateDocumentNumber(),
+          documentDate: data.documentDate || formatDocumentDate()
         })
       );
       
@@ -124,7 +122,9 @@ export const downloadDocumentAsImage = async (data: DocumentData): Promise<void>
           powerLevel: data.powerLevel,
           userName: data.userName,
           energyInvestment: data.energyInvestment,
-          affirmationText: data.affirmationText
+          activationDate: data.activationDate,
+          documentNumber: data.documentNumber || generateDocumentNumber(),
+          documentDate: data.documentDate || formatDocumentDate()
         })
       );
       

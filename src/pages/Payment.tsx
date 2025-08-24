@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Separator } from '@/components/ui/separator';
 import Icon from '@/components/ui/icon';
 import { useEffect, useState } from 'react';
-import { generateLuckDocument, generateAffirmationText, type DocumentData } from '@/utils/documentGenerator';
+import { generateLuckDocument, generateDocumentNumber, formatDocumentDate, type DocumentData } from '@/utils/documentGenerator';
 
 const Payment = () => {
   const location = useLocation();
@@ -49,7 +49,9 @@ const Payment = () => {
         powerLevel: strength || 1,
         userName: 'Получатель силы',
         energyInvestment: price || 299,
-        affirmationText: generateAffirmationText(wish || 'пустое желание', strength || 1)
+        activationDate: date || 'Немедленно',
+        documentNumber: generateDocumentNumber(),
+        documentDate: formatDocumentDate()
       };
       
       await generateLuckDocument(documentData);
@@ -371,27 +373,53 @@ const Payment = () => {
                     </div>
                   </div>
 
-                  {/* Центральный текст */}
-                  <div className="text-center mb-8">
-                    <p className="text-xl mb-4">Уровень солнечный?</p>
-                    <p className="text-xl">Энергетическая передача?</p>
+                  {/* Данные активации */}
+                  <div className="mb-8 space-y-6">
+                    <div className="border-2 border-gray-800 p-4 bg-black bg-opacity-30 rounded">
+                      <div className="text-center mb-4">
+                        <h3 className="text-xl font-bold tracking-wide mb-2">
+                          ДАТА АКТИВАЦИИ
+                        </h3>
+                        <p className="text-lg text-purple-300 font-semibold">
+                          {date || 'Немедленно'}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="border-2 border-gray-800 p-4 bg-black bg-opacity-30 rounded">
+                      <div className="text-center">
+                        <h3 className="text-xl font-bold tracking-wide mb-2">
+                          СИЛА УДАЧИ
+                        </h3>
+                        <p className="text-lg text-purple-300 font-semibold">
+                          {strength === 1 ? 'Базовая сила' : 
+                           strength === 2 ? 'Средняя сила' : 
+                           strength === 3 ? 'Высокая сила' : 
+                           'Максимальная сила'}
+                        </p>
+                      </div>
+                    </div>
                   </div>
 
-                  {/* Персональные аффирмации */}
+                  {/* Информация о документе */}
                   <div className="mb-8">
-                    <h3 className="text-2xl font-bold text-center tracking-[0.15em] mb-4">
-                      ПЕРСОНАЛЬНЫЕ АФФИРМАЦИИ
-                    </h3>
-                    <div className="text-center mb-6">
-                      <p className="text-xl font-bold tracking-[0.1em]">
-                        ПРИНЯТЬ ЛЮБОВЬ
-                      </p>
-                    </div>
-                    
-                    <div className="bg-black bg-opacity-20 border border-gray-600 p-6 rounded text-center">
-                      <p className="text-lg leading-relaxed">
-                        Я наполнён(а) до фон, во мне горит си лильная звезда. я поп-няю, вырываюсь из. С помощью этой энергии преодолеваю любое бремя в весёлой.
-                      </p>
+                    <div className="bg-black bg-opacity-40 border-2 border-gray-800 p-6 rounded">
+                      <div className="text-center mb-4">
+                        <h3 className="text-xl font-bold tracking-wide mb-3">
+                          ИНФОРМАЦИЯ О ДОКУМЕНТЕ
+                        </h3>
+                        <div className="space-y-2">
+                          <p className="text-sm text-gray-300">
+                            Номер документа: <span className="text-purple-300 font-semibold">LU-{Date.now().toString().slice(-8)}</span>
+                          </p>
+                          <p className="text-sm text-gray-300">
+                            Дата создания: <span className="text-purple-300 font-semibold">{new Date().toLocaleDateString('ru-RU')}</span>
+                          </p>
+                          <p className="text-sm text-gray-300">
+                            Энергетическая инвестиция: <span className="text-green-400 font-semibold">{price} руб.</span>
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
 

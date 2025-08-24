@@ -5,7 +5,9 @@ interface LuckDocumentProps {
   powerLevel: number;
   userName: string;
   energyInvestment: number;
-  affirmationText: string;
+  activationDate?: string;
+  documentNumber?: string;
+  documentDate?: string;
 }
 
 const LuckDocument: React.FC<LuckDocumentProps> = ({
@@ -13,16 +15,32 @@ const LuckDocument: React.FC<LuckDocumentProps> = ({
   powerLevel,
   userName,
   energyInvestment,
-  affirmationText
+  activationDate,
+  documentNumber,
+  documentDate
 }) => {
   const formatPowerLevel = (level: number) => {
     switch (level) {
-      case 1: return "Базовый";
-      case 2: return "Средний";
-      case 3: return "Высокий";
-      case 4: return "Максимальный";
-      default: return "Базовый";
+      case 1: return "Базовая сила";
+      case 2: return "Средняя сила";
+      case 3: return "Высокая сила";
+      case 4: return "Максимальная сила";
+      default: return "Базовая сила";
     }
+  };
+
+  const generateDocumentNumber = () => {
+    return documentNumber || `LU-${Date.now().toString().slice(-8)}`;
+  };
+
+  const formatDocumentDate = () => {
+    if (documentDate) return documentDate;
+    const date = new Date();
+    return date.toLocaleDateString('ru-RU', { 
+      day: '2-digit', 
+      month: '2-digit', 
+      year: 'numeric' 
+    });
   };
 
   const formatEnergyLevel = (investment: number) => {
@@ -106,37 +124,50 @@ const LuckDocument: React.FC<LuckDocumentProps> = ({
           </div>
         </div>
 
-        {/* Уровни силы */}
-        <div className="mb-8 space-y-4">
-          <div className="border-b-2 border-gray-800 pb-2">
-            <p className="text-center text-lg tracking-wide">
-              Уровень солнечный?
-            </p>
+        {/* Данные активации */}
+        <div className="mb-8 space-y-6">
+          <div className="border-2 border-gray-800 p-4 bg-black bg-opacity-30 rounded">
+            <div className="text-center mb-4">
+              <h3 className="text-xl font-bold tracking-wide mb-2">
+                ДАТА АКТИВАЦИИ
+              </h3>
+              <p className="text-lg text-purple-300 font-semibold">
+                {activationDate || 'Немедленно'}
+              </p>
+            </div>
           </div>
-          <div className="border-b-2 border-gray-800 pb-2">
-            <p className="text-center text-lg tracking-wide">
-              Энергетическая передача?
-            </p>
+
+          <div className="border-2 border-gray-800 p-4 bg-black bg-opacity-30 rounded">
+            <div className="text-center">
+              <h3 className="text-xl font-bold tracking-wide mb-2">
+                СИЛА УДАЧИ
+              </h3>
+              <p className="text-lg text-purple-300 font-semibold">
+                {formatPowerLevel(powerLevel)}
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* Персональные аффирмации */}
+        {/* Информация о документе */}
         <div className="mb-8">
-          <h3 className="text-2xl font-bold text-center tracking-[0.15em] mb-4">
-            ПЕРСОНАЛЬНЫЕ АФФИРМАЦИИ
-          </h3>
-          <div className="text-center mb-6">
-            <p className="text-xl font-bold tracking-[0.1em]">
-              ПРИНЯТЬ ЛЮБОВЬ
-            </p>
-          </div>
-          
           <div className="bg-black bg-opacity-40 border-2 border-gray-800 p-6 rounded">
-            <p className="text-center text-lg leading-relaxed">
-              {affirmationText || `Я наполнён(а) до фон, во мне горит си лильная звезда. я поп-
-няю, вырываюсь из. С помощью этой энергии преодолеваю
-любое бремя в весёлой.`}
-            </p>
+            <div className="text-center mb-4">
+              <h3 className="text-xl font-bold tracking-wide mb-3">
+                ИНФОРМАЦИЯ О ДОКУМЕНТЕ
+              </h3>
+              <div className="space-y-2">
+                <p className="text-sm text-gray-300">
+                  Номер документа: <span className="text-purple-300 font-semibold">{generateDocumentNumber()}</span>
+                </p>
+                <p className="text-sm text-gray-300">
+                  Дата создания: <span className="text-purple-300 font-semibold">{formatDocumentDate()}</span>
+                </p>
+                <p className="text-sm text-gray-300">
+                  Энергетическая инвестиция: <span className="text-green-400 font-semibold">{energyInvestment} руб.</span>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
