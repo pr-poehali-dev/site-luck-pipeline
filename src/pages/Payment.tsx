@@ -311,14 +311,8 @@ const Payment = () => {
           <div style={{ transform: 'scale(0.3)', transformOrigin: 'top center' }}>
             <div className="relative">
               <div className="w-[210mm] h-[297mm] bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 text-white p-8 font-serif relative overflow-hidden">
-                {/* Декоративные углы */}
-                <div className="absolute top-0 left-0 w-20 h-20 border-l-8 border-t-8 border-black opacity-80"></div>
-                <div className="absolute top-0 right-0 w-20 h-20 border-r-8 border-t-8 border-black opacity-80"></div>
-                <div className="absolute bottom-0 left-0 w-20 h-20 border-l-8 border-b-8 border-black opacity-80"></div>
-                <div className="absolute bottom-0 right-0 w-20 h-20 border-r-8 border-b-8 border-black opacity-80"></div>
-
                 {/* Основная рамка */}
-                <div className="border-8 border-gray-800 h-full w-full p-6 relative bg-black bg-opacity-20">
+                <div className="border-8 border-black h-full w-full p-6 relative bg-black bg-opacity-20">
                   
                   {/* Заголовок */}
                   <div className="text-center mb-8">
