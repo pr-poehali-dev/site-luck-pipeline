@@ -3,8 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import Icon from '@/components/ui/icon';
-import { useEffect } from 'react';
-
+import { useEffect, useState } from 'react';
+import { generateLuckDocument, generateAffirmationText, type DocumentData } from '@/utils/documentGenerator';
 
 const Payment = () => {
   const location = useLocation();
@@ -14,7 +14,7 @@ const Payment = () => {
   const duration = location.state?.duration || '';
   const date = location.state?.date || null;
   const strength = location.state?.strength || 1;
-
+  const [isGeneratingDocument, setIsGeneratingDocument] = useState(false);
 
   useEffect(() => {
     // Подгружаем скрипт Тинькофф
@@ -36,6 +36,32 @@ const Payment = () => {
     };
   }, []);
 
+  const handleDownloadDocument = async () => {
+    if (!wish) {
+      alert('Ошибка: не найдено пожелание для создания документа');
+      return;
+    }
+
+    setIsGeneratingDocument(true);
+    try {
+      const documentData: DocumentData = {
+        wish: wish || 'Ваше желание',
+        powerLevel: strength || 1,
+        userName: 'Получатель силы',
+        energyInvestment: price || 299,
+        affirmationText: generateAffirmationText(wish || 'пустое желание', strength || 1)
+      };
+      
+      await generateLuckDocument(documentData);
+      
+    } catch (error) {
+      console.error('Ошибка при создании документа:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Не удалось создать документ. Попробуйте еще раз.';
+      alert('Ошибка: ' + errorMessage);
+    } finally {
+      setIsGeneratingDocument(false);
+    }
+  };
 
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -120,7 +146,47 @@ const Payment = () => {
           </CardContent>
         </Card>
 
-
+        {/* Кнопка скачивания документа */}
+        <div className="text-center">
+          <style jsx>{`
+            @keyframes pulseSlow {
+              0%, 100% {
+                background-color: rgb(147 51 234);
+                box-shadow: 0 0 15px rgba(147, 51, 234, 0.3);
+              }
+              50% {
+                background-color: rgb(168 85 247);
+                box-shadow: 0 0 25px rgba(168, 85, 247, 0.6);
+              }
+            }
+            .pulse-button {
+              animation: pulseSlow 2.5s ease-in-out infinite;
+            }
+            .pulse-button:hover {
+              animation-play-state: paused;
+            }
+            .pulse-button:disabled {
+              animation: none;
+            }
+          `}</style>
+          <Button 
+            onClick={handleDownloadDocument}
+            disabled={isGeneratingDocument}
+            className="pulse-button bg-purple-600 hover:bg-purple-700 text-white py-4 px-8 text-lg disabled:opacity-50"
+          >
+            {isGeneratingDocument ? (
+              <>
+                <Icon name="Loader2" size={20} className="mr-2 animate-spin" />
+                Создание документа...
+              </>
+            ) : (
+              <>
+                <Icon name="Download" size={20} className="mr-2" />
+                Скачать Скрижаль Удачи
+              </>
+            )}
+          </Button>
+        </div>
 
         {/* Форма оплаты */}
         <Card>
@@ -237,7 +303,108 @@ const Payment = () => {
             Вернуться назад
           </Button>
         </div>
-        
+
+        {/* Превью документа для тестирования */}
+        <div className="mt-8 w-full max-w-4xl mx-auto overflow-hidden rounded-lg shadow-2xl">
+          <div style={{ transform: 'scale(0.3)', transformOrigin: 'top center' }}>
+            <div className="relative">
+              <div className="w-[210mm] h-[297mm] bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 text-white p-8 font-serif relative overflow-hidden">
+                {/* Декоративные углы */}
+                <div className="absolute top-0 left-0 w-16 h-16 border-l-4 border-t-4 border-purple-400"></div>
+                <div className="absolute top-0 right-0 w-16 h-16 border-r-4 border-t-4 border-purple-400"></div>
+                <div className="absolute bottom-0 left-0 w-16 h-16 border-l-4 border-b-4 border-purple-400"></div>
+                <div className="absolute bottom-0 right-0 w-16 h-16 border-r-4 border-b-4 border-purple-400"></div>
+
+                {/* Основная рамка */}
+                <div className="border-2 border-gray-600 h-full w-full p-6 relative">
+                  
+                  {/* Заголовок */}
+                  <div className="text-center mb-8">
+                    <h1 className="text-4xl font-bold tracking-[0.3em] mb-4">
+                      СКРИЖАЛЬ УДАЧИ
+                    </h1>
+                    <p className="text-lg text-gray-300 tracking-wide">
+                      Определитель вещемуны силы
+                    </p>
+                  </div>
+
+                  {/* Секция "УДАЧА" */}
+                  <div className="mb-8 text-center">
+                    <div className="border-2 border-gray-600 p-6 mb-6">
+                      <h2 className="text-3xl font-bold tracking-[0.2em] mb-4">
+                        УДАЧА
+                      </h2>
+                      <div className="border border-gray-500 p-4 bg-black bg-opacity-30">
+                        <p className="text-lg font-medium tracking-wide">
+                          {wish || "СИЛА НА"}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Центральный текст */}
+                  <div className="text-center mb-8">
+                    <p className="text-xl mb-4">Уровень солнечный?</p>
+                    <p className="text-xl">Энергетическая передача?</p>
+                  </div>
+
+                  {/* Персональные аффирмации */}
+                  <div className="mb-8">
+                    <h3 className="text-2xl font-bold text-center tracking-[0.15em] mb-4">
+                      ПЕРСОНАЛЬНЫЕ АФФИРМАЦИИ
+                    </h3>
+                    <div className="text-center mb-6">
+                      <p className="text-xl font-bold tracking-[0.1em]">
+                        ПРИНЯТЬ ЛЮБОВЬ
+                      </p>
+                    </div>
+                    
+                    <div className="bg-black bg-opacity-20 border border-gray-600 p-6 rounded text-center">
+                      <p className="text-lg leading-relaxed">
+                        Я наполнён(а) до фон, во мне горит си лильная звезда. я поп-няю, вырываюсь из. С помощью этой энергии преодолеваю любое бремя в весёлой.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Нижняя секция */}
+                  <div className="absolute bottom-20 left-8 right-8">
+                    <div className="mb-6">
+                      <p className="text-sm mb-2">Не хотите получить другие силлнк</p>
+                      <p className="text-sm mb-4">Обычные Аффармации</p>
+                      <p className="text-sm">напиши на их?</p>
+                    </div>
+
+                    <div className="text-center mb-6">
+                      <div className="bg-yellow-600 text-black px-8 py-3 rounded-lg inline-block font-bold text-lg">
+                        Я подпишу такой сигнал о деятельности
+                      </div>
+                    </div>
+
+                    <p className="text-center text-sm text-gray-400">
+                      немного подождите отставления на ваши
+                    </p>
+                  </div>
+
+                  {/* Круглая кнопка в правом углу */}
+                  <div className="absolute bottom-16 right-16">
+                    <div className="w-24 h-24 bg-purple-600 rounded-full flex items-center justify-center">
+                      <div className="text-center text-sm font-bold leading-tight">
+                        СДЕЛАТЬ<br />НОВОГО<br />ЛЕЧУ
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Overlay с подсказкой */}
+              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-300 cursor-pointer rounded-lg">
+                <div className="bg-white bg-opacity-90 text-black px-4 py-2 rounded-lg text-sm font-semibold opacity-0 hover:opacity-100 transition-opacity duration-300">
+                  🔍 Превью вашего документа
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
       </div>
     </div>
