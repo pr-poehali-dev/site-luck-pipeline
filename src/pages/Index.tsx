@@ -195,9 +195,7 @@ const Index = () => {
       
       {/* Реквизиты */}
       <div className="w-full flex justify-center pb-2">
-        <p className="text-xs text-gray-400 text-center">
-          ИП Паклин Сергей Васильевич, ИНН 594200005879 ОГРН 305591619400016, эл.почта Unix7777@ya.ru
-        </p>
+        <p className="text-xs text-gray-400 text-center">ИП Паклин Сергей Васильевич, ИНН 594200005879 ОГРН 305591619400016,  тел. 89024777752   эл. почта Unix7777@ya.ru</p>
       </div>
     </div>
   );
