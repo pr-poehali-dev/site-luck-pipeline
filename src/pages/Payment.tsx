@@ -404,7 +404,7 @@ const Payment = () => {
                       </div>
 
                       {/* Печать пентаграммы */}
-                      <div className="relative w-28 h-28">
+                      <div className="relative w-36 h-36">
                         <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <circle cx="50" cy="50" r="48" stroke="#8B5CF6" strokeWidth="2" fill="none" strokeDasharray="4,2" opacity="0.7" />
                           <circle cx="50" cy="50" r="42" stroke="#A78BFA" strokeWidth="1" fill="none" strokeDasharray="2,1" opacity="0.5" />
