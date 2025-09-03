@@ -3,8 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import Icon from '@/components/ui/icon';
 
 const Index = () => {
   const [wishText, setWishText] = useState('');
@@ -186,56 +184,13 @@ const Index = () => {
       </div>
       
       {/* Ссылки на дополнительные страницы - внизу */}
-      <div className="w-full flex justify-center items-center gap-6 pb-4">
+      <div className="w-full flex justify-center pb-4">
         <button 
           className="text-gray-500 hover:text-gray-700 underline font-medium text-base"
           onClick={() => navigate('/rules')}
         >
           Правила использования
         </button>
-        
-        {/* Кнопка отблагодарить демона */}
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="outline" className="flex items-center gap-2 text-purple-600 border-purple-300 hover:bg-purple-50">
-              <Icon name="Coins" size={16} />
-              Отблагодарить демона
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-md">
-            <DialogHeader>
-              <DialogTitle className="flex items-center gap-2">
-                <Icon name="Heart" size={20} className="text-red-500" />
-                Добровольное пожертвование
-              </DialogTitle>
-              <DialogDescription>
-                Поддержите работу демона удачи добровольным пожертвованием
-              </DialogDescription>
-            </DialogHeader>
-            <div className="flex flex-col items-center space-y-4 p-4">
-              <div className="bg-white p-4 rounded-lg border-2 border-purple-200 shadow-lg">
-                <img 
-                  src="https://cdn.poehali.dev/files/92340393-8900-4e35-88ac-1fa874e13e56.jpg" 
-                  alt="QR-код для добровольного пожертвования" 
-                  className="w-48 h-48 object-contain"
-                />
-              </div>
-              
-              <div className="text-center space-y-2">
-                <h3 className="font-semibold text-lg flex items-center justify-center gap-2">
-                  <Icon name="Coins" size={20} className="text-yellow-500" />
-                  Добровольная сумма
-                </h3>
-                <p className="text-sm text-gray-600">
-                  Отсканируйте QR-код и отправьте любую сумму на благо демона
-                </p>
-                <p className="text-xs text-purple-600 font-medium">
-                  💜 Ваша благодарность усилит магию удачи
-                </p>
-              </div>
-            </div>
-          </DialogContent>
-        </Dialog>
       </div>
       
       {/* Реквизиты */}
