@@ -16,25 +16,7 @@ const Payment = () => {
   const strength = location.state?.strength || 1;
   const [isGeneratingDocument, setIsGeneratingDocument] = useState(false);
 
-  useEffect(() => {
-    // Подгружаем скрипт Тинькофф
-    const script = document.createElement('script');
-    script.src = 'https://securepay.tinkoff.ru/html/payForm/js/tinkoff_v2.js';
-    script.async = true;
-    script.onload = () => {
-      console.log('Tinkoff script loaded successfully');
-    };
-    script.onerror = () => {
-      console.error('Failed to load Tinkoff script');
-    };
-    document.body.appendChild(script);
-
-    return () => {
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
-    };
-  }, []);
+  // Убираем загрузку скрипта Тинькофф
 
   const handleDownloadDocument = async () => {
     if (!wish) {
@@ -66,42 +48,7 @@ const Payment = () => {
   };
 
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = e.currentTarget as HTMLFormElement;
-    const { description, amount, email, receipt } = form;
-
-    if (receipt) {
-      if (!email.value) {
-        return alert("Поле E-mail не должно быть пустым");
-      }
-
-      (receipt as HTMLInputElement).value = JSON.stringify({
-        "EmailCompany": "mail@mail.com",
-        "Taxation": "patent",
-        "FfdVersion": "1.2",
-        "Items": [
-          {
-            "Name": (description as HTMLInputElement).value || "Активация удачи",
-            "Price": Math.round(Number((amount as HTMLInputElement).value) * 100),
-            "Quantity": 1.00,
-            "Amount": Math.round(Number((amount as HTMLInputElement).value) * 100),
-            "PaymentMethod": "full_prepayment",
-            "PaymentObject": "service",
-            "Tax": "none",
-            "MeasurementUnit": "pc"
-          }
-        ]
-      });
-    }
-
-    if ((window as any).pay) {
-      (window as any).pay(form);
-    } else {
-      console.error('Tinkoff pay function not available');
-      alert('Ошибка инициализации платежной системы. Попробуйте перезагрузить страницу.');
-    }
-  };
+  // Убираем обработку формы Тинькофф
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
@@ -190,111 +137,45 @@ const Payment = () => {
           </Button>
         </div>
 
-        {/* Форма оплаты */}
+        {/* QR-код для оплаты */}
         <Card>
           <CardHeader>
-            <CardTitle>Оплата через Т-Банк</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+              <Icon name="QrCode" size={24} />
+              Оплата по QR-коду
+            </CardTitle>
             <CardDescription>
-              Безопасная оплата через Т-Банк
+              Отсканируйте QR-код для оплаты
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <style>{`
-              .payform-tbank {
-                display: -webkit-box;
-                display: -ms-flexbox;
-                display: flex;
-                margin: 2px auto;
-                -webkit-box-orient: vertical;
-                -webkit-box-direction: normal;
-                -ms-flex-direction: column;
-                flex-direction: column;
-                max-width: 250px;
-              }
-              .payform-tbank * {
-                display: block !important;
-                visibility: visible !important;
-                height: auto !important;
-                opacity: 1 !important;
-              }
-              .payform-tbank {
-                position: static !important;
-                z-index: 9999 !important;
-              }
-              .payform-tbank-row {
-                margin: 2px;
-                border-radius: 4px;
-                -webkit-box-flex: 1;
-                -ms-flex: 1;
-                flex: 1;
-                -webkit-transition: 0.3s;
-                -o-transition: 0.3s;
-                transition: 0.3s;
-                border: 1px solid #DFE3F3;
-                padding: 15px;
-                outline: none;
-                background-color: #DFE3F3;
-                font-size: 15px;
-              }
-              .payform-tbank-row:focus {
-                background-color: #FFFFFF;
-                border: 1px solid #616871;
-                border-radius: 4px;
-              }
-              .payform-tbank-btn {
-                background-color: #FBC520;
-                border: 1px solid #FBC520;
-                color: #3C2C0B;
-              }
-              .payform-tbank-btn:hover {
-                background-color: #FAB619;
-                border: 1px solid #FAB619;
-              }
-            `}</style>
-            <form className="payform-tbank" name="payform-tbank" id="payform-tbank" onSubmit={handleFormSubmit} style={{ display: 'flex !important' }}>
-              <input type="hidden" name="terminalkey" value="1755155028995" />
-              <input type="hidden" name="frame" value="false" />
-              <input type="hidden" name="language" value="ru" />
-              <input type="hidden" name="receipt" value="" />
-              <input type="hidden" name="password" value="JY#iJKaKe2rjfAI_" />
-              <input type="hidden" name="spb" value="true" />
-              <input 
-                className="payform-tbank-row" 
-                type="text" 
-                placeholder="Сумма заказа" 
-                name="amount" 
-                value={price}
-                readOnly
-                required 
-              />
-              <input type="hidden" name="order" value={`order-${Date.now()}`} />
-              <input 
-                className="payform-tbank-row" 
-                type="text" 
-                placeholder="Описание заказа" 
-                name="description"
-                value={`${duration || 'Активация удачи'}${date ? ` на ${date}` : ''}`}
-                readOnly
-              />
-              <input 
-                className="payform-tbank-row" 
-                type="text" 
-                placeholder="ФИО плательщика" 
-                name="name"
-                required
-              />
-              <input 
-                className="payform-tbank-row" 
-                type="email" 
-                placeholder="E-mail" 
-                name="email"
-              />
-              <input 
-                className="payform-tbank-row payform-tbank-btn" 
-                type="submit" 
-                value="Оплатить"
-              />
-            </form>
+            <div className="flex flex-col items-center space-y-6">
+              {/* QR код */}
+              <div className="bg-white p-6 rounded-lg border-4 border-gray-200 shadow-lg">
+                <img 
+                  src="https://cdn.poehali.dev/files/92340393-8900-4e35-88ac-1fa874e13e56.jpg" 
+                  alt="QR-код для оплаты" 
+                  className="w-64 h-64 object-contain"
+                />
+              </div>
+              
+              {/* Инструкция */}
+              <div className="text-center space-y-4 max-w-md">
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <h3 className="font-semibold text-lg mb-2">Как оплатить:</h3>
+                  <div className="space-y-2 text-sm text-gray-700">
+                    <p>1. Откройте приложение банка</p>
+                    <p>2. Найдите функцию "Оплата по QR"</p>
+                    <p>3. Отсканируйте код выше</p>
+                    <p>4. Подтвердите платеж на сумму <strong>{price} ₽</strong></p>
+                  </div>
+                </div>
+                
+                <div className="text-xs text-gray-500">
+                  После успешной оплаты ваша удача будет активирована автоматически
+                </div>
+              </div>
+            </div>
           </CardContent>
         </Card>
 
