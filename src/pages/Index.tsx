@@ -154,7 +154,7 @@ const Index = () => {
           <h1 className="font-bold text-gray-900 mb-8 text-8xl">
             САЙТ УДАЧИ
           </h1>
-          <p className="text-gray-600 text-xl font-light">Напишите в чем нужна удача , после кнопки " ОК " скачайте документ скрижаль удачи, потом оплата</p>
+          <p className="text-gray-600 text-xl font-light">Напишите в чем нужна удача , после кнопки " ОК " выбрать условия </p>
         </div>
 
         {/* Форма */}
