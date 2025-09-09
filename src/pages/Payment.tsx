@@ -5,7 +5,7 @@ import { Separator } from '@/components/ui/separator';
 import Icon from '@/components/ui/icon';
 import { useEffect, useState, useRef } from 'react';
 import { generateLuckDocument, generateDocumentNumber, formatDocumentDate, type DocumentData } from '@/utils/documentGenerator';
-import QRCode from 'qrcode.js';
+import QRCode from 'qrcode';
 
 const Payment = () => {
   const location = useLocation();
@@ -28,18 +28,16 @@ const Payment = () => {
       // Создаем ссылку для Т-Банк (формат для переводов по номеру телефона)
       const tinkoffUrl = `https://www.tbank.ru/rm/transfer/form?phone=${phoneNumber}&amount=${amount}&message=${message}`;
       
-      try {
-        const qr = new QRCode(qrCanvasRef.current, {
-          text: tinkoffUrl,
-          width: 256,
-          height: 256,
-          colorDark: '#000000',
-          colorLight: '#FFFFFF',
-          correctLevel: QRCode.CorrectLevel.M,
-        });
-      } catch (error) {
+      QRCode.toCanvas(qrCanvasRef.current, tinkoffUrl, {
+        width: 256,
+        margin: 2,
+        color: {
+          dark: '#000000',
+          light: '#FFFFFF'
+        }
+      }).catch(error => {
         console.error('Ошибка генерации QR-кода:', error);
-      }
+      });
     }
   }, [price]);
 
