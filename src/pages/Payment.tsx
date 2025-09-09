@@ -3,9 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import Icon from '@/components/ui/icon';
-import { useEffect, useState, useRef } from 'react';
+import { useState } from 'react';
 import { generateLuckDocument, generateDocumentNumber, formatDocumentDate, type DocumentData } from '@/utils/documentGenerator';
-import QRCode from 'qrcode';
 
 const Payment = () => {
   const location = useLocation();
@@ -16,40 +15,6 @@ const Payment = () => {
   const date = location.state?.date || null;
   const strength = location.state?.strength || 1;
   const [isGeneratingDocument, setIsGeneratingDocument] = useState(false);
-  const qrCanvasRef = useRef<HTMLCanvasElement>(null);
-
-  // Генерация QR-кода для перевода в Т-Банк
-  useEffect(() => {
-    if (qrCanvasRef.current) {
-      // Используем универсальный формат для банковских переводов по СБП
-      const phoneNumber = '+79181089771';
-      const amount = price;
-      const message = `Оплата удачи ${price}р`;
-      
-      // Создаем универсальную ссылку для переводов (работает с большинством банковских приложений)
-      const sbpUrl = `https://qr.nspk.ru/AD100000000000000000000${phoneNumber}?amount=${amount}&cur=RUB&comment=${encodeURIComponent(message)}`;
-      
-      QRCode.toCanvas(qrCanvasRef.current, sbpUrl, {
-        width: 300,
-        margin: 4,
-        errorCorrectionLevel: 'M',
-        type: 'image/png',
-        quality: 0.92,
-        color: {
-          dark: '#000000',
-          light: '#FFFFFF'
-        }
-      }).catch(error => {
-        console.error('Ошибка генерации QR-кода:', error);
-        // Если не получилось с СБП, используем простой текст с номером
-        QRCode.toCanvas(qrCanvasRef.current, `Перевод на номер: ${phoneNumber}, сумма: ${amount} руб`, {
-          width: 300,
-          margin: 4,
-          errorCorrectionLevel: 'M'
-        }).catch(err => console.error('Резервная генерация не удалась:', err));
-      });
-    }
-  }, [price]);
 
   const handleDownloadDocument = async () => {
     if (!wish) {
@@ -185,11 +150,10 @@ const Payment = () => {
             <div className="flex flex-col items-center space-y-6">
               {/* QR код */}
               <div className="bg-white p-6 rounded-lg border-4 border-gray-200 shadow-lg">
-                <canvas 
-                  ref={qrCanvasRef}
-                  className="w-72 h-72"
-                  width="300"
-                  height="300"
+                <img 
+                  src="https://cdn.poehali.dev/files/22c5fb8e-ca4e-4186-85a2-3914af58405c.jpg" 
+                  alt="QR-код для оплаты через СБП" 
+                  className="w-72 h-72 object-contain"
                 />
               </div>
               
