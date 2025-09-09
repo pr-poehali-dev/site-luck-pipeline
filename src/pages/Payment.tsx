@@ -121,7 +121,7 @@ const Payment = () => {
           <Button 
             onClick={handleDownloadDocument}
             disabled={isGeneratingDocument}
-            className="pulse-button bg-purple-600 hover:bg-purple-700 text-white py-4 px-8 text-lg disabled:opacity-50"
+            className="pulse-button bg-purple-600 hover:bg-purple-700 text-white py-4 px-8 text-lg disabled:opacity-50 hidden"
           >
             {isGeneratingDocument ? (
               <>
