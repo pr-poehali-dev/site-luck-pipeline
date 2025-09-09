@@ -21,22 +21,32 @@ const Payment = () => {
   // Генерация QR-кода для перевода в Т-Банк
   useEffect(() => {
     if (qrCanvasRef.current) {
-      const phoneNumber = '89181089771';
+      // Используем универсальный формат для банковских переводов по СБП
+      const phoneNumber = '+79181089771';
       const amount = price;
-      const message = encodeURIComponent(`Оплата удачи ${price}р`);
+      const message = `Оплата удачи ${price}р`;
       
-      // Создаем ссылку для Т-Банк (формат для переводов по номеру телефона)
-      const tinkoffUrl = `https://www.tbank.ru/rm/transfer/form?phone=${phoneNumber}&amount=${amount}&message=${message}`;
+      // Создаем универсальную ссылку для переводов (работает с большинством банковских приложений)
+      const sbpUrl = `https://qr.nspk.ru/AD100000000000000000000${phoneNumber}?amount=${amount}&cur=RUB&comment=${encodeURIComponent(message)}`;
       
-      QRCode.toCanvas(qrCanvasRef.current, tinkoffUrl, {
-        width: 256,
-        margin: 2,
+      QRCode.toCanvas(qrCanvasRef.current, sbpUrl, {
+        width: 300,
+        margin: 4,
+        errorCorrectionLevel: 'M',
+        type: 'image/png',
+        quality: 0.92,
         color: {
           dark: '#000000',
           light: '#FFFFFF'
         }
       }).catch(error => {
         console.error('Ошибка генерации QR-кода:', error);
+        // Если не получилось с СБП, используем простой текст с номером
+        QRCode.toCanvas(qrCanvasRef.current, `Перевод на номер: ${phoneNumber}, сумма: ${amount} руб`, {
+          width: 300,
+          margin: 4,
+          errorCorrectionLevel: 'M'
+        }).catch(err => console.error('Резервная генерация не удалась:', err));
       });
     }
   }, [price]);
@@ -177,9 +187,9 @@ const Payment = () => {
               <div className="bg-white p-6 rounded-lg border-4 border-gray-200 shadow-lg">
                 <canvas 
                   ref={qrCanvasRef}
-                  className="w-64 h-64"
-                  width="256"
-                  height="256"
+                  className="w-72 h-72"
+                  width="300"
+                  height="300"
                 />
               </div>
               
