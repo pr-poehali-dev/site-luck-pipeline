@@ -3,8 +3,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import Icon from '@/components/ui/icon';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { generateLuckDocument, generateDocumentNumber, formatDocumentDate, type DocumentData } from '@/utils/documentGenerator';
+import QRCode from 'qrcode.js';
 
 const Payment = () => {
   const location = useLocation();
@@ -15,8 +16,32 @@ const Payment = () => {
   const date = location.state?.date || null;
   const strength = location.state?.strength || 1;
   const [isGeneratingDocument, setIsGeneratingDocument] = useState(false);
+  const qrCanvasRef = useRef<HTMLCanvasElement>(null);
 
-  // Убираем загрузку скрипта Тинькофф
+  // Генерация QR-кода для перевода в Т-Банк
+  useEffect(() => {
+    if (qrCanvasRef.current) {
+      const phoneNumber = '89181089771';
+      const amount = price;
+      const message = encodeURIComponent(`Оплата удачи ${price}р`);
+      
+      // Создаем ссылку для Т-Банк (формат для переводов по номеру телефона)
+      const tinkoffUrl = `https://www.tbank.ru/rm/transfer/form?phone=${phoneNumber}&amount=${amount}&message=${message}`;
+      
+      try {
+        const qr = new QRCode(qrCanvasRef.current, {
+          text: tinkoffUrl,
+          width: 256,
+          height: 256,
+          colorDark: '#000000',
+          colorLight: '#FFFFFF',
+          correctLevel: QRCode.CorrectLevel.M,
+        });
+      } catch (error) {
+        console.error('Ошибка генерации QR-кода:', error);
+      }
+    }
+  }, [price]);
 
   const handleDownloadDocument = async () => {
     if (!wish) {
@@ -152,22 +177,25 @@ const Payment = () => {
             <div className="flex flex-col items-center space-y-6">
               {/* QR код */}
               <div className="bg-white p-6 rounded-lg border-4 border-gray-200 shadow-lg">
-                <img 
-                  src="https://cdn.poehali.dev/files/92340393-8900-4e35-88ac-1fa874e13e56.jpg" 
-                  alt="QR-код для оплаты" 
-                  className="w-64 h-64 object-contain"
+                <canvas 
+                  ref={qrCanvasRef}
+                  className="w-64 h-64"
+                  width="256"
+                  height="256"
                 />
               </div>
               
               {/* Инструкция */}
               <div className="text-center space-y-4 max-w-md">
                 <div className="bg-gray-50 p-4 rounded-lg">
-                  <h3 className="font-semibold text-lg mb-2">Как оплатить:</h3>
+                  <h3 className="font-semibold text-lg mb-2 flex items-center justify-center gap-2">
+                    Т-Банк <span className="text-yellow-500">⚡</span>
+                  </h3>
                   <div className="space-y-2 text-sm text-gray-700">
-                    <p>1. Откройте приложение банка</p>
-                    <p>2. Найдите функцию "Оплата по QR"</p>
-                    <p>3. Отсканируйте код выше</p>
-                    <p>4. Подтвердите платеж на сумму <strong>{price} ₽</strong></p>
+                    <p>1. Отсканируйте QR-код</p>
+                    <p>2. Или откройте ссылку в браузере</p>
+                    <p>3. Перевод на номер <strong>8 918 108-97-71</strong></p>
+                    <p>4. Сумма: <strong>{price} ₽</strong></p>
                   </div>
                 </div>
                 
