@@ -171,7 +171,7 @@ const Payment = () => {
                   </div>
                 </div>
                 
-                <div className="text-xs text-gray-500">
+                <div className="text-base text-gray-500">
                   После успешной оплаты ваша удача будет активирована автоматически
                 </div>
               </div>
