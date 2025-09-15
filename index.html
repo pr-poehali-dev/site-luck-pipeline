@@ -90,11 +90,12 @@ function initPaymentWidget() {
     paymentButton.setAttribute('data-payment-initialized', 'true');
     paymentButton.addEventListener("click", function () {
       if (typeof cpay !== 'undefined' && cpay.PaymentWidget) {
+        const paymentAmount = paymentButton.getAttribute('data-payment-amount') || 299;
         var paymentWidget = new cpay.PaymentWidget();
         paymentWidget.init({
           "merchantId": "3bba21d1-80ec-4945-9123-d732400e4f75",
           "invoice": {"description": "сайт Удачи"},
-          "amount": {"currency": "RUB", "value": 0},
+          "amount": {"currency": "RUB", "value": parseFloat(paymentAmount)},
           "receipt": null,
           "paymentForm": {
             "theme": "light",

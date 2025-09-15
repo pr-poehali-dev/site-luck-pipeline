@@ -139,6 +139,7 @@ const Payment = () => {
         <div className="text-center">
           <button 
             btn-pay-p3jjbhvqwq1x8gs1d7lt49mxn="true"
+            data-payment-amount={price}
             className="inline-block px-6 py-4 rounded-lg text-white bg-gradient-to-r from-purple-600 to-blue-600 text-lg font-semibold hover:opacity-90 transition-opacity cursor-pointer border-none outline-none shadow-lg"
             style={{ fontFamily: '"Lato", "Arial", sans-serif' }}
           >
