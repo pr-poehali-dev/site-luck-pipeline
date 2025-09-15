@@ -148,7 +148,7 @@ const Payment = () => {
 
         {/* Информация после оплаты */}
         <div className="text-center mt-4">
-          <p className="text-sm text-gray-600">
+          <p className="text-gray-600 text-lg font-semibold">
             После оплаты можно будет скачать скрижаль удачи
           </p>
         </div>
