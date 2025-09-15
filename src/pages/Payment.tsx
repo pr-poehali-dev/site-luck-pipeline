@@ -146,6 +146,13 @@ const Payment = () => {
           </button>
         </div>
 
+        {/* Информация после оплаты */}
+        <div className="text-center mt-4">
+          <p className="text-sm text-gray-600">
+            После оплаты можно будет скачать скрижаль удачи
+          </p>
+        </div>
+
         {/* Кнопка назад */}
         <div className="text-center">
           <Button variant="outline" onClick={() => navigate('/')}>
