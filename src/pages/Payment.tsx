@@ -135,49 +135,15 @@ const Payment = () => {
           </Button>
         </div>
 
-        {/* QR-код для оплаты */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Icon name="QrCode" size={24} />
-              Оплата по QR-коду
-            </CardTitle>
-            <CardDescription>
-              Отсканируйте QR-код для оплаты
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-col items-center space-y-6">
-              {/* QR код */}
-              <div className="bg-white p-6 rounded-lg border-4 border-gray-200 shadow-lg">
-                <img 
-                  src="https://cdn.poehali.dev/files/22c5fb8e-ca4e-4186-85a2-3914af58405c.jpg" 
-                  alt="QR-код для оплаты через СБП" 
-                  className="w-72 h-72 object-contain"
-                />
-              </div>
-              
-              {/* Инструкция */}
-              <div className="text-center space-y-4 max-w-md hidden">
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <h3 className="font-semibold text-lg mb-2 flex items-center justify-center gap-2">
-                    Т-Банк <span className="text-yellow-500">⚡</span>
-                  </h3>
-                  <div className="space-y-2 text-sm text-gray-700">
-                    <p>1. Отсканируйте QR-код</p>
-                    <p>2. ИП Паклин СВ</p>
-                    <p>3. введите сумму</p>
+        {/* QR код */}
+        <div className="bg-white p-6 rounded-lg border-4 border-gray-200 shadow-lg mx-auto max-w-fit">
+          <img 
+            src="https://cdn.poehali.dev/files/22c5fb8e-ca4e-4186-85a2-3914af58405c.jpg" 
+            alt="QR-код для оплаты через СБП" 
+            className="w-72 h-72 object-contain"
+          />
+        </div>
 
-                  </div>
-                </div>
-                
-                <div className="text-base text-gray-500">
-                  После успешной оплаты ваша удача будет активирована автоматически
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
 
         {/* Кнопка назад */}
         <div className="text-center">
