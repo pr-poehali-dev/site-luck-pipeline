@@ -85,7 +85,10 @@ const Payment = () => {
                   <span className="font-semibold">{date}</span>
                 </div>
               )}
-
+              <div className="flex justify-between items-center">
+                <span className="text-lg">Стоимость:</span>
+                <span className="text-2xl font-bold text-green-600">{price} ₽</span>
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -140,7 +143,7 @@ const Payment = () => {
             className="inline-block px-6 py-4 rounded-lg text-white bg-gradient-to-r from-purple-600 to-blue-600 text-lg font-semibold hover:opacity-90 transition-opacity cursor-pointer border-none outline-none shadow-lg"
             style={{ fontFamily: '"Lato", "Arial", sans-serif' }}
           >
-            Оплатить удачу — {price} ₽
+            Оплатить удачу
           </button>
         </div>
 
