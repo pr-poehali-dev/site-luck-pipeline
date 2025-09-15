@@ -73,11 +73,24 @@
 
     <meta name="pp-name" value="site-luck-pipeline">
       <script src="https://cdn.poehali.dev/intertnal/js/inspector-min.js"></script>
+      
+      <!-- PayMaster SDK -->
+      <script src="https://paymaster.ru/cpay/sdk/payment-widget.js"></script>
   </head>
 
 <body>
 <div id="root"></div>
 <script type="module" src="/src/main.tsx"></script>
+
+<!-- PayMaster Payment Widget Script -->
+<script>
+if (document.querySelector("[btn-pay-p3jjbhvqwq1x8gs1d7lt49mxn]")) {
+document.querySelector("[btn-pay-p3jjbhvqwq1x8gs1d7lt49mxn]").addEventListener("click", function () {
+var paymentWidget = new cpay.PaymentWidget();
+paymentWidget.init({"merchantId":"3bba21d1-80ec-4945-9123-d732400e4f75","invoice":{"description":"сайт Удачи"},"amount":{"currency":"RUB","value":0},"receipt":null,"paymentForm":{"theme":"light","primaryColor":"#58bfe8","productCard":{"title":"сайт Удачи","description":null,"imageUrl":null},"fields":[{"type":"input","name":"customerEmail","label":"E-mail","hint":null,"required":false,"selectOptions":null,"additionalAmount":null},{"type":"input","name":"amount","label":"Сумма","hint":null,"required":true,"selectOptions":null,"additionalAmount":null}]}});
+});
+}
+</script>
 
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">

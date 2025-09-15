@@ -135,8 +135,16 @@ const Payment = () => {
           </Button>
         </div>
 
-
-
+        {/* Кнопка оплаты PayMaster */}
+        <div className="text-center">
+          <button 
+            btn-pay-p3jjbhvqwq1x8gs1d7lt49mxn
+            className="inline-block px-6 py-4 rounded-lg text-white bg-[#58bfe8] text-lg font-semibold hover:opacity-90 transition-opacity cursor-pointer border-none outline-none"
+            style={{ fontFamily: '"Lato", "Arial", sans-serif' }}
+          >
+            ✨ Оплатить удачу ✨
+          </button>
+        </div>
 
         {/* Кнопка назад */}
         <div className="text-center">
