@@ -135,14 +135,7 @@ const Payment = () => {
           </Button>
         </div>
 
-        {/* QR код */}
-        <div className="bg-white p-6 rounded-lg border-4 border-gray-200 shadow-lg mx-auto max-w-fit">
-          <img 
-            src="https://cdn.poehali.dev/files/22c5fb8e-ca4e-4186-85a2-3914af58405c.jpg" 
-            alt="QR-код для оплаты через СБП" 
-            className="w-72 h-72 object-contain"
-          />
-        </div>
+
 
 
         {/* Кнопка назад */}
