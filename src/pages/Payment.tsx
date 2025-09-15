@@ -158,7 +158,7 @@ const Payment = () => {
               </div>
               
               {/* Инструкция */}
-              <div className="text-center space-y-4 max-w-md">
+              <div className="text-center space-y-4 max-w-md hidden">
                 <div className="bg-gray-50 p-4 rounded-lg">
                   <h3 className="font-semibold text-lg mb-2 flex items-center justify-center gap-2">
                     Т-Банк <span className="text-yellow-500">⚡</span>
