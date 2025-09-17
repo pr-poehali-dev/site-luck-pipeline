@@ -4,6 +4,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Separator } from '@/components/ui/separator';
 import Icon from '@/components/ui/icon';
 import { useState, useEffect } from 'react';
+import { Input } from '@/components/ui/input';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { generateLuckDocument, generateDocumentNumber, formatDocumentDate, type DocumentData } from '@/utils/documentGenerator';
 
 const Payment = () => {
@@ -15,6 +17,8 @@ const Payment = () => {
   const date = location.state?.date || null;
   const strength = location.state?.strength || 1;
   const [isGeneratingDocument, setIsGeneratingDocument] = useState(false);
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [customerName, setCustomerName] = useState('');
 
   // Сохраняем запрос в localStorage для PayMaster
   useEffect(() => {
@@ -143,6 +147,56 @@ const Payment = () => {
         </div>
 
 
+
+        {/* Кнопка отправки запроса и оплаты */}
+        <div className="text-center">
+          <Dialog open={showPaymentModal} onOpenChange={setShowPaymentModal}>
+            <DialogTrigger asChild>
+              <Button className="px-8 py-4 text-lg font-semibold bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg">
+                <Icon name="Send" size={20} className="mr-2" />
+                Отправить запрос и оплатить
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-md">
+              <DialogHeader>
+                <DialogTitle className="text-center text-xl text-purple-600">Подтверждение заказа</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-6 py-4">
+                {/* Пожелание удачи */}
+                <div className="text-center">
+                  <p className="text-sm text-gray-600 mb-2">Ваше пожелание удачи:</p>
+                  <p className="text-lg font-medium text-gray-900 bg-gray-50 p-3 rounded-lg">
+                    {wish || 'Ваше пожелание'}
+                  </p>
+                </div>
+                
+                {/* Поле ФИО */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Фамилия Имя Отчество
+                  </label>
+                  <Input
+                    value={customerName}
+                    onChange={(e) => setCustomerName(e.target.value)}
+                    placeholder="Введите ваше ФИО"
+                    className="w-full"
+                  />
+                </div>
+                
+                {/* Кнопка оплаты */}
+                <Button 
+                  btn-pay-p3jjbhvqwq1x8gs1d7lt49mxn="true"
+                  data-payment-amount={price}
+                  data-luck-request={wish}
+                  className="w-full py-3 text-lg font-semibold bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white"
+                >
+                  <Icon name="CreditCard" size={20} className="mr-2" />
+                  Оплатить {price} ₽
+                </Button>
+              </div>
+            </DialogContent>
+          </Dialog>
+        </div>
 
         {/* Информация после оплаты */}
         <div className="text-center mt-4">
