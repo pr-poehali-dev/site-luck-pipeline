@@ -91,6 +91,22 @@ function initPaymentWidget() {
     paymentButton.addEventListener("click", function () {
       if (typeof cpay !== 'undefined' && cpay.PaymentWidget) {
         const paymentAmount = paymentButton.getAttribute('data-payment-amount') || 299;
+        // Получаем запрос на удачу из URL или локального хранилища
+        const currentPath = window.location.pathname;
+        let luckRequest = '';
+        
+        // Если мы на странице оплаты, попробуем получить запрос из состояния
+        if (currentPath === '/payment') {
+          // Получаем запрос из React Router state или localStorage
+          const stateData = window.history.state?.usr;
+          if (stateData && stateData.wish) {
+            luckRequest = stateData.wish;
+          } else {
+            // Fallback - пытаемся получить из localStorage
+            luckRequest = localStorage.getItem('currentWish') || '';
+          }
+        }
+        
         var paymentWidget = new cpay.PaymentWidget();
         paymentWidget.init({
           "merchantId": "3bba21d1-80ec-4945-9123-d732400e4f75",
@@ -108,18 +124,19 @@ function initPaymentWidget() {
             "fields": [
               {
                 "type": "input",
-                "name": "customerName",
-                "label": "Имя",
-                "hint": null,
+                "name": "luckRequest",
+                "label": "Запрос на удачу",
+                "hint": "обязательно",
+                "value": luckRequest,
                 "required": true,
                 "selectOptions": null,
                 "additionalAmount": null
               },
               {
                 "type": "input",
-                "name": "customerEmail",
-                "label": "E-mail",
-                "hint": null,
+                "name": "customerName",
+                "label": "Имя",
+                "hint": "необязательно",
                 "required": false,
                 "selectOptions": null,
                 "additionalAmount": null

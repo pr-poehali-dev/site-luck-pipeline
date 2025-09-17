@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import Icon from '@/components/ui/icon';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { generateLuckDocument, generateDocumentNumber, formatDocumentDate, type DocumentData } from '@/utils/documentGenerator';
 
 const Payment = () => {
@@ -15,6 +15,13 @@ const Payment = () => {
   const date = location.state?.date || null;
   const strength = location.state?.strength || 1;
   const [isGeneratingDocument, setIsGeneratingDocument] = useState(false);
+
+  // Сохраняем запрос в localStorage для PayMaster
+  useEffect(() => {
+    if (wish) {
+      localStorage.setItem('currentWish', wish);
+    }
+  }, [wish]);
 
   const handleDownloadDocument = async () => {
     if (!wish) {
