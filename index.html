@@ -91,21 +91,8 @@ function initPaymentWidget() {
     paymentButton.addEventListener("click", function () {
       if (typeof cpay !== 'undefined' && cpay.PaymentWidget) {
         const paymentAmount = paymentButton.getAttribute('data-payment-amount') || 299;
-        // Получаем запрос на удачу из URL или локального хранилища
-        const currentPath = window.location.pathname;
-        let luckRequest = '';
-        
-        // Если мы на странице оплаты, попробуем получить запрос из состояния
-        if (currentPath === '/payment') {
-          // Получаем запрос из React Router state или localStorage
-          const stateData = window.history.state?.usr;
-          if (stateData && stateData.wish) {
-            luckRequest = stateData.wish;
-          } else {
-            // Fallback - пытаемся получить из localStorage
-            luckRequest = localStorage.getItem('currentWish') || '';
-          }
-        }
+        // Получаем запрос на удачу из кнопки или localStorage
+        const luckRequest = paymentButton.getAttribute('data-luck-request') || localStorage.getItem('currentWish') || '';
         
         var paymentWidget = new cpay.PaymentWidget();
         paymentWidget.init({
@@ -118,7 +105,7 @@ function initPaymentWidget() {
             "primaryColor": "#7c3aed",
             "productCard": {
               "title": "сайт Удачи",
-              "description": null,
+              "description": luckRequest ? `Ваш запрос: ${luckRequest}` : null,
               "imageUrl": null
             },
             "fields": [
@@ -127,14 +114,14 @@ function initPaymentWidget() {
                 "name": "luckRequest",
                 "label": "Запрос на удачу",
                 "hint": "обязательно",
-                "value": luckRequest,
+                "placeholder": luckRequest || "Введите ваш запрос на удачу",
                 "required": true,
                 "selectOptions": null,
                 "additionalAmount": null
               },
               {
                 "type": "input",
-                "name": "customerName",
+                "name": "customerName", 
                 "label": "Имя",
                 "hint": "необязательно",
                 "required": false,
