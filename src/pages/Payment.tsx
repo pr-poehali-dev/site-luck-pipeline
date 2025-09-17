@@ -4,7 +4,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Separator } from '@/components/ui/separator';
 import Icon from '@/components/ui/icon';
 import { useState } from 'react';
-import { Input } from '@/components/ui/input';
 import { generateLuckDocument, generateDocumentNumber, formatDocumentDate, type DocumentData } from '@/utils/documentGenerator';
 
 const Payment = () => {
@@ -16,8 +15,6 @@ const Payment = () => {
   const date = location.state?.date || null;
   const strength = location.state?.strength || 1;
   const [isGeneratingDocument, setIsGeneratingDocument] = useState(false);
-  const [showLuckForm, setShowLuckForm] = useState(false);
-  const [userName, setUserName] = useState('');
 
   const handleDownloadDocument = async () => {
     if (!wish) {
@@ -138,37 +135,16 @@ const Payment = () => {
           </Button>
         </div>
 
-        {/* Форма пожелания удачи */}
+        {/* Кнопка оплаты PayMaster */}
         <div className="text-center">
-          {!showLuckForm ? (
-            <Button
-              onClick={() => setShowLuckForm(true)}
-              className="px-6 py-4 rounded-lg text-white bg-gradient-to-r from-purple-600 to-blue-600 text-lg font-semibold hover:opacity-90 transition-opacity shadow-lg"
-            >
-              Оплатить удачу
-            </Button>
-          ) : (
-            <Card className="mx-auto max-w-md">
-              <CardHeader className="text-center">
-                <CardTitle className="text-xl text-purple-600">🍀 Удача приобретена!</CardTitle>
-                <CardDescription>Пусть удача сопутствует вам во всех начинаниях!</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium mb-2">ФИО</label>
-                  <Input
-                    value={userName}
-                    onChange={(e) => setUserName(e.target.value)}
-                    placeholder="Введите ваше ФИО"
-                    className="w-full"
-                  />
-                </div>
-                <div className="text-center text-sm text-gray-600">
-                  {userName && `Желаем удачи, ${userName}! 🌟`}
-                </div>
-              </CardContent>
-            </Card>
-          )}
+          <button 
+            btn-pay-p3jjbhvqwq1x8gs1d7lt49mxn="true"
+            data-payment-amount={price}
+            className="inline-block px-6 py-4 rounded-lg text-white bg-gradient-to-r from-purple-600 to-blue-600 text-lg font-semibold hover:opacity-90 transition-opacity cursor-pointer border-none outline-none shadow-lg"
+            style={{ fontFamily: '"Lato", "Arial", sans-serif' }}
+          >
+            Оплатить удачу
+          </button>
         </div>
 
         {/* Информация после оплаты */}
