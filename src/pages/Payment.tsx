@@ -153,46 +153,62 @@ const Payment = () => {
           <Dialog open={showPaymentModal} onOpenChange={setShowPaymentModal}>
             <DialogTrigger asChild>
               <Button className="px-8 py-4 text-lg font-semibold bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg">
-                <Icon name="Send" size={20} className="mr-2" />
-                Отправить запрос и оплатить
+                <Icon name="CreditCard" size={20} className="mr-2" />
+                Оплатить {price} ₽
               </Button>
             </DialogTrigger>
             <DialogContent className="max-w-md">
               <DialogHeader>
-                <DialogTitle className="text-center text-xl text-purple-600">Подтверждение заказа</DialogTitle>
+                <DialogTitle className="text-center text-xl text-purple-600">Оплата заказа</DialogTitle>
               </DialogHeader>
               <div className="space-y-6 py-4">
-                {/* Пожелание удачи */}
-                <div className="text-center">
-                  <p className="text-sm text-gray-600 mb-2">Ваше пожелание удачи:</p>
-                  <p className="text-lg font-medium text-gray-900 bg-gray-50 p-3 rounded-lg">
+                {/* Информация о заказе */}
+                <div className="text-center bg-gray-50 p-4 rounded-lg">
+                  <p className="text-sm text-gray-600 mb-2">Ваше пожелание:</p>
+                  <p className="text-lg font-medium text-gray-900 mb-3">
                     {wish || 'Ваше пожелание'}
+                  </p>
+                  <p className="text-2xl font-bold text-purple-600">
+                    К оплате: {price} ₽
                   </p>
                 </div>
                 
-                {/* Поле ФИО */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Фамилия Имя Отчество
-                  </label>
-                  <Input
-                    value={customerName}
-                    onChange={(e) => setCustomerName(e.target.value)}
-                    placeholder="Введите ваше ФИО"
-                    className="w-full"
-                  />
+                {/* QR код для оплаты */}
+                <div className="text-center">
+                  <p className="text-sm text-gray-600 mb-3">Отсканируйте QR-код для оплаты:</p>
+                  <div className="flex justify-center mb-4">
+                    <img 
+                      src="https://cdn.poehali.dev/files/4731d3fd-4019-48d3-b8df-8a7e42599aa5.jpg" 
+                      alt="QR код для оплаты" 
+                      className="w-48 h-48 border-2 border-gray-200 rounded-lg"
+                    />
+                  </div>
+                  <p className="text-xs text-gray-500">
+                    Или воспользуйтесь любым удобным способом оплаты
+                  </p>
                 </div>
                 
-                {/* Кнопка оплаты */}
-                <Button 
-                  btn-pay-p3jjbhvqwq1x8gs1d7lt49mxn="true"
-                  data-payment-amount={price}
-                  data-luck-request={wish}
-                  className="w-full py-3 text-lg font-semibold bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white"
-                >
-                  <Icon name="CreditCard" size={20} className="mr-2" />
-                  Оплатить {price} ₽
-                </Button>
+                {/* Кнопки */}
+                <div className="flex gap-3">
+                  <Button 
+                    variant="outline"
+                    onClick={() => setShowPaymentModal(false)}
+                    className="flex-1"
+                  >
+                    Отмена
+                  </Button>
+                  <Button 
+                    onClick={() => {
+                      setShowPaymentModal(false);
+                      // Здесь можно добавить логику подтверждения оплаты
+                      alert('Спасибо! Скрижаль удачи будет готов в течение нескольких минут.');
+                    }}
+                    className="flex-1 bg-green-600 hover:bg-green-700 text-white"
+                  >
+                    <Icon name="Check" size={16} className="mr-2" />
+                    Я оплатил
+                  </Button>
+                </div>
               </div>
             </DialogContent>
           </Dialog>
