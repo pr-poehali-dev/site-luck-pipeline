@@ -272,20 +272,30 @@ const Payment = () => {
           <Dialog open={showDownloadModal} onOpenChange={setShowDownloadModal}>
             <DialogContent className="max-w-md">
               <DialogHeader>
-                <DialogTitle className="text-center text-xl text-green-600">Оплата получена! ✅</DialogTitle>
+                <DialogTitle className="text-center text-xl text-amber-600">📜 Ваш персональный скрижаль удачи</DialogTitle>
               </DialogHeader>
               <div className="space-y-6 py-4">
-                {/* Сообщение об успешной оплате */}
+                {/* Свиток с сообщением */}
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Icon name="Check" size={32} className="text-green-600" />
+                  <div className="relative bg-gradient-to-b from-amber-50 to-amber-100 border-2 border-amber-300 rounded-lg p-6 mx-4 shadow-lg">
+                    {/* Декоративные элементы свитка */}
+                    <div className="absolute -top-2 -left-2 w-4 h-4 bg-amber-400 rounded-full"></div>
+                    <div className="absolute -top-2 -right-2 w-4 h-4 bg-amber-400 rounded-full"></div>
+                    <div className="absolute -bottom-2 -left-2 w-4 h-4 bg-amber-400 rounded-full"></div>
+                    <div className="absolute -bottom-2 -right-2 w-4 h-4 bg-amber-400 rounded-full"></div>
+                    
+                    {/* Иконка свитка */}
+                    <div className="w-16 h-16 bg-amber-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <span className="text-3xl">📜</span>
+                    </div>
+                    
+                    <h3 className="text-xl font-bold text-amber-800 mb-2">
+                      Ваш персональный скрижаль удачи
+                    </h3>
+                    <p className="text-sm text-amber-700 italic">
+                      Магический документ готов к скачиванию
+                    </p>
                   </div>
-                  <p className="text-lg font-medium text-gray-900 mb-2">
-                    Спасибо за оплату!
-                  </p>
-                  <p className="text-sm text-gray-600">
-                    Ваша скрижаль удачи готова к скачиванию
-                  </p>
                 </div>
                 
                 {/* Кнопки */}
