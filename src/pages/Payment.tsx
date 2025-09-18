@@ -200,6 +200,7 @@ const Payment = () => {
                   <Button 
                     onClick={() => {
                       setShowPaymentModal(false);
+                      // Здесь можно добавить логику подтверждения оплаты
                       alert('Спасибо! Скрижаль удачи будет готов в течение нескольких минут.');
                     }}
                     className="flex-1 bg-green-600 hover:bg-green-700 text-white"
