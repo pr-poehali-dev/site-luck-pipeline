@@ -283,13 +283,19 @@ const Payment = () => {
                     <div className="absolute -left-3 top-4 bottom-4 w-6 bg-amber-700 rounded-full shadow-lg"></div>
                     <div className="absolute -right-3 top-4 bottom-4 w-6 bg-amber-700 rounded-full shadow-lg"></div>
                     
-                    {/* Текст внутри свитка */}
-                    <div className="relative z-10 space-y-4">
-                      <div className="text-5xl mb-4">📜</div>
-                      <h2 className="text-2xl font-bold text-amber-900 leading-tight">
-                        Ваш персональный<br/>скрижаль удачи
-                      </h2>
-                      <p className="text-amber-800 italic text-lg">
+                    {/* Большой свиток с текстом внутри */}
+                    <div className="relative z-10 flex flex-col items-center justify-center">
+                      <div className="relative text-8xl mb-2">
+                        📜
+                        {/* Текст поверх свитка */}
+                        <div className="absolute inset-0 flex flex-col items-center justify-center text-xs font-bold text-amber-900 leading-tight pt-2">
+                          <div className="text-center">
+                            <div className="mb-1">Ваш персональный</div>
+                            <div>скрижаль удачи</div>
+                          </div>
+                        </div>
+                      </div>
+                      <p className="text-amber-800 italic text-lg mt-2">
                         Магический документ готов к скачиванию
                       </p>
                     </div>
