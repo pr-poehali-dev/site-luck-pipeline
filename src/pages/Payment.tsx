@@ -271,30 +271,28 @@ const Payment = () => {
           {/* Третье модальное окно для скачивания скрижали */}
           <Dialog open={showDownloadModal} onOpenChange={setShowDownloadModal}>
             <DialogContent className="max-w-md">
-              <DialogHeader>
-                <DialogTitle className="text-center text-xl text-amber-600">📜 Ваш персональный скрижаль удачи</DialogTitle>
-              </DialogHeader>
               <div className="space-y-6 py-4">
-                {/* Свиток с сообщением */}
+                {/* Большой свиток */}
                 <div className="text-center">
-                  <div className="relative bg-gradient-to-b from-amber-50 to-amber-100 border-2 border-amber-300 rounded-lg p-6 mx-4 shadow-lg">
-                    {/* Декоративные элементы свитка */}
-                    <div className="absolute -top-2 -left-2 w-4 h-4 bg-amber-400 rounded-full"></div>
-                    <div className="absolute -top-2 -right-2 w-4 h-4 bg-amber-400 rounded-full"></div>
-                    <div className="absolute -bottom-2 -left-2 w-4 h-4 bg-amber-400 rounded-full"></div>
-                    <div className="absolute -bottom-2 -right-2 w-4 h-4 bg-amber-400 rounded-full"></div>
+                  <div className="relative bg-white border-l-8 border-r-8 border-amber-600 rounded-3xl p-8 mx-2 shadow-2xl min-h-[200px] flex flex-col justify-center">
+                    {/* Верхняя и нижняя части свитка */}
+                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-20 h-8 bg-amber-600 rounded-full shadow-lg"></div>
+                    <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-20 h-8 bg-amber-600 rounded-full shadow-lg"></div>
                     
-                    {/* Иконка свитка */}
-                    <div className="w-16 h-16 bg-amber-200 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-3xl">📜</span>
+                    {/* Боковые палочки свитка */}
+                    <div className="absolute -left-3 top-4 bottom-4 w-6 bg-amber-700 rounded-full shadow-lg"></div>
+                    <div className="absolute -right-3 top-4 bottom-4 w-6 bg-amber-700 rounded-full shadow-lg"></div>
+                    
+                    {/* Текст внутри свитка */}
+                    <div className="relative z-10 space-y-4">
+                      <div className="text-5xl mb-4">📜</div>
+                      <h2 className="text-2xl font-bold text-amber-900 leading-tight">
+                        Ваш персональный<br/>скрижаль удачи
+                      </h2>
+                      <p className="text-amber-800 italic text-lg">
+                        Магический документ готов к скачиванию
+                      </p>
                     </div>
-                    
-                    <h3 className="text-xl font-bold text-amber-800 mb-2">
-                      Ваш персональный скрижаль удачи
-                    </h3>
-                    <p className="text-sm text-amber-700 italic">
-                      Магический документ готов к скачиванию
-                    </p>
                   </div>
                 </div>
                 
