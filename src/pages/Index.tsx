@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import confetti from 'canvas-confetti';
 
 const Index = () => {
   const [wishText, setWishText] = useState('');
@@ -17,6 +18,33 @@ const Index = () => {
       setShowSplash(false);
     }, 2000);
   };
+
+  // Конфетти при загрузке страницы
+  useEffect(() => {
+    const startConfetti = () => {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.2 }
+      });
+    };
+
+    // Запускаем сразу
+    startConfetti();
+    
+    // Продолжаем запускать каждые 3 секунды
+    const interval = setInterval(startConfetti, 3000);
+    
+    // Останавливаем через 15 секунд
+    const timeout = setTimeout(() => {
+      clearInterval(interval);
+    }, 15000);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeout);
+    };
+  }, []);
 
   // Создаем звезды
   const generateStars = () => {
