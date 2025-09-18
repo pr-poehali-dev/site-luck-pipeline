@@ -124,24 +124,16 @@ const LuckDocument: React.FC<LuckDocumentProps> = ({
             {/* Левая сторона - данные документа */}
             <div className="text-left flex-1 mr-8">
               <div className="mb-4">
-                <p className="text-red-500 text-sm font-bold mb-4">
+                <p className="text-red-500 text-sm font-bold mb-6">
                   ⚠️ ВАЖНО: Скрижаль Удачи вступает в силу только после оплаты
                 </p>
-                <div className="border-2 border-purple-600 bg-black bg-opacity-50 p-4 rounded">
-                  <div className="space-y-2">
-                    <p className="text-sm text-gray-300">
-                      <span className="font-bold text-purple-300">Номер документа:</span>
-                    </p>
-                    <p className="text-lg font-bold text-purple-300 tracking-wider">
-                      {generateDocumentNumber()}
-                    </p>
-                    <p className="text-sm text-gray-300 mt-3">
-                      <span className="font-bold text-purple-300">Дата создания:</span>
-                    </p>
-                    <p className="text-lg font-bold text-purple-300">
-                      {formatDocumentDate()}
-                    </p>
-                  </div>
+                <div className="space-y-3">
+                  <p className="text-sm text-purple-300 font-bold">
+                    Номер документа: {generateDocumentNumber()}
+                  </p>
+                  <p className="text-sm text-purple-300 font-bold">
+                    Дата создания: {formatDocumentDate()}
+                  </p>
                 </div>
               </div>
             </div>
