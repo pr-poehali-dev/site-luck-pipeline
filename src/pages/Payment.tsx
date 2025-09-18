@@ -274,32 +274,32 @@ const Payment = () => {
               <div className="space-y-6 py-4">
                 {/* Магическая карточка */}
                 <div className="text-center">
-                  <div className="relative bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 rounded-2xl p-8 mx-2 shadow-2xl border-2 border-purple-500 overflow-hidden">
+                  <div className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-2xl p-8 mx-2 shadow-2xl border-2 border-gray-600 overflow-hidden">
                     {/* Магические частицы */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-transparent via-purple-500/10 to-transparent animate-pulse"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-transparent via-gray-500/10 to-transparent animate-pulse"></div>
                     
                     {/* Светящиеся углы */}
-                    <div className="absolute top-2 left-2 w-4 h-4 bg-yellow-400 rounded-full animate-ping opacity-75"></div>
-                    <div className="absolute top-2 right-2 w-4 h-4 bg-yellow-400 rounded-full animate-ping opacity-75" style={{animationDelay: '0.5s'}}></div>
-                    <div className="absolute bottom-2 left-2 w-4 h-4 bg-yellow-400 rounded-full animate-ping opacity-75" style={{animationDelay: '1s'}}></div>
-                    <div className="absolute bottom-2 right-2 w-4 h-4 bg-yellow-400 rounded-full animate-ping opacity-75" style={{animationDelay: '1.5s'}}></div>
+                    <div className="absolute top-2 left-2 w-4 h-4 bg-white rounded-full animate-ping opacity-75"></div>
+                    <div className="absolute top-2 right-2 w-4 h-4 bg-white rounded-full animate-ping opacity-75" style={{animationDelay: '0.5s'}}></div>
+                    <div className="absolute bottom-2 left-2 w-4 h-4 bg-white rounded-full animate-ping opacity-75" style={{animationDelay: '1s'}}></div>
+                    <div className="absolute bottom-2 right-2 w-4 h-4 bg-white rounded-full animate-ping opacity-75" style={{animationDelay: '1.5s'}}></div>
                     
                     {/* Контент */}
                     <div className="relative z-10 flex flex-col items-center justify-center space-y-4">
 
                       
                       {/* Заголовок */}
-                      <h2 className="text-2xl font-bold bg-gradient-to-r from-yellow-300 via-yellow-200 to-yellow-300 bg-clip-text text-transparent leading-tight text-center">
+                      <h2 className="text-2xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent leading-tight text-center">
                         Ваш персональный<br/>скрижаль удачи
                       </h2>
                       
                       {/* Подзаголовок */}
-                      <p className="text-purple-200 italic text-lg">
+                      <p className="text-gray-300 italic text-lg">
                         Магический документ готов к скачиванию
                       </p>
                       
                       {/* Дополнительные звёзды */}
-                      <div className="flex space-x-2 text-yellow-300">
+                      <div className="flex space-x-2 text-white">
                         <span className="animate-pulse">⭐</span>
                         <span className="animate-pulse" style={{animationDelay: '0.3s'}}>⭐</span>
                         <span className="animate-pulse" style={{animationDelay: '0.6s'}}>⭐</span>
