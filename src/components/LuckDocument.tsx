@@ -111,12 +111,6 @@ const LuckDocument: React.FC<LuckDocumentProps> = ({
               </h3>
               <div className="space-y-2">
                 <p className="text-sm text-gray-300">
-                  Номер документа: <span className="text-purple-300 font-semibold">{generateDocumentNumber()}</span>
-                </p>
-                <p className="text-sm text-gray-300">
-                  Дата создания: <span className="text-purple-300 font-semibold">{formatDocumentDate()}</span>
-                </p>
-                <p className="text-sm text-gray-300">
                   Энергетическая инвестиция: <span className="text-green-400 font-semibold">{energyInvestment} руб.</span>
                 </p>
               </div>
@@ -124,17 +118,35 @@ const LuckDocument: React.FC<LuckDocumentProps> = ({
           </div>
         </div>
 
-        {/* Нижняя секция с предупреждением и печатью */}
+        {/* Нижняя секция с данными документа и печатью */}
         <div className="absolute bottom-8 left-8 right-8">
           <div className="flex justify-between items-end">
-            {/* Предупреждение */}
+            {/* Левая сторона - данные документа */}
             <div className="text-left flex-1 mr-8">
-              <p className="text-red-500 text-sm font-bold">
-                ⚠️ ВАЖНО: Скрижаль Удачи вступает в силу только после оплаты
-              </p>
+              <div className="mb-4">
+                <p className="text-red-500 text-sm font-bold mb-4">
+                  ⚠️ ВАЖНО: Скрижаль Удачи вступает в силу только после оплаты
+                </p>
+                <div className="border-2 border-purple-600 bg-black bg-opacity-50 p-4 rounded">
+                  <div className="space-y-2">
+                    <p className="text-sm text-gray-300">
+                      <span className="font-bold text-purple-300">Номер документа:</span>
+                    </p>
+                    <p className="text-lg font-bold text-purple-300 tracking-wider">
+                      {generateDocumentNumber()}
+                    </p>
+                    <p className="text-sm text-gray-300 mt-3">
+                      <span className="font-bold text-purple-300">Дата создания:</span>
+                    </p>
+                    <p className="text-lg font-bold text-purple-300">
+                      {formatDocumentDate()}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            {/* Печать пентаграммы */}
+            {/* Правая сторона - печать пентаграммы */}
             <div className="relative w-36 h-36">
               <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 {/* Внешний круг с узорами */}

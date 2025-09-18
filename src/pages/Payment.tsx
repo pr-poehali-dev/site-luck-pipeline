@@ -6,7 +6,7 @@ import Icon from '@/components/ui/icon';
 import { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { generateLuckDocument, generateDocumentNumber, formatDocumentDate, type DocumentData } from '@/utils/documentGenerator';
+import { generateLuckDocument, downloadDocumentAsImage, generateDocumentNumber, formatDocumentDate, type DocumentData } from '@/utils/documentGenerator';
 import * as confetti from 'canvas-confetti';
 
 const Payment = () => {
@@ -349,7 +349,18 @@ const Payment = () => {
                       
                       setShowDownloadModal(false);
                       setShowActivationScreen(true);
-                      handleDownloadDocument();
+                      // Скачиваем как изображение вместо PDF
+                      const documentData: DocumentData = {
+                        wish: wish || 'Ваше желание',
+                        powerLevel: strength || 1,
+                        userName: 'Получатель силы',
+                        energyInvestment: price || 299,
+                        activationDate: date || 'Немедленно',
+                        documentNumber: generateDocumentNumber(),
+                        documentDate: formatDocumentDate()
+                      };
+                      
+                      downloadDocumentAsImage(documentData);
                       
                       // Скрываем заставку через 20 секунд
                       setTimeout(() => {
