@@ -272,32 +272,39 @@ const Payment = () => {
           <Dialog open={showDownloadModal} onOpenChange={setShowDownloadModal}>
             <DialogContent className="max-w-md">
               <div className="space-y-6 py-4">
-                {/* Большой свиток */}
+                {/* Магическая карточка */}
                 <div className="text-center">
-                  <div className="relative bg-white border-l-8 border-r-8 border-amber-600 rounded-3xl p-8 mx-2 shadow-2xl min-h-[200px] flex flex-col justify-center">
-                    {/* Верхняя и нижняя части свитка */}
-                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-20 h-8 bg-amber-600 rounded-full shadow-lg"></div>
-                    <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-20 h-8 bg-amber-600 rounded-full shadow-lg"></div>
+                  <div className="relative bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 rounded-2xl p-8 mx-2 shadow-2xl border-2 border-purple-500 overflow-hidden">
+                    {/* Магические частицы */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-transparent via-purple-500/10 to-transparent animate-pulse"></div>
                     
-                    {/* Боковые палочки свитка */}
-                    <div className="absolute -left-3 top-4 bottom-4 w-6 bg-amber-700 rounded-full shadow-lg"></div>
-                    <div className="absolute -right-3 top-4 bottom-4 w-6 bg-amber-700 rounded-full shadow-lg"></div>
+                    {/* Светящиеся углы */}
+                    <div className="absolute top-2 left-2 w-4 h-4 bg-yellow-400 rounded-full animate-ping opacity-75"></div>
+                    <div className="absolute top-2 right-2 w-4 h-4 bg-yellow-400 rounded-full animate-ping opacity-75" style={{animationDelay: '0.5s'}}></div>
+                    <div className="absolute bottom-2 left-2 w-4 h-4 bg-yellow-400 rounded-full animate-ping opacity-75" style={{animationDelay: '1s'}}></div>
+                    <div className="absolute bottom-2 right-2 w-4 h-4 bg-yellow-400 rounded-full animate-ping opacity-75" style={{animationDelay: '1.5s'}}></div>
                     
-                    {/* Большой свиток с текстом внутри */}
-                    <div className="relative z-10 flex flex-col items-center justify-center">
-                      <div className="relative text-[12rem] mb-2 leading-none">
-                        📜
-                        {/* Текст поверх свитка */}
-                        <div className="absolute inset-0 flex flex-col items-center justify-center text-sm font-bold text-amber-900 leading-tight pt-4">
-                          <div className="text-center">
-                            <div className="mb-1">Ваш персональный</div>
-                            <div>скрижаль удачи</div>
-                          </div>
-                        </div>
-                      </div>
-                      <p className="text-amber-800 italic text-lg mt-2">
+                    {/* Контент */}
+                    <div className="relative z-10 flex flex-col items-center justify-center space-y-4">
+                      {/* Магический символ */}
+                      <div className="text-6xl animate-bounce text-yellow-300">✨</div>
+                      
+                      {/* Заголовок */}
+                      <h2 className="text-2xl font-bold bg-gradient-to-r from-yellow-300 via-yellow-200 to-yellow-300 bg-clip-text text-transparent leading-tight text-center">
+                        Ваш персональный<br/>скрижаль удачи
+                      </h2>
+                      
+                      {/* Подзаголовок */}
+                      <p className="text-purple-200 italic text-lg">
                         Магический документ готов к скачиванию
                       </p>
+                      
+                      {/* Дополнительные звёзды */}
+                      <div className="flex space-x-2 text-yellow-300">
+                        <span className="animate-pulse">⭐</span>
+                        <span className="animate-pulse" style={{animationDelay: '0.3s'}}>⭐</span>
+                        <span className="animate-pulse" style={{animationDelay: '0.6s'}}>⭐</span>
+                      </div>
                     </div>
                   </div>
                 </div>
