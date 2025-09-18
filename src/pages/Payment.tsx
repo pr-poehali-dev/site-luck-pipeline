@@ -59,28 +59,6 @@ const Payment = () => {
   };
 
 
-  // Конфетти при открытии модального окна скачивания
-  useEffect(() => {
-    if (showDownloadModal) {
-      // Радостное конфетти при появлении окна
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ['#10b981', '#34d399', '#6ee7b7', '#a7f3d0', '#d1fae5']
-      });
-      
-      setTimeout(() => {
-        confetti({
-          particleCount: 80,
-          spread: 60,
-          origin: { y: 0.7 },
-          colors: ['#8b5cf6', '#a78bfa', '#c4b5fd', '#ddd6fe']
-        });
-      }, 300);
-    }
-  }, [showDownloadModal]);
-
   // Убираем обработку формы Тинькофф
 
   return (
@@ -321,32 +299,6 @@ const Payment = () => {
                   </Button>
                   <Button 
                     onClick={() => {
-                      // Запускаем конфетти при скачивании
-                      confetti({
-                        particleCount: 200,
-                        spread: 100,
-                        origin: { y: 0.4 },
-                        colors: ['#9333ea', '#a855f7', '#c084fc', '#d8b4fe', '#e9d5ff']
-                      });
-                      
-                      setTimeout(() => {
-                        confetti({
-                          particleCount: 150,
-                          spread: 80,
-                          origin: { x: 0.2, y: 0.5 },
-                          colors: ['#10b981', '#34d399', '#6ee7b7', '#a7f3d0']
-                        });
-                      }, 200);
-                      
-                      setTimeout(() => {
-                        confetti({
-                          particleCount: 150,
-                          spread: 80,
-                          origin: { x: 0.8, y: 0.5 },
-                          colors: ['#f59e0b', '#fbbf24', '#fcd34d', '#fde68a']
-                        });
-                      }, 400);
-                      
                       setShowDownloadModal(false);
                       handleDownloadDocument();
                     }}
