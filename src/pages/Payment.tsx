@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { generateLuckDocument, generateDocumentNumber, formatDocumentDate, type DocumentData } from '@/utils/documentGenerator';
+import confetti from 'canvas-confetti';
 
 const Payment = () => {
   const location = useLocation();
@@ -27,6 +28,33 @@ const Payment = () => {
       localStorage.setItem('currentWish', wish);
     }
   }, [wish]);
+
+  // Запускаем конфетти при загрузке страницы
+  useEffect(() => {
+    const startConfetti = () => {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    };
+
+    // Запускаем сразу
+    startConfetti();
+    
+    // Продолжаем запускать каждые 3 секунды
+    const interval = setInterval(startConfetti, 3000);
+    
+    // Останавливаем через 15 секунд
+    const timeout = setTimeout(() => {
+      clearInterval(interval);
+    }, 15000);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeout);
+    };
+  }, []);
 
   const handleDownloadDocument = async () => {
     if (!wish) {
