@@ -19,6 +19,7 @@ const Payment = () => {
   const [isGeneratingDocument, setIsGeneratingDocument] = useState(false);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [showQrModal, setShowQrModal] = useState(false);
+  const [showDownloadModal, setShowDownloadModal] = useState(false);
   const [customerName, setCustomerName] = useState('');
 
   // Сохраняем запрос в localStorage для PayMaster
@@ -255,12 +256,56 @@ const Payment = () => {
                     onClick={() => {
                       setShowQrModal(false);
                       setShowPaymentModal(false);
-                      alert('Спасибо! Скрижаль удачи будет готов в течение нескольких минут.');
+                      setShowDownloadModal(true);
                     }}
                     className="flex-1 bg-green-600 hover:bg-green-700 text-white"
                   >
                     <Icon name="Check" size={16} className="mr-2" />
                     Я оплатил
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+
+          {/* Третье модальное окно для скачивания скрижали */}
+          <Dialog open={showDownloadModal} onOpenChange={setShowDownloadModal}>
+            <DialogContent className="max-w-md">
+              <DialogHeader>
+                <DialogTitle className="text-center text-xl text-green-600">Оплата получена! ✅</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-6 py-4">
+                {/* Сообщение об успешной оплате */}
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Icon name="Check" size={32} className="text-green-600" />
+                  </div>
+                  <p className="text-lg font-medium text-gray-900 mb-2">
+                    Спасибо за оплату!
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    Ваша скрижаль удачи готова к скачиванию
+                  </p>
+                </div>
+                
+                {/* Кнопки */}
+                <div className="flex gap-3">
+                  <Button 
+                    variant="outline"
+                    onClick={() => setShowDownloadModal(false)}
+                    className="flex-1"
+                  >
+                    Не сейчас
+                  </Button>
+                  <Button 
+                    onClick={() => {
+                      setShowDownloadModal(false);
+                      handleDownloadDocument();
+                    }}
+                    className="flex-1 bg-purple-600 hover:bg-purple-700 text-white"
+                  >
+                    <Icon name="Download" size={16} className="mr-2" />
+                    Скачать скрижаль
                   </Button>
                 </div>
               </div>
