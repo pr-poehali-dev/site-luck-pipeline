@@ -37,6 +37,36 @@ const OnePage = () => {
     }, 2000);
   };
 
+  // Конфетти при загрузке страницы
+  useEffect(() => {
+    const startConfetti = () => {
+      const confetti = (window as any).confetti;
+      if (confetti) {
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.2 }
+        });
+      }
+    };
+
+    // Запускаем сразу
+    startConfetti();
+    
+    // Продолжаем запускать каждые 4 секунды
+    const interval = setInterval(startConfetti, 4000);
+    
+    // Останавливаем через 20 секунд
+    const timeout = setTimeout(() => {
+      clearInterval(interval);
+    }, 20000);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeout);
+    };
+  }, []);
+
   // Функция плавной прокрутки к секции
   const scrollToSection = (sectionRef: React.RefObject<HTMLDivElement>, sectionName: string) => {
     sectionRef.current?.scrollIntoView({ behavior: 'smooth' });
