@@ -319,13 +319,40 @@ const Payment = () => {
                   </Button>
                   <Button 
                     onClick={() => {
+                      // Запускаем конфетти при скачивании
+                      confetti({
+                        particleCount: 200,
+                        spread: 100,
+                        origin: { y: 0.4 },
+                        colors: ['#9333ea', '#a855f7', '#c084fc', '#d8b4fe', '#e9d5ff']
+                      });
+                      
+                      setTimeout(() => {
+                        confetti({
+                          particleCount: 150,
+                          spread: 80,
+                          origin: { x: 0.2, y: 0.5 },
+                          colors: ['#10b981', '#34d399', '#6ee7b7', '#a7f3d0']
+                        });
+                      }, 200);
+                      
+                      setTimeout(() => {
+                        confetti({
+                          particleCount: 150,
+                          spread: 80,
+                          origin: { x: 0.8, y: 0.5 },
+                          colors: ['#f59e0b', '#fbbf24', '#fcd34d', '#fde68a']
+                        });
+                      }, 400);
+                      
                       setShowDownloadModal(false);
                       handleDownloadDocument();
                     }}
                     className="flex-1 bg-purple-600 hover:bg-purple-700 text-white"
+                    disabled={isGeneratingDocument}
                   >
                     <Icon name="Download" size={16} className="mr-2" />
-                    Скачать скрижаль
+                    {isGeneratingDocument ? 'Создаем скрижаль...' : 'Скачать скрижаль'}
                   </Button>
                 </div>
               </div>
