@@ -6,6 +6,7 @@ import PricingSection from '@/components/sections/PricingSection';
 import PaymentSection from '@/components/sections/PaymentSection';
 import RulesSection from '@/components/sections/RulesSection';
 import Navigation from '@/components/Navigation';
+import confetti from 'canvas-confetti';
 
 const OnePage = () => {
   const [wishText, setWishText] = useState('');
@@ -40,14 +41,11 @@ const OnePage = () => {
   // Конфетти при загрузке страницы
   useEffect(() => {
     const startConfetti = () => {
-      const confetti = (window as any).confetti;
-      if (confetti) {
-        confetti({
-          particleCount: 100,
-          spread: 70,
-          origin: { y: 0.2 }
-        });
-      }
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.2 }
+      });
     };
 
     // Запускаем сразу
