@@ -21,6 +21,7 @@ const Payment = () => {
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [showQrModal, setShowQrModal] = useState(false);
   const [showDownloadModal, setShowDownloadModal] = useState(false);
+  const [showActivationScreen, setShowActivationScreen] = useState(false);
   const [customerName, setCustomerName] = useState('');
 
   // Сохраняем запрос в localStorage для PayMaster
@@ -347,7 +348,13 @@ const Payment = () => {
                       }, 400);
                       
                       setShowDownloadModal(false);
+                      setShowActivationScreen(true);
                       handleDownloadDocument();
+                      
+                      // Скрываем заставку через 3 секунды
+                      setTimeout(() => {
+                        setShowActivationScreen(false);
+                      }, 3000);
                     }}
                     className="flex-1 bg-purple-600 hover:bg-purple-700 text-white"
                     disabled={isGeneratingDocument}
@@ -379,6 +386,34 @@ const Payment = () => {
 
 
       </div>
+
+      {/* Заставка активации удачи */}
+      {showActivationScreen && (
+        <div className="fixed inset-0 bg-black bg-opacity-95 z-50 flex items-center justify-center">
+          <div className="text-center space-y-8 px-8">
+            {/* Звездное небо */}
+            <div className="absolute inset-0 overflow-hidden">
+              <div className="stars"></div>
+              <div className="stars2"></div>
+              <div className="stars3"></div>
+            </div>
+            
+            {/* Основной контент */}
+            <div className="relative z-10">
+              <div className="text-6xl mb-8 animate-pulse">✨</div>
+              <h1 className="text-4xl font-bold text-white mb-6 animate-fade-in">
+                Ваша удача активируется...
+              </h1>
+              <p className="text-xl text-gray-300 mb-8 animate-fade-in-delay">
+                После оплаты ваше желание обретет силу
+              </p>
+              <div className="flex justify-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
