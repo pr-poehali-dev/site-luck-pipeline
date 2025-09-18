@@ -24,6 +24,25 @@ export const formatDocumentDate = (): string => {
   });
 };
 
+export const formatActivationDate = (date: string | null, duration: string): string => {
+  // Если дата не указана, значит активация немедленная
+  if (!date) {
+    return 'Немедленно';
+  }
+  
+  // Если указана дата, объединяем её с временным периодом из duration
+  // duration может быть: "Утро (6:00 - 12:00)", "День (12:00 - 18:00)" и т.д.
+  const timeMatch = duration.match(/\(([^)]+)\)/);
+  const timeRange = timeMatch ? timeMatch[1] : '';
+  
+  if (timeRange) {
+    return `${date} в ${timeRange}`;
+  }
+  
+  // Для "Удача на событие" или других без времени
+  return `${date}`;
+};
+
 export const generateLuckDocument = async (data: DocumentData): Promise<void> => {
   // Создаем временный элемент для рендеринга документа
   const tempDiv = document.createElement('div');
