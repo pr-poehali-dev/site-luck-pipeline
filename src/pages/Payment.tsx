@@ -321,7 +321,7 @@ const Payment = () => {
                   <Button 
                     onClick={() => {
                       // Запускаем конфетти при скачивании
-                      confetti({
+                      confetti.default({
                         particleCount: 200,
                         spread: 100,
                         origin: { y: 0.4 },
@@ -329,7 +329,7 @@ const Payment = () => {
                       });
                       
                       setTimeout(() => {
-                        confetti({
+                        confetti.default({
                           particleCount: 150,
                           spread: 80,
                           origin: { x: 0.2, y: 0.5 },
@@ -338,7 +338,7 @@ const Payment = () => {
                       }, 200);
                       
                       setTimeout(() => {
-                        confetti({
+                        confetti.default({
                           particleCount: 150,
                           spread: 80,
                           origin: { x: 0.8, y: 0.5 },
