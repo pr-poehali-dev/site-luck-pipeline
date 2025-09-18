@@ -286,8 +286,7 @@ const Payment = () => {
                     
                     {/* Контент */}
                     <div className="relative z-10 flex flex-col items-center justify-center space-y-4">
-                      {/* Магический символ */}
-                      <div className="text-6xl animate-bounce text-yellow-300">✨</div>
+
                       
                       {/* Заголовок */}
                       <h2 className="text-2xl font-bold bg-gradient-to-r from-yellow-300 via-yellow-200 to-yellow-300 bg-clip-text text-transparent leading-tight text-center">
