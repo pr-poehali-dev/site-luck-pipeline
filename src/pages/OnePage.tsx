@@ -6,7 +6,6 @@ import PricingSection from '@/components/sections/PricingSection';
 import PaymentSection from '@/components/sections/PaymentSection';
 import RulesSection from '@/components/sections/RulesSection';
 import Navigation from '@/components/Navigation';
-import confetti from 'canvas-confetti';
 
 const OnePage = () => {
   const [wishText, setWishText] = useState('');
@@ -37,33 +36,6 @@ const OnePage = () => {
       setShowSplash(false);
     }, 2000);
   };
-
-  // Конфетти при загрузке страницы
-  useEffect(() => {
-    const startConfetti = () => {
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.2 }
-      });
-    };
-
-    // Запускаем сразу
-    startConfetti();
-    
-    // Продолжаем запускать каждые 4 секунды
-    const interval = setInterval(startConfetti, 4000);
-    
-    // Останавливаем через 20 секунд
-    const timeout = setTimeout(() => {
-      clearInterval(interval);
-    }, 20000);
-
-    return () => {
-      clearInterval(interval);
-      clearTimeout(timeout);
-    };
-  }, []);
 
   // Функция плавной прокрутки к секции
   const scrollToSection = (sectionRef: React.RefObject<HTMLDivElement>, sectionName: string) => {
