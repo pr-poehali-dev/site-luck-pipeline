@@ -285,10 +285,10 @@ const Payment = () => {
                     
                     {/* Большой свиток с текстом внутри */}
                     <div className="relative z-10 flex flex-col items-center justify-center">
-                      <div className="relative text-8xl mb-2">
+                      <div className="relative text-[12rem] mb-2 leading-none">
                         📜
                         {/* Текст поверх свитка */}
-                        <div className="absolute inset-0 flex flex-col items-center justify-center text-xs font-bold text-amber-900 leading-tight pt-2">
+                        <div className="absolute inset-0 flex flex-col items-center justify-center text-sm font-bold text-amber-900 leading-tight pt-4">
                           <div className="text-center">
                             <div className="mb-1">Ваш персональный</div>
                             <div>скрижаль удачи</div>
