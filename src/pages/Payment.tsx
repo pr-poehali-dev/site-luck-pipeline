@@ -318,9 +318,10 @@ const Payment = () => {
                       setShowDownloadModal(false);
                       setShowActivationScreen(true);
                       
-                      // Скрываем заставку через 20 секунд
+                      // Скрываем заставку через 20 секунд и переходим на главную
                       setTimeout(() => {
                         setShowActivationScreen(false);
+                        navigate('/');
                       }, 20000);
                     }}
                     className="flex-1"
@@ -370,9 +371,10 @@ const Payment = () => {
                       
                       downloadDocumentAsImage(documentData);
                       
-                      // Скрываем заставку через 20 секунд
+                      // Скрываем заставку через 20 секунд и переходим на главную
                       setTimeout(() => {
                         setShowActivationScreen(false);
+                        navigate('/');
                       }, 20000);
                     }}
                     className="flex-1 bg-purple-600 hover:bg-purple-700 text-white"
