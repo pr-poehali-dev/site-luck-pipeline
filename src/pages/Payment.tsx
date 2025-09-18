@@ -424,15 +424,14 @@ const Payment = () => {
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center text-white space-y-6 px-8">
               <div className="mb-8">
-                <div className="text-8xl mb-6 animate-bounce">✨</div>
-                <h1 className="text-6xl font-bold mb-6 text-shadow-2xl bg-gradient-to-r from-yellow-400 via-yellow-200 to-yellow-400 bg-clip-text text-transparent animate-pulse">
+                <h1 className="text-6xl font-bold mb-6 text-shadow-2xl bg-gradient-to-r from-green-400 via-green-200 to-green-400 bg-clip-text text-transparent animate-pulse">
                   АКТИВАЦИЯ УДАЧИ
                 </h1>
                 <div className="space-y-4">
-                  <p className="text-2xl font-semibold text-yellow-200 animate-fade-in">
+                  <p className="text-4xl font-semibold text-green-200 animate-fade-in">
                     Ваша удача будет активирована после оплаты
                   </p>
-                  <p className="text-xl text-gray-300 animate-fade-in-delay">
+                  <p className="text-2xl text-gray-300 animate-fade-in-delay">
                     Ожидайте... Магия уже начинает действовать
                   </p>
                 </div>
@@ -440,8 +439,8 @@ const Payment = () => {
               
               {/* Магический спиннер */}
               <div className="flex justify-center items-center space-x-4">
-                <div className="animate-spin rounded-full h-16 w-16 border-4 border-yellow-400 border-t-transparent"></div>
-                <div className="text-yellow-300 text-lg font-medium animate-pulse">
+                <div className="animate-spin rounded-full h-16 w-16 border-4 border-green-400 border-t-transparent"></div>
+                <div className="text-green-300 text-lg font-medium animate-pulse">
                   Подготовка скрижали...
                 </div>
               </div>
