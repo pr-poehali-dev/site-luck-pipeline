@@ -314,7 +314,15 @@ const Payment = () => {
                 <div className="flex gap-3">
                   <Button 
                     variant="outline"
-                    onClick={() => setShowDownloadModal(false)}
+                    onClick={() => {
+                      setShowDownloadModal(false);
+                      setShowActivationScreen(true);
+                      
+                      // Скрываем заставку через 20 секунд
+                      setTimeout(() => {
+                        setShowActivationScreen(false);
+                      }, 20000);
+                    }}
                     className="flex-1"
                   >
                     Не сейчас
