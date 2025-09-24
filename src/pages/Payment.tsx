@@ -217,32 +217,38 @@ const Payment = () => {
                   </p>
                 </div>
                 
-                {/* QR код для оплаты */}
+                {/* Ссылка для оплаты */}
                 <div className="text-center">
-                  <p className="text-sm text-gray-600 mb-3">Отсканируйте QR-код для оплаты:</p>
-                  <div className="flex justify-center mb-4">
-                    <img 
-                      src="https://cdn.poehali.dev/files/4731d3fd-4019-48d3-b8df-8a7e42599aa5.jpg" 
-                      alt="QR код для оплаты" 
-                      className="w-48 h-48 border-2 border-gray-200 rounded-lg"
-                    />
-                  </div>
+                  <p className="text-sm text-gray-600 mb-4">Перейдите по ссылке для оплаты:</p>
                   
-                  {/* Инструкция по оплате */}
-                  <div className="bg-white rounded-lg p-4 mb-3">
-                    <div className="text-center">
-                      <p className="font-semibold text-gray-800 mb-2">Т-Банк ⚡</p>
-                      <div className="text-center text-sm text-gray-700 space-y-1">
-                        <p>1. Отсканируйте QR-код</p>
-                        <p>2. Введите сумму: <span className="font-semibold text-purple-600">{price} ₽</span></p>
-                        <p>3. Подтвердите оплату</p>
-                      </div>
+                  <div className="bg-white rounded-lg border-2 border-blue-200 p-6 mb-4">
+                    <div className="space-y-4">
+                      <div className="text-3xl">💳</div>
+                      <a 
+                        href="https://психология-123.рф/payment"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-block bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-lg transition-colors duration-200 font-medium text-lg"
+                      >
+                        Оплатить {price} ₽
+                      </a>
+                      <p className="text-sm text-gray-600">
+                        Откроется в новом окне
+                      </p>
                     </div>
                   </div>
                   
-                  <p className="text-xs text-gray-500">
-                    Или воспользуйтесь любым удобным способом оплаты
-                  </p>
+                  {/* Инструкция по оплате */}
+                  <div className="bg-blue-50 rounded-lg p-4 mb-3">
+                    <div className="text-center">
+                      <p className="font-semibold text-blue-900 mb-2">Инструкция по оплате</p>
+                      <div className="text-center text-sm text-blue-800 space-y-1">
+                        <p>1. Нажмите кнопку "Оплатить"</p>
+                        <p>2. Выберите удобный способ оплаты</p>
+                        <p>3. Подтвердите платеж на <span className="font-semibold">{price} ₽</span></p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 
                 {/* Кнопки */}
