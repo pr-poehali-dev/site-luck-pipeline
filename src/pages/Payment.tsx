@@ -217,24 +217,22 @@ const Payment = () => {
                   </p>
                 </div>
                 
-                {/* Ссылка для оплаты */}
+                {/* Встроенное окно оплаты */}
                 <div className="text-center">
-                  <p className="text-sm text-gray-600 mb-4">Перейдите по ссылке для оплаты:</p>
+                  <p className="text-sm text-gray-600 mb-4">Форма оплаты:</p>
                   
-                  <div className="bg-white rounded-lg border-2 border-blue-200 p-6 mb-4">
-                    <div className="space-y-4">
-                      <div className="text-3xl">💳</div>
-                      <a 
-                        href="https://психология-123.рф/payment"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-block bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-lg transition-colors duration-200 font-medium text-lg"
-                      >
-                        Оплатить {price} ₽
-                      </a>
-                      <p className="text-sm text-gray-600">
-                        Откроется в новом окне
-                      </p>
+                  <div className="bg-white rounded-lg border-2 border-blue-200 p-4 mb-4">
+                    <div className="relative">
+                      <iframe
+                        src="https://психология-123.рф/payment"
+                        className="w-full h-96 rounded-lg border border-gray-200"
+                        title="Форма оплаты"
+                        sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
+                        loading="lazy"
+                      />
+                      <div className="absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 rounded text-xs font-medium">
+                        К оплате: {price} ₽
+                      </div>
                     </div>
                   </div>
                   
@@ -243,7 +241,7 @@ const Payment = () => {
                     <div className="text-center">
                       <p className="font-semibold text-blue-900 mb-2">Инструкция по оплате</p>
                       <div className="text-center text-sm text-blue-800 space-y-1">
-                        <p>1. Нажмите кнопку "Оплатить"</p>
+                        <p>1. Заполните форму выше</p>
                         <p>2. Выберите удобный способ оплаты</p>
                         <p>3. Подтвердите платеж на <span className="font-semibold">{price} ₽</span></p>
                       </div>
