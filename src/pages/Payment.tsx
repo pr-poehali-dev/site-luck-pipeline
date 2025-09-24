@@ -203,14 +203,14 @@ const Payment = () => {
           <Dialog open={showQrModal} onOpenChange={setShowQrModal}>
             <DialogContent className="max-w-md">
               <DialogHeader>
-                <DialogTitle className="text-center text-xl text-purple-600">Оплата заказа</DialogTitle>
+                <DialogTitle className="text-center text-xl text-purple-600"></DialogTitle>
               </DialogHeader>
               <div className="space-y-6 py-4">
 
                 
                 {/* Встроенное окно оплаты */}
                 <div className="text-center">
-                  <p className="text-sm text-gray-600 mb-4">Форма оплаты:</p>
+                  <p className="text-sm text-gray-600 mb-4"></p>
                   
                   <div className="bg-white rounded-lg border-2 border-blue-200 p-4 mb-4">
                     <div className="relative">
