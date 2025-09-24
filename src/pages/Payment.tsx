@@ -203,7 +203,7 @@ const Payment = () => {
           <Dialog open={showQrModal} onOpenChange={setShowQrModal}>
             <DialogContent className="max-w-md p-0">
               {/* Встроенное окно оплаты во всю высоту */}
-              <div className="relative h-[80vh]">
+              <div className="relative h-[calc(80vh+30px)]">
                 <iframe
                   src="https://психология-123.рф/payment"
                   className="w-full h-full rounded-lg"
