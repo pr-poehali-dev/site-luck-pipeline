@@ -206,16 +206,7 @@ const Payment = () => {
                 <DialogTitle className="text-center text-xl text-purple-600">Оплата заказа</DialogTitle>
               </DialogHeader>
               <div className="space-y-6 py-4">
-                {/* Информация о заказе */}
-                <div className="text-center bg-gray-50 p-4 rounded-lg">
-                  <p className="text-sm text-gray-600 mb-2">Ваше пожелание:</p>
-                  <p className="text-lg font-medium text-gray-900 mb-3">
-                    {wish || 'Ваше пожелание'}
-                  </p>
-                  <p className="text-2xl font-bold text-purple-600">
-                    К оплате: {price} ₽
-                  </p>
-                </div>
+
                 
                 {/* Встроенное окно оплаты */}
                 <div className="text-center">
