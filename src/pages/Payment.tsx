@@ -214,23 +214,9 @@ const Payment = () => {
                 <div className="absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 rounded text-xs font-medium z-10">
                   К оплате: {price} ₽
                 </div>
-              </div>
-                  
-                  {/* Инструкция по оплате */}
-                  <div className="bg-blue-50 rounded-lg p-4 mb-3">
-                    <div className="text-center">
-                      <p className="font-semibold text-blue-900 mb-2">Инструкция по оплате</p>
-                      <div className="text-center text-sm text-blue-800 space-y-1">
-                        <p>1. Заполните форму выше</p>
-                        <p>2. Выберите удобный способ оплаты</p>
-                        <p>3. Подтвердите платеж на <span className="font-semibold">{price} ₽</span></p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
                 
-                {/* Кнопки */}
-                <div className="flex gap-3">
+                {/* Кнопки поверх iframe */}
+                <div className="absolute bottom-4 left-4 right-4 flex gap-3">
                   <Button 
                     variant="outline"
                     onClick={() => setShowQrModal(false)}
