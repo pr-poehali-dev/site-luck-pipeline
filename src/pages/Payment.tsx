@@ -201,31 +201,20 @@ const Payment = () => {
 
           {/* Второе модальное окно с QR кодом */}
           <Dialog open={showQrModal} onOpenChange={setShowQrModal}>
-            <DialogContent className="max-w-md">
-              <DialogHeader>
-                <DialogTitle className="text-center text-xl text-purple-600"></DialogTitle>
-              </DialogHeader>
-              <div className="space-y-6 py-4">
-
-                
-                {/* Встроенное окно оплаты */}
-                <div className="text-center">
-                  <p className="text-sm text-gray-600 mb-4"></p>
-                  
-                  <div className="bg-white rounded-lg border-2 border-blue-200 p-4 mb-4">
-                    <div className="relative">
-                      <iframe
-                        src="https://психология-123.рф/payment"
-                        className="w-full h-96 rounded-lg border border-gray-200"
-                        title="Форма оплаты"
-                        sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
-                        loading="lazy"
-                      />
-                      <div className="absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 rounded text-xs font-medium">
-                        К оплате: {price} ₽
-                      </div>
-                    </div>
-                  </div>
+            <DialogContent className="max-w-md p-0">
+              {/* Встроенное окно оплаты во всю высоту */}
+              <div className="relative h-[80vh]">
+                <iframe
+                  src="https://психология-123.рф/payment"
+                  className="w-full h-full rounded-lg"
+                  title="Форма оплаты"
+                  sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
+                  loading="lazy"
+                />
+                <div className="absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 rounded text-xs font-medium z-10">
+                  К оплате: {price} ₽
+                </div>
+              </div>
                   
                   {/* Инструкция по оплате */}
                   <div className="bg-blue-50 rounded-lg p-4 mb-3">
