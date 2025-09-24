@@ -216,7 +216,7 @@ const Payment = () => {
                 </div>
                 
                 {/* Кнопки поверх iframe */}
-                <div className="absolute bottom-4 left-4 right-4 flex gap-3">
+                <div className="absolute bottom-0 left-0 right-0 flex gap-3 p-4 bg-white/90 backdrop-blur-sm rounded-b-lg">
                   <Button 
                     variant="outline"
                     onClick={() => setShowQrModal(false)}
