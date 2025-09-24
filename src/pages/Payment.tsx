@@ -211,7 +211,7 @@ const Payment = () => {
                   sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
                   loading="lazy"
                 />
-                <div className="absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 rounded text-xs font-medium z-10">
+                <div className="absolute top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded text-base font-bold z-10 shadow-lg">
                   К оплате: {price} ₽
                 </div>
                 
