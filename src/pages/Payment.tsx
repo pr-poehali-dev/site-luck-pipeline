@@ -285,6 +285,14 @@ const Payment = () => {
                   <Button 
                     variant="outline"
                     onClick={() => {
+                      // Запускаем конфетти
+                      confetti.default({
+                        particleCount: 100,
+                        spread: 70,
+                        origin: { y: 0.6 },
+                        colors: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7']
+                      });
+                      
                       setShowDownloadModal(false);
                       setShowActivationScreen(true);
                       
