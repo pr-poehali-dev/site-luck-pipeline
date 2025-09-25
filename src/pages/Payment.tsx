@@ -5,7 +5,8 @@ import { Separator } from '@/components/ui/separator';
 import Icon from '@/components/ui/icon';
 import { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
+
 import { generateLuckDocument, downloadDocumentAsImage, generateDocumentNumber, formatDocumentDate, formatActivationDate, type DocumentData } from '@/utils/documentGenerator';
 import * as confetti from 'canvas-confetti';
 
@@ -18,7 +19,7 @@ const Payment = () => {
   const date = location.state?.date || null;
   const strength = location.state?.strength || 1;
   const [isGeneratingDocument, setIsGeneratingDocument] = useState(false);
-  const [showPaymentModal, setShowPaymentModal] = useState(false);
+
 
   const [showDownloadModal, setShowDownloadModal] = useState(false);
   const [showActivationScreen, setShowActivationScreen] = useState(false);
@@ -152,73 +153,46 @@ const Payment = () => {
 
 
 
+        {/* Поле ФИО */}
+        <div className="mb-6">
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Фамилия Имя Отчество
+          </label>
+          <Input
+            value={customerName}
+            onChange={(e) => setCustomerName(e.target.value)}
+            placeholder="Введите ваше ФИО"
+            className="w-full"
+          />
+        </div>
+
         {/* Кнопка отправки запроса и оплаты */}
         <div className="text-center">
-          <Dialog open={showPaymentModal} onOpenChange={setShowPaymentModal}>
-            <DialogTrigger asChild>
-              <Button className="px-8 py-4 text-lg font-semibold bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg">
-                <Icon name="Send" size={20} className="mr-2" />
-                Отправить запрос и оплатить
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-md">
-              <DialogHeader>
-                <DialogTitle className="text-center text-xl text-purple-600">Подтверждение заказа</DialogTitle>
-              </DialogHeader>
-              <div className="space-y-6 py-4">
-                {/* Пожелание удачи */}
-                <div className="text-center">
-                  <p className="text-sm text-gray-600 mb-2">Ваше пожелание удачи:</p>
-                  <p className="text-lg font-medium text-gray-900 bg-gray-50 p-3 rounded-lg">
-                    {wish || 'Ваше пожелание'}
-                  </p>
-                </div>
-                
-                {/* Поле ФИО */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Фамилия Имя Отчество
-                  </label>
-                  <Input
-                    value={customerName}
-                    onChange={(e) => setCustomerName(e.target.value)}
-                    placeholder="Введите ваше ФИО"
-                    className="w-full"
-                  />
-                </div>
-                
-                {/* Кнопка оплаты */}
-                <Button 
-                  onClick={() => {
-                    // Открываем отдельное окно для оплаты
-                    const paymentWindow = window.open(
-                      'https://психология-123.рф/payment', 
-                      'payment',
-                      'width=800,height=600,scrollbars=yes,resizable=yes,toolbar=no,menubar=no,location=no,directories=no,status=no'
-                    );
-                    
-                    // Закрываем текущее модальное окно
-                    setShowPaymentModal(false);
-                    
-                    // Отслеживаем закрытие окна оплаты
-                    const checkClosed = setInterval(() => {
-                      if (paymentWindow?.closed) {
-                        clearInterval(checkClosed);
-                        // Показываем окно скачивания после закрытия окна оплаты
-                        setTimeout(() => {
-                          setShowDownloadModal(true);
-                        }, 500);
-                      }
-                    }, 1000);
-                  }}
-                  className="w-full py-3 text-lg font-semibold bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white"
-                >
-                  <Icon name="ExternalLink" size={20} className="mr-2" />
-                  Перейти к оплате
-                </Button>
-              </div>
-            </DialogContent>
-          </Dialog>
+          <Button 
+            onClick={() => {
+              // Открываем отдельное окно для оплаты
+              const paymentWindow = window.open(
+                'https://психология-123.рф/payment', 
+                'payment',
+                'width=800,height=600,scrollbars=yes,resizable=yes,toolbar=no,menubar=no,location=no,directories=no,status=no'
+              );
+              
+              // Отслеживаем закрытие окна оплаты
+              const checkClosed = setInterval(() => {
+                if (paymentWindow?.closed) {
+                  clearInterval(checkClosed);
+                  // Показываем окно скачивания после закрытия окна оплаты
+                  setTimeout(() => {
+                    setShowDownloadModal(true);
+                  }, 500);
+                }
+              }, 1000);
+            }}
+            className="px-8 py-4 text-lg font-semibold bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg"
+          >
+            <Icon name="Send" size={20} className="mr-2" />
+            Отправить запрос и оплатить
+          </Button>
 
 
 
