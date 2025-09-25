@@ -191,7 +191,7 @@ const Payment = () => {
                 <Button 
                   onClick={() => {
                     setShowPaymentModal(false);
-                    setShowQrModal(true);
+                    window.location.href = 'https://paymaster.ru/cpay/00fa46a9-0be5-4537-8584-9f60e05e350b/';
                   }}
                   className="w-full py-3 text-lg font-semibold bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white"
                 >
