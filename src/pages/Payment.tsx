@@ -190,9 +190,8 @@ const Payment = () => {
                 {/* Кнопка оплаты */}
                 <Button 
                   onClick={() => {
-                    window.open('https://paymaster.ru/cpay/00fa46a9-0be5-4537-8584-9f60e05e350b/', '_blank');
                     setShowPaymentModal(false);
-                    setShowDownloadModal(true);
+                    setShowQrModal(true);
                   }}
                   className="w-full py-3 text-lg font-semibold bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white"
                 >
@@ -209,10 +208,10 @@ const Payment = () => {
               {/* Встроенное окно оплаты по центру */}
               <div className="relative w-full max-w-2xl h-[80vh] mx-auto">
                 <iframe
-                  src="https://психология-123.рф/payment"
+                  src="https://paymaster.ru/cpay/00fa46a9-0be5-4537-8584-9f60e05e350b/"
                   className="w-full h-full rounded-lg"
-                  title="Форма оплаты"
-                  sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
+                  title="Форма оплаты PayMaster"
+                  sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation"
                   loading="lazy"
                 />
                 <div className="absolute top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded text-base font-bold z-10 shadow-lg">
