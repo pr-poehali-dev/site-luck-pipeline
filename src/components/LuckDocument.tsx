@@ -111,6 +111,9 @@ const LuckDocument: React.FC<LuckDocumentProps> = ({
               </h3>
               <div className="space-y-2">
                 <p className="text-sm text-gray-300">
+                  Получатель: <span className="text-purple-400 font-semibold">{userName}</span>
+                </p>
+                <p className="text-sm text-gray-300">
                   Энергетическая инвестиция: <span className="text-green-400 font-semibold">{energyInvestment} руб.</span>
                 </p>
               </div>
