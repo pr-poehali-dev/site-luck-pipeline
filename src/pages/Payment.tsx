@@ -19,7 +19,7 @@ const Payment = () => {
   const strength = location.state?.strength || 1;
   const [isGeneratingDocument, setIsGeneratingDocument] = useState(false);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
-  const [showQrModal, setShowQrModal] = useState(false);
+
   const [showDownloadModal, setShowDownloadModal] = useState(false);
   const [showActivationScreen, setShowActivationScreen] = useState(false);
   const [customerName, setCustomerName] = useState('');
@@ -190,58 +190,37 @@ const Payment = () => {
                 {/* Кнопка оплаты */}
                 <Button 
                   onClick={() => {
+                    // Открываем отдельное окно для оплаты
+                    const paymentWindow = window.open(
+                      'https://психология-123.рф/payment', 
+                      'payment',
+                      'width=800,height=600,scrollbars=yes,resizable=yes,toolbar=no,menubar=no,location=no,directories=no,status=no'
+                    );
+                    
+                    // Закрываем текущее модальное окно
                     setShowPaymentModal(false);
-                    setShowQrModal(true);
+                    
+                    // Отслеживаем закрытие окна оплаты
+                    const checkClosed = setInterval(() => {
+                      if (paymentWindow?.closed) {
+                        clearInterval(checkClosed);
+                        // Показываем окно скачивания после закрытия окна оплаты
+                        setTimeout(() => {
+                          setShowDownloadModal(true);
+                        }, 500);
+                      }
+                    }, 1000);
                   }}
                   className="w-full py-3 text-lg font-semibold bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white"
                 >
-                  <Icon name="CreditCard" size={20} className="mr-2" />
-                  Оплатить {price} ₽
+                  <Icon name="ExternalLink" size={20} className="mr-2" />
+                  Перейти к оплате
                 </Button>
               </div>
             </DialogContent>
           </Dialog>
 
-          {/* Второе модальное окно с QR кодом */}
-          <Dialog open={showQrModal} onOpenChange={setShowQrModal}>
-            <DialogContent className="max-w-4xl p-0 max-h-[95vh] flex items-center justify-center">
-              {/* Встроенное окно оплаты по центру */}
-              <div className="relative w-full max-w-2xl h-[80vh] mx-auto">
-                <iframe
-                  src="https://психология-123.рф/payment"
-                  className="w-full h-full rounded-lg"
-                  title="Форма оплаты"
-                  sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
-                  loading="lazy"
-                />
-                <div className="absolute top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded text-base font-bold z-10 shadow-lg">
-                  К оплате: {price} ₽
-                </div>
-                
-                {/* Кнопки поверх iframe */}
-                <div className="absolute bottom-4 left-4 right-4 flex gap-3">
-                  <Button 
-                    variant="outline"
-                    onClick={() => setShowQrModal(false)}
-                    className="flex-1"
-                  >
-                    Отмена
-                  </Button>
-                  <Button 
-                    onClick={() => {
-                      setShowQrModal(false);
-                      setShowPaymentModal(false);
-                      setShowDownloadModal(true);
-                    }}
-                    className="flex-1 bg-green-600 hover:bg-green-700 text-white"
-                  >
-                    <Icon name="Check" size={16} className="mr-2" />
-                    Я оплатил
-                  </Button>
-                </div>
-              </div>
-            </DialogContent>
-          </Dialog>
+
 
           {/* Третье модальное окно для скачивания скрижали */}
           <Dialog open={showDownloadModal} onOpenChange={setShowDownloadModal}>
