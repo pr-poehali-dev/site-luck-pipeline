@@ -191,7 +191,8 @@ const Payment = () => {
                 <Button 
                   onClick={() => {
                     setShowPaymentModal(false);
-                    setShowQrModal(true);
+                    // Открываем форму оплаты в новом окне
+                    window.open('https://психология-123.рф/payment', '_blank', 'width=800,height=600,resizable=yes,scrollbars=yes');
                   }}
                   className="w-full py-3 text-lg font-semibold bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white"
                 >
