@@ -189,7 +189,10 @@ const Payment = () => {
                 
                 {/* Кнопка оплаты */}
                 <Button 
-                  onClick={() => setShowQrModal(true)}
+                  onClick={() => {
+                    setShowPaymentModal(false);
+                    setShowQrModal(true);
+                  }}
                   className="w-full py-3 text-lg font-semibold bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white"
                 >
                   <Icon name="CreditCard" size={20} className="mr-2" />
