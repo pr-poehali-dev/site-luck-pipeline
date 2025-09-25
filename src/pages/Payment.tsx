@@ -31,72 +31,6 @@ const Payment = () => {
     }
   }, [wish]);
 
-  // Отслеживание успешной оплаты через postMessage
-  useEffect(() => {
-    const handlePaymentSuccess = (event: MessageEvent) => {
-      // Проверяем источник сообщения для безопасности
-      if (event.origin !== 'https://paymaster.ru') return;
-      
-      // Проверяем успешную оплату
-      if (event.data && (
-        event.data.type === 'payment_success' || 
-        event.data.status === 'success' ||
-        event.data.payment_status === 'completed'
-      )) {
-        // Закрываем модальное окно оплаты
-        setShowQrModal(false);
-        setShowPaymentModal(false);
-        
-        // Открываем окно скачивания с небольшой задержкой
-        setTimeout(() => {
-          setShowDownloadModal(true);
-        }, 500);
-      }
-    };
-
-    // Добавляем слушатель событий
-    window.addEventListener('message', handlePaymentSuccess);
-    
-    // Убираем слушатель при размонтировании
-    return () => {
-      window.removeEventListener('message', handlePaymentSuccess);
-    };
-  }, []);
-
-  // Дополнительное отслеживание через проверку URL в iframe
-  useEffect(() => {
-    let checkInterval: NodeJS.Timeout;
-    
-    if (showQrModal) {
-      checkInterval = setInterval(() => {
-        try {
-          const iframe = document.querySelector('iframe[title="PayMaster - Форма оплаты"]') as HTMLIFrameElement;
-          if (iframe && iframe.contentWindow) {
-            // Попробуем получить URL из iframe (может не работать из-за CORS)
-            const iframeUrl = iframe.contentWindow.location.href;
-            
-            // Если URL содержит признаки успешной оплаты
-            if (iframeUrl.includes('success') || iframeUrl.includes('completed')) {
-              setShowQrModal(false);
-              setShowPaymentModal(false);
-              setTimeout(() => setShowDownloadModal(true), 500);
-              clearInterval(checkInterval);
-            }
-          }
-        } catch (error) {
-          // CORS может блокировать доступ к iframe URL, это нормально
-          console.log('Проверка URL iframe заблокирована CORS политикой');
-        }
-      }, 2000); // Проверяем каждые 2 секунды
-    }
-
-    return () => {
-      if (checkInterval) {
-        clearInterval(checkInterval);
-      }
-    };
-  }, [showQrModal]);
-
   const handleDownloadDocument = async () => {
     if (!wish) {
       alert('Ошибка: не найдено пожелание для создания документа');
@@ -283,7 +217,28 @@ const Payment = () => {
                 <div className="absolute top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded text-base font-bold z-10 shadow-lg">
                   К оплате: {price} ₽
                 </div>
-
+                
+                {/* Кнопки поверх iframe */}
+                <div className="absolute bottom-4 left-4 right-4 flex gap-3">
+                  <Button 
+                    variant="outline"
+                    onClick={() => setShowQrModal(false)}
+                    className="flex-1"
+                  >
+                    Отмена
+                  </Button>
+                  <Button 
+                    onClick={() => {
+                      setShowQrModal(false);
+                      setShowPaymentModal(false);
+                      setShowDownloadModal(true);
+                    }}
+                    className="flex-1 bg-green-600 hover:bg-green-700 text-white"
+                  >
+                    <Icon name="Check" size={16} className="mr-2" />
+                    Я оплатил
+                  </Button>
+                </div>
               </div>
             </DialogContent>
           </Dialog>
