@@ -217,28 +217,7 @@ const Payment = () => {
                 <div className="absolute top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded text-base font-bold z-10 shadow-lg">
                   К оплате: {price} ₽
                 </div>
-                
-                {/* Кнопки поверх iframe */}
-                <div className="absolute bottom-4 left-4 right-4 flex gap-3">
-                  <Button 
-                    variant="outline"
-                    onClick={() => setShowQrModal(false)}
-                    className="flex-1"
-                  >
-                    Отмена
-                  </Button>
-                  <Button 
-                    onClick={() => {
-                      setShowQrModal(false);
-                      setShowPaymentModal(false);
-                      setShowDownloadModal(true);
-                    }}
-                    className="flex-1 bg-green-600 hover:bg-green-700 text-white"
-                  >
-                    <Icon name="Check" size={16} className="mr-2" />
-                    Я оплатил
-                  </Button>
-                </div>
+
               </div>
             </DialogContent>
           </Dialog>
