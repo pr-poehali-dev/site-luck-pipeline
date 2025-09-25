@@ -191,8 +191,7 @@ const Payment = () => {
                 <Button 
                   onClick={() => {
                     setShowPaymentModal(false);
-                    // Открываем форму оплаты в новом окне
-                    window.open('https://психология-123.рф/payment', '_blank', 'width=800,height=600,resizable=yes,scrollbars=yes');
+                    setShowQrModal(true);
                   }}
                   className="w-full py-3 text-lg font-semibold bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white"
                 >
@@ -210,9 +209,11 @@ const Payment = () => {
               <div className="relative w-full max-w-2xl h-[80vh] mx-auto">
                 <iframe
                   src="https://психология-123.рф/payment"
-                  className="w-full h-full rounded-lg"
+                  className="w-full h-full rounded-lg border-0"
                   title="Форма оплаты"
-                  sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
+                  sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation allow-modals"
+                  allow="payment; encrypted-media; microphone; camera"
+                  referrerPolicy="no-referrer-when-downgrade"
                   loading="lazy"
                 />
                 <div className="absolute top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded text-base font-bold z-10 shadow-lg">
