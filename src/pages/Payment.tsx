@@ -31,6 +31,38 @@ const Payment = () => {
     }
   }, [wish]);
 
+  // Отслеживание успешной оплаты через postMessage
+  useEffect(() => {
+    const handlePaymentSuccess = (event: MessageEvent) => {
+      // Проверяем источник сообщения для безопасности
+      if (!event.origin.includes('paymaster.ru') && !event.origin.includes('психология-123.рф')) return;
+      
+      // Проверяем успешную оплату
+      if (event.data && (
+        event.data.type === 'payment_success' || 
+        event.data.status === 'success' ||
+        event.data.payment_status === 'completed'
+      )) {
+        // Закрываем модальное окно оплаты
+        setShowQrModal(false);
+        setShowPaymentModal(false);
+        
+        // Открываем окно скачивания с небольшой задержкой
+        setTimeout(() => {
+          setShowDownloadModal(true);
+        }, 500);
+      }
+    };
+
+    // Добавляем слушатель событий
+    window.addEventListener('message', handlePaymentSuccess);
+    
+    // Убираем слушатель при размонтировании
+    return () => {
+      window.removeEventListener('message', handlePaymentSuccess);
+    };
+  }, []);
+
   const handleDownloadDocument = async () => {
     if (!wish) {
       alert('Ошибка: не найдено пожелание для создания документа');
@@ -208,10 +240,10 @@ const Payment = () => {
               {/* Встроенное окно оплаты по центру */}
               <div className="relative w-full max-w-2xl h-[80vh] mx-auto">
                 <iframe
-                  src="https://психология-123.рф/payment"
+                  src="https://paymaster.ru/payment/test"
                   className="w-full h-full rounded-lg"
-                  title="Форма оплаты"
-                  sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
+                  title="PayMaster - Форма оплаты"
+                  sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation-by-user-activation"
                   loading="lazy"
                 />
                 <div className="absolute top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded text-base font-bold z-10 shadow-lg">
