@@ -296,7 +296,7 @@ const Payment = () => {
                       const documentData: DocumentData = {
                         wish: wish || 'Ваше желание',
                         powerLevel: strength || 1,
-                        userName: 'Получатель силы',
+                        userName: fullName || 'Получатель силы',
                         energyInvestment: price || 299,
                         activationDate: formatActivationDate(date, duration || ''),
                         documentNumber: generateDocumentNumber(),
