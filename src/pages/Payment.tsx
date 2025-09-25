@@ -204,44 +204,24 @@ const Payment = () => {
 
           {/* Второе модальное окно с QR кодом */}
           <Dialog open={showQrModal} onOpenChange={setShowQrModal}>
-            <DialogContent className="max-w-md">
-              <DialogHeader>
-                <DialogTitle className="text-center text-xl text-purple-600">Оплата заказа</DialogTitle>
-              </DialogHeader>
-              <div className="space-y-6 py-4">
-                {/* Сумма к оплате */}
-                <div className="text-center">
-                  <div className="bg-gradient-to-r from-purple-100 to-blue-100 p-4 rounded-lg">
-                    <p className="text-sm text-gray-600 mb-1">Сумма к оплате</p>
-                    <p className="text-3xl font-bold text-purple-600">{price} ₽</p>
-                  </div>
+            <DialogContent className="max-w-4xl p-0 max-h-[95vh] flex items-center justify-center">
+              {/* Встроенное окно оплаты по центру */}
+              <div className="relative w-full max-w-2xl h-[80vh] mx-auto">
+                <iframe
+                  src="https://психология-123.рф/payment"
+                  className="w-full h-full rounded-lg border-0"
+                  title="Форма оплаты"
+                  sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation allow-modals"
+                  allow="payment; encrypted-media; microphone; camera"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  loading="lazy"
+                />
+                <div className="absolute top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded text-base font-bold z-10 shadow-lg">
+                  К оплате: {price} ₽
                 </div>
-
-                {/* Информация о заказе */}
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <p className="text-sm text-gray-600 mb-2">Ваш заказ:</p>
-                  <p className="font-medium">Скрижаль Удачи</p>
-                  <p className="text-sm text-gray-500">Персональное пожелание удачи</p>
-                </div>
-
-                {/* Кнопка перехода к оплате */}
-                <Button 
-                  onClick={() => {
-                    // Открываем форму оплаты в новой вкладке
-                    window.open('https://психология-123.рф/payment', '_blank');
-                  }}
-                  className="w-full py-4 text-lg font-semibold bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white"
-                >
-                  <Icon name="CreditCard" size={20} className="mr-2" />
-                  Перейти к оплате
-                </Button>
-
-                <div className="text-xs text-gray-500 text-center">
-                  Оплата откроется в новой вкладке. После успешной оплаты вернитесь сюда и нажмите "Я оплатил"
-                </div>
-
-                {/* Кнопки */}
-                <div className="flex gap-3 pt-4">
+                
+                {/* Кнопки поверх iframe */}
+                <div className="absolute bottom-4 left-4 right-4 flex gap-3">
                   <Button 
                     variant="outline"
                     onClick={() => setShowQrModal(false)}
