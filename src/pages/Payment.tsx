@@ -101,6 +101,12 @@ const Payment = () => {
                   <span className="font-semibold">{date}</span>
                 </div>
               )}
+              {customerName && (
+                <div className="flex justify-between items-center">
+                  <span className="text-lg">Получатель:</span>
+                  <span className="font-semibold">{customerName}</span>
+                </div>
+              )}
               <div className="flex justify-between items-center">
                 <span className="text-lg">Стоимость:</span>
                 <span className="text-2xl font-bold text-green-600">{price} ₽</span>
