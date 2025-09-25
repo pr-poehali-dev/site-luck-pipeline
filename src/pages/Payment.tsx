@@ -241,10 +241,9 @@ const Payment = () => {
                 <div className="text-xs text-gray-500 text-center">
                   Скопируйте адрес, откройте в браузере и оплатите. После оплаты нажмите "Я оплатил"
                 </div>
-              </div>
-                
-                {/* Кнопки поверх iframe */}
-                <div className="absolute bottom-4 left-4 right-4 flex gap-3">
+
+                {/* Кнопки */}
+                <div className="flex gap-3 pt-4">
                   <Button 
                     variant="outline"
                     onClick={() => setShowQrModal(false)}
