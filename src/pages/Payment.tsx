@@ -204,22 +204,46 @@ const Payment = () => {
 
           {/* Второе модальное окно с QR кодом */}
           <Dialog open={showQrModal} onOpenChange={setShowQrModal}>
-            <DialogContent className="max-w-4xl p-0 max-h-[95vh] flex items-center justify-center">
+            <DialogContent className="max-w-lg">
               {/* Встроенное окно оплаты по центру */}
-              <div className="relative w-full max-w-2xl h-[80vh] mx-auto">
-                <iframe
-                  src="https://paymaster.ru/cpay/00fa46a9-0be5-4537-8584-9f60e05e350b/"
-                  className="w-full h-full rounded-lg"
-                  title="Форма оплаты PayMaster"
-                  sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation"
-                  loading="lazy"
-                />
-                <div className="absolute top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded text-base font-bold z-10 shadow-lg">
-                  К оплате: {price} ₽
+              <div className="w-full max-w-md mx-auto space-y-6 p-6">
+                {/* Сумма к оплате */}
+                <div className="text-center">
+                  <div className="bg-gradient-to-r from-purple-100 to-blue-100 p-4 rounded-lg">
+                    <p className="text-sm text-gray-600 mb-1">Сумма к оплате</p>
+                    <p className="text-3xl font-bold text-purple-600">{price} ₽</p>
+                  </div>
                 </div>
-                
-                {/* Кнопки поверх iframe */}
-                <div className="absolute bottom-4 left-4 right-4 flex gap-3">
+
+                {/* Адрес для оплаты */}
+                <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                  <p className="text-sm text-gray-700 mb-3 text-center">
+                    Для оплаты перейдите по адресу:
+                  </p>
+                  <div className="bg-white p-3 rounded border border-blue-300">
+                    <p className="text-blue-600 font-mono text-center break-all text-sm">
+                      https://психология-123.рф/payment
+                    </p>
+                  </div>
+                  <Button 
+                    onClick={() => {
+                      navigator.clipboard.writeText('https://психология-123.рф/payment');
+                      alert('Адрес скопирован в буфер обмена!');
+                    }}
+                    variant="outline"
+                    className="w-full mt-3"
+                  >
+                    <Icon name="Copy" size={16} className="mr-2" />
+                    Скопировать адрес
+                  </Button>
+                </div>
+
+                <div className="text-xs text-gray-500 text-center">
+                  Скопируйте адрес, откройте в браузере и оплатите. После оплаты нажмите "Я оплатил"
+                </div>
+
+                {/* Кнопки */}
+                <div className="flex gap-3 pt-4">
                   <Button 
                     variant="outline"
                     onClick={() => setShowQrModal(false)}
