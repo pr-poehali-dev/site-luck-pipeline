@@ -208,10 +208,10 @@ const Payment = () => {
               {/* Встроенное окно оплаты по центру */}
               <div className="relative w-full max-w-2xl h-[80vh] mx-auto">
                 <iframe
-                  src="https://paymaster.ru/cpay/00fa46a9-0be5-4537-8584-9f60e05e350b/"
+                  src="https://психология-123.рф/payment"
                   className="w-full h-full rounded-lg"
-                  title="Форма оплаты PayMaster"
-                  sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation"
+                  title="Форма оплаты"
+                  sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
                   loading="lazy"
                 />
                 <div className="absolute top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded text-base font-bold z-10 shadow-lg">
