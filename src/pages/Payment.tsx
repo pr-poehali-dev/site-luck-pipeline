@@ -201,9 +201,9 @@ const Payment = () => {
 
           {/* Второе модальное окно с QR кодом */}
           <Dialog open={showQrModal} onOpenChange={setShowQrModal}>
-            <DialogContent className="max-w-lg p-0 max-h-[95vh]">
-              {/* Встроенное окно оплаты во всю высоту */}
-              <div className="relative h-[90vh]">
+            <DialogContent className="max-w-4xl p-0 max-h-[95vh] flex items-center justify-center">
+              {/* Встроенное окно оплаты по центру */}
+              <div className="relative w-full max-w-2xl h-[80vh] mx-auto">
                 <iframe
                   src="https://психология-123.рф/payment"
                   className="w-full h-full rounded-lg"
