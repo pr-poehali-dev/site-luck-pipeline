@@ -39,7 +39,8 @@ def handler(event: dict, context) -> dict:
     conn = psycopg2.connect(dsn)
     cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     cur.execute(
-        "SELECT order_id, amount, currency, status, wish, customer_name, duration, activation_date, strength "
+        "SELECT order_id, amount, currency, status, wish, customer_name, duration, activation_date, strength, "
+        "payment_option, invoice_id, requisite_card, requisite_bank, requisite_owner, expires_at "
         "FROM payments WHERE order_id = %s",
         (order_id,)
     )
@@ -50,4 +51,4 @@ def handler(event: dict, context) -> dict:
     if not row:
         return {'statusCode': 404, 'headers': headers, 'body': json.dumps({'error': 'Платёж не найден'})}
 
-    return {'statusCode': 200, 'headers': headers, 'body': json.dumps(dict(row))}
+    return {'statusCode': 200, 'headers': headers, 'body': json.dumps(dict(row), default=str)}
