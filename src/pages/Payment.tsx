@@ -3,12 +3,13 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import Icon from '@/components/ui/icon';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 
 import { generateLuckDocument, downloadDocumentAsImage, generateDocumentNumber, formatDocumentDate, formatActivationDate, type DocumentData } from '@/utils/documentGenerator';
 import * as confetti from 'canvas-confetti';
+import func2url from '../../backend/func2url.json';
 
 const Payment = () => {
   const location = useLocation();
@@ -25,8 +26,16 @@ const Payment = () => {
   const [showActivationScreen, setShowActivationScreen] = useState(false);
   const [customerName, setCustomerName] = useState('');
 
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [paymentUrl, setPaymentUrl] = useState('');
+  const [currentOrderId, setCurrentOrderId] = useState('');
+  const [isCreatingPayment, setIsCreatingPayment] = useState(false);
+  const [paymentError, setPaymentError] = useState('');
+  const statusCheckInterval = useRef<ReturnType<typeof setInterval> | null>(null);
+
   const searchParams = new URLSearchParams(location.search);
   const paymentStatus = searchParams.get('status');
+  const orderIdFromUrl = searchParams.get('order_id');
 
   // Сохраняем запрос в localStorage для PayMaster
   useEffect(() => {
@@ -65,7 +74,83 @@ const Payment = () => {
   };
 
 
-  // Убираем обработку формы Тинькофф
+  // Если вернулись с успешной оплаты - показываем окно скачивания
+  useEffect(() => {
+    if (paymentStatus === 'success' && orderIdFromUrl) {
+      setShowDownloadModal(true);
+    }
+  }, [paymentStatus, orderIdFromUrl]);
+
+  useEffect(() => {
+    return () => {
+      if (statusCheckInterval.current) {
+        clearInterval(statusCheckInterval.current);
+      }
+    };
+  }, []);
+
+  const handleStartPayment = async () => {
+    if (!wish) {
+      alert('Ошибка: не найдено пожелание');
+      return;
+    }
+
+    setPaymentError('');
+    setIsCreatingPayment(true);
+
+    try {
+      const response = await fetch(func2url['crocopay-init'], {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: price,
+          wish,
+          customerName,
+          duration,
+          activationDate: date,
+          strength
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Не удалось создать платёж');
+      }
+
+      setCurrentOrderId(data.order_id);
+      setPaymentUrl(data.redirect_url);
+      setShowPaymentModal(true);
+
+      statusCheckInterval.current = setInterval(async () => {
+        try {
+          const statusRes = await fetch(`${func2url['crocopay-status']}?order_id=${data.order_id}`);
+          const statusData = await statusRes.json();
+
+          if (statusData.status === 'paid') {
+            if (statusCheckInterval.current) clearInterval(statusCheckInterval.current);
+            setShowPaymentModal(false);
+            setShowDownloadModal(true);
+          }
+        } catch (e) {
+          console.error('Ошибка проверки статуса платежа:', e);
+        }
+      }, 3000);
+    } catch (error) {
+      console.error('Ошибка создания платежа:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Не удалось создать платёж. Попробуйте ещё раз.';
+      setPaymentError(errorMessage);
+    } finally {
+      setIsCreatingPayment(false);
+    }
+  };
+
+  const handleClosePaymentModal = () => {
+    if (statusCheckInterval.current) {
+      clearInterval(statusCheckInterval.current);
+    }
+    setShowPaymentModal(false);
+  };
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
@@ -197,33 +282,39 @@ const Payment = () => {
 
         {/* Кнопка отправки запроса и оплаты */}
         <div className="text-center">
-          <Button 
-            onClick={() => {
-              // Открываем отдельное окно для оплаты
-              const paymentWindow = window.open(
-                'https://психология-123.рф/payment', 
-                'payment',
-                'width=800,height=600,scrollbars=yes,resizable=yes,toolbar=no,menubar=no,location=no,directories=no,status=no'
-              );
-              
-              // Отслеживаем закрытие окна оплаты
-              const checkClosed = setInterval(() => {
-                if (paymentWindow?.closed) {
-                  clearInterval(checkClosed);
-                  // Показываем окно скачивания после закрытия окна оплаты
-                  setTimeout(() => {
-                    setShowDownloadModal(true);
-                  }, 500);
-                }
-              }, 1000);
-            }}
-            className="px-8 py-4 text-lg font-semibold bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg"
+          {paymentError && (
+            <p className="text-red-600 text-sm mb-3">{paymentError}</p>
+          )}
+          <Button
+            onClick={handleStartPayment}
+            disabled={isCreatingPayment}
+            className="px-8 py-4 text-lg font-semibold bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg disabled:opacity-50"
           >
-            <Icon name="Send" size={20} className="mr-2" />
-            Отправить запрос и оплатить
+            {isCreatingPayment ? (
+              <>
+                <Icon name="Loader2" size={20} className="mr-2 animate-spin" />
+                Подготовка оплаты...
+              </>
+            ) : (
+              <>
+                <Icon name="Send" size={20} className="mr-2" />
+                Отправить запрос и оплатить
+              </>
+            )}
           </Button>
 
-
+          {/* Модальное окно с формой оплаты CrocoPay */}
+          <Dialog open={showPaymentModal} onOpenChange={(open) => { if (!open) handleClosePaymentModal(); }}>
+            <DialogContent className="max-w-2xl h-[80vh] p-0 overflow-hidden">
+              {paymentUrl && (
+                <iframe
+                  src={paymentUrl}
+                  className="w-full h-full border-0"
+                  title="Оплата CrocoPay"
+                />
+              )}
+            </DialogContent>
+          </Dialog>
 
           {/* Третье модальное окно для скачивания скрижали */}
           <Dialog open={showDownloadModal} onOpenChange={setShowDownloadModal}>

@@ -52,8 +52,8 @@ def handler(event: dict, context) -> dict:
     origin = 'https://' + event.get('headers', {}).get('Host', '')
     success_url = f'{origin}/payment?status=success&order_id={order_id}'
     cancel_url = f'{origin}/payment?status=cancel&order_id={order_id}'
-    callback_url_base = os.environ.get('CROCOPAY_CALLBACK_URL', '')
-    callback_url = f'{callback_url_base}?order_id={order_id}' if callback_url_base else ''
+    callback_url_base = 'https://functions.poehali.dev/6ac24633-a389-4133-91ec-3438d7b29d98'
+    callback_url = f'{callback_url_base}?order_id={order_id}'
 
     payload = {
         'client_id': client_id,
