@@ -3,6 +3,7 @@ import os
 import uuid
 import urllib.request
 import urllib.parse
+import urllib.error
 import psycopg2
 
 

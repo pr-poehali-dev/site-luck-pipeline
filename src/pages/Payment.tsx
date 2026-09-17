@@ -25,6 +25,9 @@ const Payment = () => {
   const [showActivationScreen, setShowActivationScreen] = useState(false);
   const [customerName, setCustomerName] = useState('');
 
+  const searchParams = new URLSearchParams(location.search);
+  const paymentStatus = searchParams.get('status');
+
   // Сохраняем запрос в localStorage для PayMaster
   useEffect(() => {
     if (wish) {
@@ -76,6 +79,26 @@ const Payment = () => {
             Завершите оплату, чтобы активировать удачу
           </p>
         </header>
+
+        {/* Сообщение о статусе оплаты */}
+        {paymentStatus === 'success' && (
+          <div className="bg-green-50 border-2 border-green-500 rounded-lg p-4 flex items-center gap-3">
+            <Icon name="CheckCircle2" size={28} className="text-green-600 shrink-0" />
+            <div>
+              <p className="font-semibold text-green-800">Оплата прошла успешно!</p>
+              <p className="text-sm text-green-700">Спасибо за оплату, ваша удача скоро будет активирована.</p>
+            </div>
+          </div>
+        )}
+        {paymentStatus === 'cancel' && (
+          <div className="bg-red-50 border-2 border-red-500 rounded-lg p-4 flex items-center gap-3">
+            <Icon name="XCircle" size={28} className="text-red-600 shrink-0" />
+            <div>
+              <p className="font-semibold text-red-800">Оплата отменена</p>
+              <p className="text-sm text-red-700">Платёж не был завершён. Вы можете попробовать снова.</p>
+            </div>
+          </div>
+        )}
 
         {/* Информация о заказе */}
         <Card>
