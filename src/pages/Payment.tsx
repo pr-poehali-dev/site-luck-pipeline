@@ -303,19 +303,24 @@ const Payment = () => {
             )}
           </Button>
 
-          {/* Модальное окно с формой оплаты CrocoPay */}
-          <Dialog open={showPaymentModal} onOpenChange={(open) => { if (!open) handleClosePaymentModal(); }}>
-            <DialogContent className="max-w-[600px] w-[96vw] h-[96vh] p-0 overflow-hidden flex flex-col border-0 shadow-none">
-              {paymentUrl && (
-                <iframe
-                  src={paymentUrl}
-                  className="w-full h-full border-0 block flex-1"
-                  scrolling="no"
-                  title="Оплата CrocoPay"
-                />
-              )}
-            </DialogContent>
-          </Dialog>
+          {/* Полноэкранная форма оплаты CrocoPay */}
+          {showPaymentModal && paymentUrl && (
+            <div className="fixed inset-0 z-50 bg-white flex flex-col">
+              <button
+                type="button"
+                onClick={handleClosePaymentModal}
+                className="absolute right-4 top-4 z-10 rounded-full bg-gray-100 hover:bg-gray-200 p-2 transition-colors"
+                aria-label="Закрыть"
+              >
+                <Icon name="X" size={20} />
+              </button>
+              <iframe
+                src={paymentUrl}
+                className="w-full h-full border-0 block flex-1"
+                title="Оплата CrocoPay"
+              />
+            </div>
+          )}
 
           {/* Третье модальное окно для скачивания скрижали */}
           <Dialog open={showDownloadModal} onOpenChange={setShowDownloadModal}>
