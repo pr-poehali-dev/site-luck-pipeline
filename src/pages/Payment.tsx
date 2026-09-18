@@ -6,20 +6,10 @@ import Icon from '@/components/ui/icon';
 import { useState, useEffect, useRef } from 'react';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { QRCodeSVG } from 'qrcode.react';
 
 import { generateLuckDocument, downloadDocumentAsImage, generateDocumentNumber, formatDocumentDate, formatActivationDate, type DocumentData } from '@/utils/documentGenerator';
 import * as confetti from 'canvas-confetti';
 import func2url from '../../backend/func2url.json';
-
-type PaymentOption = 'TO_CARD' | 'SBP' | 'QR_NSPK';
-
-interface PaymentRequisites {
-  card?: string;
-  bank_receiver?: string;
-  card_owner?: string;
-}
 
 const Payment = () => {
   const location = useLocation();
@@ -37,8 +27,7 @@ const Payment = () => {
   const [customerName, setCustomerName] = useState('');
 
   const [showPaymentModal, setShowPaymentModal] = useState(false);
-  const [activePaymentOption, setActivePaymentOption] = useState<PaymentOption>('TO_CARD');
-  const [requisitesByOption, setRequisitesByOption] = useState<Partial<Record<PaymentOption, PaymentRequisites>>>({});
+  const [paymentUrl, setPaymentUrl] = useState('');
   const [currentOrderId, setCurrentOrderId] = useState('');
   const [isCreatingPayment, setIsCreatingPayment] = useState(false);
   const [paymentError, setPaymentError] = useState('');
@@ -100,48 +89,6 @@ const Payment = () => {
     };
   }, []);
 
-  const createInvoice = async (paymentOption: PaymentOption) => {
-    const response = await fetch(func2url['crocopay-init'], {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        amount: price,
-        wish,
-        customerName,
-        duration,
-        activationDate: date,
-        strength,
-        paymentOption
-      })
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.error || 'Не удалось создать платёж');
-    }
-
-    return data;
-  };
-
-  const startStatusPolling = (orderId: string) => {
-    if (statusCheckInterval.current) clearInterval(statusCheckInterval.current);
-    statusCheckInterval.current = setInterval(async () => {
-      try {
-        const statusRes = await fetch(`${func2url['crocopay-status']}?order_id=${orderId}`);
-        const statusData = await statusRes.json();
-
-        if (statusData.status === 'paid') {
-          if (statusCheckInterval.current) clearInterval(statusCheckInterval.current);
-          setShowPaymentModal(false);
-          setShowDownloadModal(true);
-        }
-      } catch (e) {
-        console.error('Ошибка проверки статуса платежа:', e);
-      }
-    }, 3000);
-  };
-
   const handleStartPayment = async () => {
     if (!wish) {
       alert('Ошибка: не найдено пожелание');
@@ -152,12 +99,43 @@ const Payment = () => {
     setIsCreatingPayment(true);
 
     try {
-      const data = await createInvoice(activePaymentOption);
+      const response = await fetch(func2url['crocopay-init'], {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: price,
+          wish,
+          customerName,
+          duration,
+          activationDate: date,
+          strength
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Не удалось создать платёж');
+      }
 
       setCurrentOrderId(data.order_id);
-      setRequisitesByOption({ [activePaymentOption]: { card: data.card, bank_receiver: data.bank_receiver, card_owner: data.card_owner } });
+      setPaymentUrl(data.redirect_url);
       setShowPaymentModal(true);
-      startStatusPolling(data.order_id);
+
+      statusCheckInterval.current = setInterval(async () => {
+        try {
+          const statusRes = await fetch(`${func2url['crocopay-status']}?order_id=${data.order_id}`);
+          const statusData = await statusRes.json();
+
+          if (statusData.status === 'paid') {
+            if (statusCheckInterval.current) clearInterval(statusCheckInterval.current);
+            setShowPaymentModal(false);
+            setShowDownloadModal(true);
+          }
+        } catch (e) {
+          console.error('Ошибка проверки статуса платежа:', e);
+        }
+      }, 3000);
     } catch (error) {
       console.error('Ошибка создания платежа:', error);
       const errorMessage = error instanceof Error ? error.message : 'Не удалось создать платёж. Попробуйте ещё раз.';
@@ -167,32 +145,11 @@ const Payment = () => {
     }
   };
 
-  const handleSwitchPaymentOption = async (option: PaymentOption) => {
-    setActivePaymentOption(option);
-
-    if (requisitesByOption[option]) {
-      return;
-    }
-
-    setPaymentError('');
-    try {
-      const data = await createInvoice(option);
-      setCurrentOrderId(data.order_id);
-      setRequisitesByOption((prev) => ({ ...prev, [option]: { card: data.card, bank_receiver: data.bank_receiver, card_owner: data.card_owner } }));
-      startStatusPolling(data.order_id);
-    } catch (error) {
-      console.error('Ошибка создания платежа:', error);
-      const errorMessage = error instanceof Error ? error.message : 'Не удалось получить реквизиты. Попробуйте ещё раз.';
-      setPaymentError(errorMessage);
-    }
-  };
-
   const handleClosePaymentModal = () => {
     if (statusCheckInterval.current) {
       clearInterval(statusCheckInterval.current);
     }
     setShowPaymentModal(false);
-    setRequisitesByOption({});
   };
 
   return (
@@ -348,68 +305,14 @@ const Payment = () => {
 
           {/* Модальное окно с формой оплаты CrocoPay */}
           <Dialog open={showPaymentModal} onOpenChange={(open) => { if (!open) handleClosePaymentModal(); }}>
-            <DialogContent className="max-w-md">
-              <div className="space-y-4 py-2">
-                <div className="text-center">
-                  <p className="text-sm text-gray-500 mb-1">К оплате</p>
-                  <p className="text-3xl font-bold text-gray-900">{price} ₽</p>
-                </div>
-
-                <Tabs value={activePaymentOption} onValueChange={(v) => handleSwitchPaymentOption(v as PaymentOption)}>
-                  <TabsList className="grid grid-cols-3 w-full">
-                    <TabsTrigger value="TO_CARD">Карта</TabsTrigger>
-                    <TabsTrigger value="SBP">СБП</TabsTrigger>
-                    <TabsTrigger value="QR_NSPK">QR</TabsTrigger>
-                  </TabsList>
-
-                  {(['TO_CARD', 'SBP', 'QR_NSPK'] as PaymentOption[]).map((option) => (
-                    <TabsContent key={option} value={option} className="mt-4">
-                      {requisitesByOption[option] ? (
-                        <div className="space-y-3">
-                          {option === 'QR_NSPK' && requisitesByOption[option]?.card && (
-                            <div className="flex justify-center bg-white p-4 rounded-lg border">
-                              <QRCodeSVG value={requisitesByOption[option]?.card || ''} size={180} />
-                            </div>
-                          )}
-                          {option !== 'QR_NSPK' && (
-                            <div className="bg-gray-50 rounded-lg p-4 text-center">
-                              <p className="text-xs text-gray-500 mb-1">
-                                {option === 'SBP' ? 'Номер телефона' : 'Номер карты'}
-                              </p>
-                              <p className="text-xl font-mono font-semibold tracking-wide">
-                                {requisitesByOption[option]?.card}
-                              </p>
-                            </div>
-                          )}
-                          {requisitesByOption[option]?.bank_receiver && (
-                            <div className="flex justify-between text-sm">
-                              <span className="text-gray-500">Банк:</span>
-                              <span className="font-medium">{requisitesByOption[option]?.bank_receiver}</span>
-                            </div>
-                          )}
-                          {requisitesByOption[option]?.card_owner && (
-                            <div className="flex justify-between text-sm">
-                              <span className="text-gray-500">Получатель:</span>
-                              <span className="font-medium">{requisitesByOption[option]?.card_owner}</span>
-                            </div>
-                          )}
-                          <p className="text-xs text-gray-400 text-center pt-2">
-                            Переведите точную сумму — оплата подтвердится автоматически
-                          </p>
-                        </div>
-                      ) : (
-                        <div className="flex items-center justify-center py-8">
-                          <Icon name="Loader2" size={24} className="animate-spin text-gray-400" />
-                        </div>
-                      )}
-                    </TabsContent>
-                  ))}
-                </Tabs>
-
-                {paymentError && (
-                  <p className="text-red-600 text-sm text-center">{paymentError}</p>
-                )}
-              </div>
+            <DialogContent className="max-w-2xl h-[80vh] p-0 overflow-hidden">
+              {paymentUrl && (
+                <iframe
+                  src={paymentUrl}
+                  className="w-full h-full border-0"
+                  title="Оплата CrocoPay"
+                />
+              )}
             </DialogContent>
           </Dialog>
 
