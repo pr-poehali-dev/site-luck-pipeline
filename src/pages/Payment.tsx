@@ -305,11 +305,11 @@ const Payment = () => {
 
           {/* Модальное окно с формой оплаты CrocoPay */}
           <Dialog open={showPaymentModal} onOpenChange={(open) => { if (!open) handleClosePaymentModal(); }}>
-            <DialogContent className="max-w-2xl w-[95vw] h-[90vh] max-h-[720px] p-0 overflow-hidden flex flex-col">
+            <DialogContent className="max-w-[600px] w-[96vw] h-[96vh] p-0 overflow-hidden flex flex-col">
               {paymentUrl && (
                 <iframe
                   src={paymentUrl}
-                  className="w-full h-full border-0 block"
+                  className="w-full h-full border-0 block flex-1"
                   scrolling="no"
                   title="Оплата CrocoPay"
                 />
