@@ -354,7 +354,6 @@ const Pricing = () => {
                     `}</style>
                   </div>
                   <div className="flex justify-between text-sm text-gray-400 mt-2">
-                    <span>0</span>
                     <span>1</span>
                     <span>2</span>
                     <span>3</span>
