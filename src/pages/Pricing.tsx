@@ -19,7 +19,7 @@ const Pricing = () => {
   const [recentlyChanged, setRecentlyChanged] = useState<Set<string>>(new Set());
   const [showStrengthSelector, setShowStrengthSelector] = useState(false);
   const [selectedOption, setSelectedOption] = useState<any>(null);
-  const [currentStrength, setCurrentStrength] = useState(0);
+  const [currentStrength, setCurrentStrength] = useState(1);
   const confettiInterval = useRef<NodeJS.Timeout | null>(null);
 
   // Автоматический запуск яркого радужного конфетти при загрузке страницы
@@ -307,15 +307,15 @@ const Pricing = () => {
                   <div className="relative">
                     <input
                       type="range"
-                      min="0"
+                      min="1"
                       max="10"
                       value={currentStrength}
                       onChange={(e) => setCurrentStrength(parseInt(e.target.value))}
                       className="w-full h-8 bg-gray-200 rounded-lg cursor-pointer appearance-none slider"
                       style={{
                         background: (() => {
-                          const fillPercent = (currentStrength / 10) * 100;
-                          const ratio = currentStrength / 10;
+                          const fillPercent = ((currentStrength - 1) / 9) * 100;
+                          const ratio = (currentStrength - 1) / 9;
                           const lightGreen = [220, 252, 231];
                           const darkGreen = [21, 128, 61];
                           const r = Math.round(lightGreen[0] + (darkGreen[0] - lightGreen[0]) * ratio);
