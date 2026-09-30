@@ -71,7 +71,7 @@ const RulesSection = ({ rulesRef }: RulesSectionProps) => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-700">ИП Паклин Сергей Васильевич, ИНН 594200005879 ОГРН 305591619400016,  эл.почта  Unix7777@ya.ru</p>
+
           </CardContent>
         </Card>
       </div>

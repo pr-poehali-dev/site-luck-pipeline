@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
 import Icon from '@/components/ui/icon';
 
 const Rules = () => {
@@ -235,21 +234,6 @@ const Rules = () => {
             <p className="text-sm text-gray-600 italic">
               Нажимая кнопку оплаты, вы подтверждаете ознакомление с данными условиями и готовность использовать сервис как инструмент психологической поддержки и мотивации.
             </p>
-          </CardContent>
-        </Card>
-
-        <Separator />
-
-        {/* Контакты */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Icon name="Mail" size={24} />
-              Контактная информация
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-gray-700">ИП Паклин Сергей Васильевич, ИНН 594200005879 ОГРН 305591619400016,  эл.почта  Unix7777@ya.ru</p>
           </CardContent>
         </Card>
 
