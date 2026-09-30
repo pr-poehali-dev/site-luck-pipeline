@@ -202,6 +202,23 @@ const RulesSection = ({ rulesRef }: RulesSectionProps) => {
             </div>
           </CardContent>
         </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Icon name="Mail" size={24} />
+              Контакты поддержки
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-gray-700">
+              По всем вопросам, связанным с работой сервиса, оплатой или обработкой персональных данных, обращайтесь по адресу электронной почты:{' '}
+              <a href="mailto:Unix7777@ya.ru" className="text-purple-600 font-medium hover:underline">
+                Unix7777@ya.ru
+              </a>
+            </p>
+          </CardContent>
+        </Card>
       </div>
     </section>
   );
