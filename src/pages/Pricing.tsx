@@ -3,18 +3,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
-import { useSeo } from '@/hooks/useSeo';
 
 const Pricing = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const wishText = location.state?.wish || '';
-
-  useSeo({
-    title: 'Тарифы активации удачи — купить удачу — Сайт Удачи',
-    description: 'Выберите тариф и силу удачи: на событие, утро, день, вечер или ночь. Активация удачи от 100₽ на официальном сайте удачи.',
-    path: '/pricing'
-  });
   const [selectedDate, setSelectedDate] = useState('');
   const [strength30min, setStrength30min] = useState(1);
   const [strength1hour, setStrength1hour] = useState(1);
@@ -400,7 +393,6 @@ const Pricing = () => {
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-md space-y-8">
-        <h1 className="sr-only">Тарифы активации удачи — выбрать время и силу удачи</h1>
         <Card className="shadow-lg">
           <CardContent className="pt-6">
             {/* Поле для ввода даты */}

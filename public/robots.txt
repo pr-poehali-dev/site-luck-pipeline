@@ -1,8 +1,9 @@
 User-agent: *
 Allow: /
 
-# Технические страницы — не индексируем
-Disallow: /payment
+# Основные страницы
+Allow: /payment
+Allow: /
 
 # Блокируем системные файлы
 Disallow: /src/
@@ -11,7 +12,7 @@ Disallow: /package.json
 Disallow: /node_modules/
 
 # Sitemap
-Sitemap: https://сайт-удачи.рф/sitemap.xml
+Sitemap: https://your-domain.com/sitemap.xml
 
 # Время задержки между запросами (в секундах)
 Crawl-delay: 1

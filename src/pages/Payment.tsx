@@ -10,19 +10,11 @@ import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { generateLuckDocument, downloadDocumentAsImage, generateDocumentNumber, formatDocumentDate, formatActivationDate, type DocumentData } from '@/utils/documentGenerator';
 import * as confetti from 'canvas-confetti';
 import func2url from '../../backend/func2url.json';
-import { useSeo } from '@/hooks/useSeo';
 
 const Payment = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const wish = location.state?.wish || '';
-
-  useSeo({
-    title: 'Оплата активации удачи — Сайт Удачи',
-    description: 'Завершите оплату, чтобы активировать удачу.',
-    path: '/payment',
-    noindex: true
-  });
   const price = location.state?.price || 299;
   const duration = location.state?.duration || '';
   const date = location.state?.date || null;
@@ -500,9 +492,9 @@ const Payment = () => {
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center text-white space-y-6 px-8">
               <div className="mb-8">
-                <h2 className="text-6xl font-bold mb-6 text-shadow-2xl bg-gradient-to-r from-green-400 via-green-200 to-green-400 bg-clip-text text-transparent animate-pulse">
+                <h1 className="text-6xl font-bold mb-6 text-shadow-2xl bg-gradient-to-r from-green-400 via-green-200 to-green-400 bg-clip-text text-transparent animate-pulse">
                   АКТИВАЦИЯ УДАЧИ
-                </h2>
+                </h1>
                 <div className="space-y-4">
                   <p className="text-4xl font-semibold text-green-200 animate-fade-in">
                     Ваша удача будет активирована после оплаты

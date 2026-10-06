@@ -3,19 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useSeo } from '@/hooks/useSeo';
 
 const Index = () => {
   const [wishText, setWishText] = useState('');
   const [showSplash, setShowSplash] = useState(true);
   const [isBreaking, setIsBreaking] = useState(false);
   const navigate = useNavigate();
-
-  useSeo({
-    title: 'Сайт Удачи — загадать удачу онлайн, активировать удачу',
-    description: 'Загадать удачу онлайн ⭐ Активировать удачу ⭐ Найти свою удачу ⭐ Привлечь везение и исполнить мечты на официальном сайте удачи',
-    path: '/'
-  });
 
   const handleSplashClick = () => {
     setIsBreaking(true);
@@ -76,9 +69,9 @@ const Index = () => {
         {/* Центральный текст */}
         <div className="absolute inset-0 flex items-center justify-center">
           <div className={`text-center text-white ${isBreaking ? 'fade-out' : 'fade-in'}`}>
-            <p className="text-6xl font-bold mb-4 text-shadow-lg">
+            <h1 className="text-6xl font-bold mb-4 text-shadow-lg">
               САЙТ УДАЧИ
-            </p>
+            </h1>
             <p className="text-xl opacity-80">
               Нажмите, чтобы войти
             </p>

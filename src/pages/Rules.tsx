@@ -2,16 +2,9 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
-import { useSeo } from '@/hooks/useSeo';
 
 const Rules = () => {
   const navigate = useNavigate();
-
-  useSeo({
-    title: 'Правила использования и политика конфиденциальности — Сайт Удачи',
-    description: 'Правила использования сервиса Сайт Удачи, пользовательское соглашение и политика конфиденциальности. Условия оплаты, гарантии и контакты поддержки.',
-    path: '/rules'
-  });
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
