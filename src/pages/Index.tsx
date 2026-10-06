@@ -162,7 +162,13 @@ const Index = () => {
           <h1 className="font-bold text-gray-900 mb-8 text-8xl">
             САЙТ УДАЧИ
           </h1>
-          <p className="text-gray-600 text-xl font-light">Напишите в чем нужна удача , после кнопки " ОК " выбрать условия </p>
+          <div className="inline-flex items-center gap-3 rounded-full border border-purple-200 bg-gradient-to-r from-purple-50 via-white to-purple-50 px-8 py-3 shadow-sm">
+            <span className="text-purple-500 text-xl">✦</span>
+            <p className="text-2xl font-semibold tracking-wide bg-gradient-to-r from-purple-700 via-purple-500 to-purple-700 bg-clip-text text-transparent">
+              Создать документ «Скрижаль удачи»
+            </p>
+            <span className="text-purple-500 text-xl">✦</span>
+          </div>
         </div>
 
         {/* Форма */}
