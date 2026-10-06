@@ -11,6 +11,7 @@ import { generateLuckDocument, downloadDocumentAsImage, generateDocumentNumber, 
 import * as confetti from 'canvas-confetti';
 import func2url from '../../backend/func2url.json';
 import { useSeo } from '@/hooks/useSeo';
+import SellerFooter from '@/components/SellerFooter';
 
 const Payment = () => {
   const location = useLocation();
@@ -39,6 +40,7 @@ const Payment = () => {
   const [currentOrderId, setCurrentOrderId] = useState('');
   const [isCreatingPayment, setIsCreatingPayment] = useState(false);
   const [paymentError, setPaymentError] = useState('');
+  const [agreed, setAgreed] = useState(false);
   const statusCheckInterval = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const searchParams = new URLSearchParams(location.search);
@@ -290,12 +292,26 @@ const Payment = () => {
 
         {/* Кнопка отправки запроса и оплаты */}
         <div className="text-center">
+          <label className="flex items-start gap-2 justify-center text-sm text-gray-700 mb-4 text-left cursor-pointer">
+            <input
+              type="checkbox"
+              checked={agreed}
+              onChange={(e) => setAgreed(e.target.checked)}
+              className="mt-1"
+            />
+            <span>
+              Я принимаю{' '}
+              <a href="/rules#offer" target="_blank" rel="noreferrer" className="underline text-purple-700">публичную оферту</a>,{' '}
+              <a href="/rules#terms" target="_blank" rel="noreferrer" className="underline text-purple-700">пользовательское соглашение</a>{' '}и{' '}
+              <a href="/rules#privacy" target="_blank" rel="noreferrer" className="underline text-purple-700">политику конфиденциальности</a>
+            </span>
+          </label>
           {paymentError && (
             <p className="text-red-600 text-sm mb-3">{paymentError}</p>
           )}
           <Button
             onClick={handleStartPayment}
-            disabled={isCreatingPayment}
+            disabled={isCreatingPayment || !agreed}
             className="px-8 py-4 text-lg font-semibold bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg disabled:opacity-50"
           >
             {isCreatingPayment ? (
@@ -306,7 +322,7 @@ const Payment = () => {
             ) : (
               <>
                 <Icon name="Send" size={20} className="mr-2" />
-                Отправить запрос и оплатить
+                Оплатить {price} ₽
               </>
             )}
           </Button>
@@ -469,6 +485,8 @@ const Payment = () => {
             Вернуться назад
           </Button>
         </div>
+
+        <SellerFooter />
 
 
 

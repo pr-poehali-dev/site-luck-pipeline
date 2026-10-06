@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useSeo } from '@/hooks/useSeo';
+import SellerFooter from '@/components/SellerFooter';
 
 const Index = () => {
   const [wishText, setWishText] = useState('');
@@ -201,9 +202,7 @@ const Index = () => {
       </div>
       
       {/* Реквизиты */}
-      <div className="w-full flex justify-center pb-2">
-
-      </div>
+      <SellerFooter />
     </div>
   );
 };
