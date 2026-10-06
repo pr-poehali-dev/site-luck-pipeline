@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import { useSeo } from '@/hooks/useSeo';
-import SellerFooter from '@/components/SellerFooter';
 
 const Pricing = () => {
   const location = useLocation();
@@ -461,7 +460,6 @@ const Pricing = () => {
             </div>
           </CardContent>
         </Card>
-        <SellerFooter />
       </div>
     </div>
   );

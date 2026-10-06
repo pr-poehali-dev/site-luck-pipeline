@@ -1,15 +1,16 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
 import Icon from '@/components/ui/icon';
 import { useState, useEffect, useRef } from 'react';
+import { Input } from '@/components/ui/input';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 
-import { generateLuckDocument, generateDocumentNumber, formatDocumentDate, formatActivationDate, type DocumentData } from '@/utils/documentGenerator';
+import { generateLuckDocument, downloadDocumentAsImage, generateDocumentNumber, formatDocumentDate, formatActivationDate, type DocumentData } from '@/utils/documentGenerator';
+import * as confetti from 'canvas-confetti';
 import func2url from '../../backend/func2url.json';
 import { useSeo } from '@/hooks/useSeo';
-import SellerFooter from '@/components/SellerFooter';
-import OrderSummary from '@/components/payment/OrderSummary';
-import PaymentForm from '@/components/payment/PaymentForm';
-import ActivationScreen from '@/components/payment/ActivationScreen';
 
 const Payment = () => {
   const location = useLocation();
@@ -38,7 +39,6 @@ const Payment = () => {
   const [currentOrderId, setCurrentOrderId] = useState('');
   const [isCreatingPayment, setIsCreatingPayment] = useState(false);
   const [paymentError, setPaymentError] = useState('');
-  const [agreed, setAgreed] = useState(false);
   const statusCheckInterval = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const searchParams = new URLSearchParams(location.search);
@@ -173,37 +173,289 @@ const Payment = () => {
           </p>
         </header>
 
-        <OrderSummary
-          paymentStatus={paymentStatus}
-          wish={wish}
-          duration={duration}
-          date={date}
-          customerName={customerName}
-          price={price}
-        />
+        {/* Сообщение о статусе оплаты */}
+        {paymentStatus === 'success' && (
+          <div className="bg-green-50 border-2 border-green-500 rounded-lg p-4 flex items-center gap-3">
+            <Icon name="CheckCircle2" size={28} className="text-green-600 shrink-0" />
+            <div>
+              <p className="font-semibold text-green-800">Оплата прошла успешно!</p>
+              <p className="text-sm text-green-700">Спасибо за оплату, ваша удача скоро будет активирована.</p>
+            </div>
+          </div>
+        )}
+        {paymentStatus === 'cancel' && (
+          <div className="bg-red-50 border-2 border-red-500 rounded-lg p-4 flex items-center gap-3">
+            <Icon name="XCircle" size={28} className="text-red-600 shrink-0" />
+            <div>
+              <p className="font-semibold text-red-800">Оплата отменена</p>
+              <p className="text-sm text-red-700">Платёж не был завершён. Вы можете попробовать снова.</p>
+            </div>
+          </div>
+        )}
 
-        <PaymentForm
-          handleDownloadDocument={handleDownloadDocument}
-          isGeneratingDocument={isGeneratingDocument}
-          customerName={customerName}
-          setCustomerName={setCustomerName}
-          agreed={agreed}
-          setAgreed={setAgreed}
-          paymentError={paymentError}
-          handleStartPayment={handleStartPayment}
-          isCreatingPayment={isCreatingPayment}
-          price={price}
-          showPaymentModal={showPaymentModal}
-          paymentUrl={paymentUrl}
-          handleClosePaymentModal={handleClosePaymentModal}
-          showDownloadModal={showDownloadModal}
-          setShowDownloadModal={setShowDownloadModal}
-          setShowActivationScreen={setShowActivationScreen}
-          wish={wish}
-          strength={strength}
-          date={date}
-          duration={duration}
-        />
+        {/* Информация о заказе */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Icon name="Sparkles" size={24} />
+              Ваше пожелание удачи
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <p className="text-gray-800 italic">"{wish}"</p>
+            </div>
+            <Separator className="my-4" />
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-lg">Тариф:</span>
+                <span className="font-semibold">{duration || 'Активация удачи'}</span>
+              </div>
+              {date && (
+                <div className="flex justify-between items-center">
+                  <span className="text-lg">Дата активации:</span>
+                  <span className="font-semibold">{date}</span>
+                </div>
+              )}
+              {customerName && (
+                <div className="flex justify-between items-center">
+                  <span className="text-lg">Получатель:</span>
+                  <span className="font-semibold">{customerName}</span>
+                </div>
+              )}
+              <div className="flex justify-between items-center">
+                <span className="text-lg">Стоимость:</span>
+                <span className="text-2xl font-bold text-green-600">{price} ₽</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Кнопка скачивания документа */}
+        <div className="text-center">
+          <style jsx>{`
+            @keyframes pulseSlow {
+              0%, 100% {
+                background-color: rgb(147 51 234);
+                box-shadow: 0 0 15px rgba(147, 51, 234, 0.3);
+              }
+              50% {
+                background-color: rgb(168 85 247);
+                box-shadow: 0 0 25px rgba(168, 85, 247, 0.6);
+              }
+            }
+            .pulse-button {
+              animation: pulseSlow 2.5s ease-in-out infinite;
+            }
+            .pulse-button:hover {
+              animation-play-state: paused;
+            }
+            .pulse-button:disabled {
+              animation: none;
+            }
+          `}</style>
+          <Button 
+            onClick={handleDownloadDocument}
+            disabled={isGeneratingDocument}
+            className="pulse-button bg-purple-600 hover:bg-purple-700 text-white py-4 px-8 text-lg disabled:opacity-50 hidden"
+          >
+            {isGeneratingDocument ? (
+              <>
+                <Icon name="Loader2" size={20} className="mr-2 animate-spin" />
+                Создание документа...
+              </>
+            ) : (
+              <>
+                <Icon name="Download" size={20} className="mr-2" />
+                Скачать Скрижаль Удачи
+              </>
+            )}
+          </Button>
+        </div>
+
+
+
+        {/* Поле ФИО */}
+        <div className="mb-6">
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Фамилия Имя Отчество
+          </label>
+          <Input
+            value={customerName}
+            onChange={(e) => setCustomerName(e.target.value)}
+            placeholder="Введите ваше ФИО"
+            className="w-full"
+          />
+        </div>
+
+        {/* Кнопка отправки запроса и оплаты */}
+        <div className="text-center">
+          {paymentError && (
+            <p className="text-red-600 text-sm mb-3">{paymentError}</p>
+          )}
+          <Button
+            onClick={handleStartPayment}
+            disabled={isCreatingPayment}
+            className="px-8 py-4 text-lg font-semibold bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg disabled:opacity-50"
+          >
+            {isCreatingPayment ? (
+              <>
+                <Icon name="Loader2" size={20} className="mr-2 animate-spin" />
+                Подготовка оплаты...
+              </>
+            ) : (
+              <>
+                <Icon name="Send" size={20} className="mr-2" />
+                Отправить запрос и оплатить
+              </>
+            )}
+          </Button>
+
+          {/* Полноэкранная форма оплаты CrocoPay */}
+          {showPaymentModal && paymentUrl && (
+            <div className="fixed inset-0 z-50 bg-white flex flex-col">
+              <button
+                type="button"
+                onClick={handleClosePaymentModal}
+                className="absolute right-4 top-4 z-10 rounded-full bg-gray-100 hover:bg-gray-200 p-2 transition-colors"
+                aria-label="Закрыть"
+              >
+                <Icon name="X" size={20} />
+              </button>
+              <iframe
+                src={paymentUrl}
+                className="w-full h-full border-0 block flex-1"
+                title="Оплата CrocoPay"
+              />
+            </div>
+          )}
+
+          {/* Третье модальное окно для скачивания скрижали */}
+          <Dialog open={showDownloadModal} onOpenChange={setShowDownloadModal}>
+            <DialogContent className="max-w-md">
+              <div className="space-y-6 py-4">
+                {/* Магическая карточка */}
+                <div className="text-center">
+                  <div className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-2xl p-8 mx-2 shadow-2xl border-2 border-gray-600 overflow-hidden">
+                    {/* Магические частицы */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-transparent via-gray-500/10 to-transparent animate-pulse"></div>
+                    
+                    {/* Светящиеся углы */}
+                    <div className="absolute top-2 left-2 w-4 h-4 bg-white rounded-full animate-ping opacity-75"></div>
+                    <div className="absolute top-2 right-2 w-4 h-4 bg-white rounded-full animate-ping opacity-75" style={{animationDelay: '0.5s'}}></div>
+                    <div className="absolute bottom-2 left-2 w-4 h-4 bg-white rounded-full animate-ping opacity-75" style={{animationDelay: '1s'}}></div>
+                    <div className="absolute bottom-2 right-2 w-4 h-4 bg-white rounded-full animate-ping opacity-75" style={{animationDelay: '1.5s'}}></div>
+                    
+                    {/* Контент */}
+                    <div className="relative z-10 flex flex-col items-center justify-center space-y-4">
+
+                      
+                      {/* Заголовок */}
+                      <h2 className="text-2xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent leading-tight text-center">
+                        Ваш персональный<br/>скрижаль удачи
+                      </h2>
+                      
+                      {/* Подзаголовок */}
+                      <p className="text-gray-300 italic text-lg">
+                        Магический документ готов к скачиванию
+                      </p>
+                      
+                      {/* Дополнительные звёзды */}
+                      <div className="flex space-x-2 text-white">
+                        <span className="animate-pulse">⭐</span>
+                        <span className="animate-pulse" style={{animationDelay: '0.3s'}}>⭐</span>
+                        <span className="animate-pulse" style={{animationDelay: '0.6s'}}>⭐</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Кнопки */}
+                <div className="flex gap-3">
+                  <Button 
+                    variant="outline"
+                    onClick={() => {
+                      // Запускаем конфетти
+                      confetti.default({
+                        particleCount: 100,
+                        spread: 70,
+                        origin: { y: 0.6 },
+                        colors: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7']
+                      });
+                      
+                      setShowDownloadModal(false);
+                      setShowActivationScreen(true);
+                      
+                      // Скрываем заставку через 20 секунд и переходим на главную
+                      setTimeout(() => {
+                        setShowActivationScreen(false);
+                        navigate('/');
+                      }, 20000);
+                    }}
+                    className="flex-1"
+                  >
+                    Не сейчас
+                  </Button>
+                  <Button 
+                    onClick={() => {
+                      // Запускаем конфетти при скачивании
+                      confetti.default({
+                        particleCount: 200,
+                        spread: 100,
+                        origin: { y: 0.4 },
+                        colors: ['#9333ea', '#a855f7', '#c084fc', '#d8b4fe', '#e9d5ff']
+                      });
+                      
+                      setTimeout(() => {
+                        confetti.default({
+                          particleCount: 150,
+                          spread: 80,
+                          origin: { x: 0.2, y: 0.5 },
+                          colors: ['#10b981', '#34d399', '#6ee7b7', '#a7f3d0']
+                        });
+                      }, 200);
+                      
+                      setTimeout(() => {
+                        confetti.default({
+                          particleCount: 150,
+                          spread: 80,
+                          origin: { x: 0.8, y: 0.5 },
+                          colors: ['#f59e0b', '#fbbf24', '#fcd34d', '#fde68a']
+                        });
+                      }, 400);
+                      
+                      setShowDownloadModal(false);
+                      setShowActivationScreen(true);
+                      // Скачиваем как изображение вместо PDF
+                      const documentData: DocumentData = {
+                        wish: wish || 'Ваше желание',
+                        powerLevel: strength || 1,
+                        userName: customerName || 'Получатель силы',
+                        energyInvestment: price || 299,
+                        activationDate: formatActivationDate(date, duration || ''),
+                        documentNumber: generateDocumentNumber(),
+                        documentDate: formatDocumentDate()
+                      };
+                      
+                      downloadDocumentAsImage(documentData);
+                      
+                      // Скрываем заставку через 20 секунд и переходим на главную
+                      setTimeout(() => {
+                        setShowActivationScreen(false);
+                        navigate('/');
+                      }, 20000);
+                    }}
+                    className="flex-1 bg-purple-600 hover:bg-purple-700 text-white"
+                    disabled={isGeneratingDocument}
+                  >
+                    <Icon name="Download" size={16} className="mr-2" />
+                    {isGeneratingDocument ? 'Создаем скрижаль...' : 'Скачать скрижаль'}
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+        </div>
 
         {/* Информация после оплаты */}
         <div className="text-center mt-4">
@@ -218,14 +470,60 @@ const Payment = () => {
           </Button>
         </div>
 
-        <SellerFooter />
-
 
 
       </div>
 
       {/* Заставка активации удачи */}
-      {showActivationScreen && <ActivationScreen />}
+      {showActivationScreen && (
+        <div className="fixed inset-0 z-50 bg-black overflow-hidden">
+          {/* Звездное небо как на главной */}
+          <div className="absolute inset-0">
+            {Array.from({ length: 200 }, (_, i) => (
+              <div
+                key={i}
+                className="absolute bg-white rounded-full animate-pulse"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  width: `${Math.random() * 3 + 1}px`,
+                  height: `${Math.random() * 3 + 1}px`,
+                  opacity: Math.random() * 0.8 + 0.2,
+                  animationDelay: `${Math.random() * 3}s`,
+                  animationDuration: `${Math.random() * 2 + 1}s`
+                }}
+              />
+            ))}
+          </div>
+          
+          {/* Центральный текст в стиле главной страницы */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center text-white space-y-6 px-8">
+              <div className="mb-8">
+                <h2 className="text-6xl font-bold mb-6 text-shadow-2xl bg-gradient-to-r from-green-400 via-green-200 to-green-400 bg-clip-text text-transparent animate-pulse">
+                  АКТИВАЦИЯ УДАЧИ
+                </h2>
+                <div className="space-y-4">
+                  <p className="text-4xl font-semibold text-green-200 animate-fade-in">
+                    Ваша удача будет активирована после оплаты
+                  </p>
+                  <p className="text-2xl text-gray-300 animate-fade-in-delay">
+                    Ожидайте... Магия уже начинает действовать
+                  </p>
+                </div>
+              </div>
+              
+              {/* Магический спиннер */}
+              <div className="flex justify-center items-center space-x-4">
+                <div className="animate-spin rounded-full h-16 w-16 border-4 border-green-400 border-t-transparent"></div>
+                <div className="text-green-300 text-lg font-medium animate-pulse">
+                  Подготовка скрижали...
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
