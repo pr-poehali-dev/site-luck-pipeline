@@ -283,7 +283,7 @@ const Payment = () => {
           <Input
             value={customerName}
             onChange={(e) => setCustomerName(e.target.value)}
-            placeholder="Введите ваше ФИО"
+            placeholder="Введите ваше Имя"
             className="w-full"
           />
         </div>
