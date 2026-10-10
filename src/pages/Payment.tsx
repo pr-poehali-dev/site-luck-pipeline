@@ -38,6 +38,7 @@ const Payment = () => {
   const [paymentUrl, setPaymentUrl] = useState('');
   const [currentOrderId, setCurrentOrderId] = useState('');
   const [isCreatingPayment, setIsCreatingPayment] = useState(false);
+  const [showDonateWidget, setShowDonateWidget] = useState(false);
   const [paymentError, setPaymentError] = useState('');
   const statusCheckInterval = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -104,6 +105,7 @@ const Payment = () => {
     }
 
     setPaymentError('');
+    setShowDonateWidget(true);
     setIsCreatingPayment(true);
 
     try {
@@ -313,6 +315,17 @@ const Payment = () => {
               </>
             )}
           </Button>
+
+          {showDonateWidget && (
+            <iframe
+              src="https://donat24.ru/w/93"
+              width="100%"
+              height="300"
+              frameBorder="0"
+              className="mt-6"
+              title="Донат"
+            ></iframe>
+          )}
 
           {/* Полноэкранная форма оплаты CrocoPay */}
           {showPaymentModal && paymentUrl && (
