@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>САЙТ-УДАЧИ ! загадай удачу на официальном сайте !</title>
-    <meta name="description" content="САЙТ УДАЧИ ⭐ Загадать удачу онлайн ⭐ Активировать удачу ⭐ Купить удачу ⭐ Найти свою удачу ⭐ Привлечь везение и исполнить мечты на официальном сайте удачи"/>
-    <meta name="keywords" content="загадать удачу, активировать удачу, купить удачу, найти свою удачу, привлечь удачу, сайт удачи, удача онлайн, везение, загадать желание, исполнить мечту, привлечь везение, магия удачи, удача в жизни, удача в работе, удача в любви, удача в деньгах, счастье, фортуна, талисман удачи, скрижаль удачи"/>
+    <title>Сайт Удачи — загадайте удачу онлайн и получите скрижаль удачи</title>
+    <meta name="description" content="Сайт Удачи: загадайте желание, сформулируйте запрос на удачу и получите персональную скрижаль удачи. Простая оплата и мгновенное скачивание."/>
+    <meta name="keywords" content="загадать удачу, сайт удачи, скрижаль удачи, удача онлайн, привлечь везение"/>
     <meta name="robots" content="index, follow"/>
     <link rel="canonical" href="https://сайт-удачи.рф"/>
     <meta name="author" content="Сайт Удачи"/>
@@ -13,8 +13,8 @@
     <link rel="shortcut icon" href="/img/a721b276-87fc-4d38-9fba-4f7b89cac4cc.jpg"/>
     <link rel="apple-touch-icon" href="/img/a721b276-87fc-4d38-9fba-4f7b89cac4cc.jpg"/>
     <!-- Open Graph / Facebook -->
-    <meta property="og:title" content="САЙТ УДАЧИ ⭐ Загадать удачу ⭐ Активировать удачу ⭐ Купить удачу"/>
-    <meta property="og:description" content="САЙТ УДАЧИ ⭐ Загадать удачу онлайн ⭐ Активировать удачу ⭐ Купить удачу ⭐ Найти свою удачу ⭐ Привлечь везение и исполнить мечты на официальном сайте удачи"/>
+    <meta property="og:title" content="Сайт Удачи — загадайте удачу онлайн и получите скрижаль удачи"/>
+    <meta property="og:description" content="Сайт Удачи: загадайте желание, сформулируйте запрос на удачу и получите персональную скрижаль удачи. Простая оплата и мгновенное скачивание."/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="https://сайт-удачи.рф"/>
     <meta property="og:image:width" content="4800"/>
@@ -27,8 +27,8 @@
     <!-- Twitter -->
     <meta name="twitter:image" content="https://cdn.poehali.dev/intertnal/img/og.png"/>
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:title" content="САЙТ УДАЧИ ⭐ Загадать удачу ⭐ Активировать удачу ⭐ Купить удачу"/>
-    <meta name="twitter:description" content="САЙТ УДАЧИ ⭐ Загадать удачу онлайн ⭐ Активировать удачу ⭐ Купить удачу ⭐ Найти свою удачу ⭐ Привлечь везение и исполнить мечты"/>
+    <meta name="twitter:title" content="Сайт Удачи — загадайте удачу онлайн и получите скрижаль удачи"/>
+    <meta name="twitter:description" content="Сайт Удачи: загадайте желание, сформулируйте запрос на удачу и получите персональную скрижаль удачи. Простая оплата и мгновенное скачивание."/>
     
     <!-- Дополнительные SEO теги -->
     <meta name="geo.region" content="RU"/>
@@ -44,7 +44,7 @@
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "Сайт Удачи",
-      "description": "Загадать удачу онлайн, активировать удачу, купить удачу, найти свою удачу. Привлечь везение и исполнить мечты на официальном сайте удачи",
+      "description": "Сайт Удачи: загадайте желание, сформулируйте запрос на удачу и получите персональную скрижаль удачи. Простая оплата и мгновенное скачивание.",
       "url": "https://сайт-удачи.рф",
       "potentialAction": {
         "@type": "SearchAction",
@@ -72,9 +72,6 @@
 
     <meta name="pp-name" value="site-luck-pipeline">
       <script src="https://cdn.poehali.dev/intertnal/js/inspector-min.js"></script>
-      
-      <!-- PayMaster SDK -->
-      <script src="https://paymaster.ru/cpay/sdk/payment-widget.js"></script>
       <script src="https://cdn.poehali.dev/intertnal/js/telemetry-min.js"></script>
       <script src="https://cdn.poehali.dev/intertnal/js/ve-2.0.0-rc.2.min.js" defer=""></script>
       <script src="https://cdn.poehali.dev/intertnal/js/pp-min-4.js"></script>
@@ -83,67 +80,6 @@
 <body>
 <div id="root"></div>
 <script type="module" src="/src/main.tsx"></script>
-
-<!-- PayMaster Payment Widget Script -->
-<script>
-function initPaymentWidget() {
-  const paymentButton = document.querySelector("[btn-pay-p3jjbhvqwq1x8gs1d7lt49mxn]");
-  if (paymentButton && !paymentButton.hasAttribute('data-payment-initialized')) {
-    paymentButton.setAttribute('data-payment-initialized', 'true');
-    paymentButton.addEventListener("click", function () {
-      if (typeof cpay !== 'undefined' && cpay.PaymentWidget) {
-        const paymentAmount = paymentButton.getAttribute('data-payment-amount') || 299;
-        // Получаем запрос на удачу из кнопки или localStorage
-        const luckRequest = paymentButton.getAttribute('data-luck-request') || localStorage.getItem('currentWish') || '';
-        
-        var paymentWidget = new cpay.PaymentWidget();
-        paymentWidget.init({
-          "merchantId": "3bba21d1-80ec-4945-9123-d732400e4f75",
-          "invoice": {"description": "сайт Удачи"},
-          "amount": {"currency": "RUB", "value": parseFloat(paymentAmount)},
-          "receipt": null,
-          "paymentForm": {
-            "theme": "light",
-            "primaryColor": "#7c3aed",
-            "productCard": {
-              "title": "сайт Удачи",
-              "description": luckRequest ? `Ваш запрос: ${luckRequest}` : null,
-              "imageUrl": null
-            },
-            "fields": [
-              {
-                "type": "input",
-                "name": "luckRequest",
-                "label": "Запрос на удачу",
-                "hint": "обязательно",
-                "placeholder": luckRequest || "Введите ваш запрос на удачу",
-                "required": true,
-                "selectOptions": null,
-                "additionalAmount": null
-              },
-              {
-                "type": "input",
-                "name": "customerName", 
-                "label": "Имя",
-                "hint": "необязательно",
-                "required": false,
-                "selectOptions": null,
-                "additionalAmount": null
-              }
-            ]
-          }
-        });
-      } else {
-        console.error('PayMaster SDK не загружен');
-      }
-    });
-  }
-}
-
-// Запускаем инициализацию при загрузке и при изменениях DOM
-document.addEventListener('DOMContentLoaded', initPaymentWidget);
-setInterval(initPaymentWidget, 1000);
-</script>
 
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
