@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useSeo } from '@/hooks/useSeo';
+import SeoContent from '@/components/sections/SeoContent';
 
 const Index = () => {
   const [wishText, setWishText] = useState('');
@@ -12,8 +13,8 @@ const Index = () => {
   const navigate = useNavigate();
 
   useSeo({
-    title: 'Сайт Удачи — загадать удачу онлайн, активировать удачу',
-    description: 'Загадать удачу онлайн ⭐ Активировать удачу ⭐ Найти свою удачу ⭐ Привлечь везение и исполнить мечты на официальном сайте удачи',
+    title: 'Сайт Удачи — загадайте удачу онлайн и получите скрижаль удачи',
+    description: 'Сайт Удачи: загадайте желание, сформулируйте запрос на удачу и получите персональную скрижаль удачи. Простая оплата и мгновенное скачивание.',
     path: '/'
   });
 
@@ -190,6 +191,8 @@ const Index = () => {
         </div>
       </div>
       
+      <SeoContent />
+
       {/* Ссылки на дополнительные страницы - внизу */}
       <div className="w-full flex justify-center pb-4">
         <button 
