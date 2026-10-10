@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import Icon from '@/components/ui/icon';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 
@@ -34,6 +34,13 @@ const Payment = () => {
   const [customerName, setCustomerName] = useState('');
 
   const [showDonateWidget, setShowDonateWidget] = useState(false);
+  const donateFormRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    if (showDonateWidget) {
+      donateFormRef.current?.submit();
+    }
+  }, [showDonateWidget]);
 
   const searchParams = new URLSearchParams(location.search);
   const paymentStatus = searchParams.get('status');
@@ -240,21 +247,41 @@ const Payment = () => {
           )}
 
           {showDonateWidget && (
-            <div className="space-y-4">
+            <div className="mt-6 rounded-2xl border border-gray-200 bg-gray-50 p-4 space-y-4 text-left">
+              <h2 className="text-xl font-semibold text-gray-900 text-center">Оплата</h2>
+              <p className="text-sm text-gray-600 text-center">
+                {customerName ? `Имя: ${customerName}` : 'Имя не указано'} · Сумма: {price || 299} ₽
+              </p>
+              <form
+                ref={donateFormRef}
+                action="https://donat24.ru/index.php"
+                method="post"
+                target="donate-frame"
+                className="hidden"
+              >
+                <input type="hidden" name="url" value="w" />
+                <input type="hidden" name="p" value="93" />
+                <input type="hidden" name="widget" value="93" />
+                <input type="hidden" name="name" value={customerName} />
+                <input type="hidden" name="total" value={price || 299} />
+              </form>
               <iframe
-                src="https://donat24.ru/w/93"
+                name="donate-frame"
                 width="100%"
                 height="300"
                 frameBorder="0"
-                title="Донат"
+                title="Оплата"
+                className="bg-white rounded-lg"
               ></iframe>
-              <Button
-                onClick={handlePaid}
-                className="px-8 py-4 text-lg font-semibold bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg"
-              >
-                <Icon name="Check" size={20} className="mr-2" />
-                Я оплатил
-              </Button>
+              <div className="text-center">
+                <Button
+                  onClick={handlePaid}
+                  className="px-8 py-4 text-lg font-semibold bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg"
+                >
+                  <Icon name="Check" size={20} className="mr-2" />
+                  Я оплатил
+                </Button>
+              </div>
             </div>
           )}
 
