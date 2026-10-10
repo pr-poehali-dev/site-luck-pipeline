@@ -459,7 +459,7 @@ const Payment = () => {
 
         {/* Информация после оплаты */}
         <div className="text-center mt-4">
-          <p className="text-gray-600 font-semibold text-xl">После оплаты можно будет скачать скрижаль удачи ( только после закрытия окна оплаты)</p>
+          <p className="text-gray-600 font-semibold text-xl">После оплаты скачайте  скрижаль удачи ( только после закрытия окна оплаты)</p>
         </div>
 
         {/* Кнопка назад */}
