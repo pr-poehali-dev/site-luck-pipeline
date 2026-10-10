@@ -168,6 +168,9 @@ const Payment = () => {
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
             Оплата услуги
           </h1>
+          <p className="text-xs text-gray-500 mb-4">
+            донат
+          </p>
           <p className="text-lg text-gray-600">
             Завершите оплату, чтобы активировать удачу
           </p>
