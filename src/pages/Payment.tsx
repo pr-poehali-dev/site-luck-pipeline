@@ -278,7 +278,7 @@ const Payment = () => {
         {/* Поле ФИО */}
         <div className="mb-6">
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Фамилия Имя Отчество
+            Имя для документа
           </label>
           <Input
             value={customerName}
