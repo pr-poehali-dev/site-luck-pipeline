@@ -13,5 +13,3 @@ Disallow: /node_modules/
 # Sitemap
 Sitemap: https://сайт-удачи.рф/sitemap.xml
 
-# Время задержки между запросами (в секундах)
-Crawl-delay: 1
