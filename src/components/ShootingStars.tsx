@@ -24,7 +24,7 @@ const ShootingStars = () => {
         top: Math.random() * 30 - 10,
         angle: toRight ? 25 + Math.random() * 30 : 125 + Math.random() * 30,
         distance: 1400 + Math.random() * 600,
-        duration: 1.2 + Math.random() * 0.8,
+        duration: 2.5 + Math.random() * 1.5,
       };
       setStars((prev) => [...prev, star]);
       timer = setTimeout(spawn, 2500 + Math.random() * 5000);
