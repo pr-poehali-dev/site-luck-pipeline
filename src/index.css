@@ -188,19 +188,13 @@
 
 @keyframes glow-pulse {
   0%, 100% {
-    transform: scale3d(1, 1, 1);
     text-shadow: 0 0 0 rgba(255, 255, 255, 0);
   }
   50% {
-    transform: scale3d(1.04, 1.04, 1);
     text-shadow: 0 0 24px rgba(255, 255, 255, 0.95), 0 0 48px rgba(255, 255, 255, 0.6);
   }
 }
 
 .glow-pulse {
-  display: inline-block;
-  transform-origin: center center;
-  will-change: transform, text-shadow;
-  backface-visibility: hidden;
   animation: glow-pulse 3s ease-in-out infinite;
 }
