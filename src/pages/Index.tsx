@@ -76,7 +76,7 @@ const Index = () => {
         {/* Центральный текст */}
         <div className="absolute inset-0 flex items-center justify-center">
           <div className={`text-center text-white ${isBreaking ? 'fade-out' : 'fade-in'}`}>
-            <p className="text-6xl font-bold mb-4 text-shadow-lg">
+            <p className="text-6xl font-bold mb-4 glow-pulse">
               САЙТ УДАЧИ
             </p>
             <p className="text-xl opacity-80">
