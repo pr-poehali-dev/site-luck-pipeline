@@ -17,7 +17,7 @@ const ShootingStars = () => {
     let counter = 0;
 
     const spawn = () => {
-      const toRight = true;
+      const toRight = false;
       const star: Star = {
         id: counter++,
         left: toRight ? Math.random() * 50 - 10 : Math.random() * 50 + 60,
