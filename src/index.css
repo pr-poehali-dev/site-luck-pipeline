@@ -201,3 +201,34 @@
 .glow-pulse {
   animation: glow-pulse 3s ease-in-out infinite;
 }
+
+.shooting-star {
+  position: absolute;
+  width: 140px;
+  height: 2px;
+  border-radius: 9999px;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.9));
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+  opacity: 0;
+  transform: rotate(var(--angle)) translateX(0);
+  animation-name: shooting-star;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+
+@keyframes shooting-star {
+  0% {
+    opacity: 0;
+    transform: rotate(var(--angle)) translateX(0);
+  }
+  10% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(var(--angle)) translateX(var(--dist));
+  }
+}
